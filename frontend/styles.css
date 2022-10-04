@@ -1,0 +1,89 @@
+table, th, td {
+    border: 1px solid white;
+    border-collapse: collapse;
+}
+
+tr:hover {
+    background-color: #FF7F7F ;
+}
+
+.formClass {
+    width: 25em;
+    position: relative;
+    bottom: 40em;
+    left: 93em;
+    height: 40em;
+    border-left: solid;
+    border-top: solid;
+    border-bottom: solid;
+    border-color: white;
+}
+
+.routeNameForm {
+    border-bottom-style: solid;
+    border-color: white;
+    padding-bottom: 1em;
+}
+
+.map {
+    position: relative;
+    background-color: aqua;
+    width: 92.5em;
+    height: 40em;
+}
+
+.routeDisplay {
+    position: relative;
+    bottom: 40em;
+}
+
+.nav {
+    font-size: 2em;
+    color: white;
+    border-bottom: solid;
+    margin-bottom: 1em;
+    
+}
+
+a:link {
+    color: white;
+    background-color: transparent;
+    text-decoration: none;
+  }
+  
+  a:visited {
+    color: white;
+    background-color: transparent;
+    text-decoration: none;
+  }
+  
+  a:hover {
+    color: red;
+    background-color: transparent;
+    text-decoration: none;
+  }
+  
+  a:active {
+    color: white;
+    background-color: transparent;
+    text-decoration: none;
+  }
+
+  .runRoute {
+    border-top-style: solid;
+    border-color: white;
+    margin-top: 1em;
+  }
+
+  .routeBtn {
+    padding: 1em 2em;
+}
+
+.about {
+    width: 35em;
+}
+
+.rList {
+  font-size: 2em;
+  text-decoration: underline;
+}

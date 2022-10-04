@@ -7,11 +7,19 @@
         <meta name="keywords" content="cdl, route">
         <meta name="author" content="John Parks">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
-    <body style="background-color: black; color: white; font-family: 'Courier New', Courier, monospace;">
         <title>Route Generator</title>
+
+    </head>
+    <body style="background-color: #232b2b; color: white; font-family: 'Courier New', Courier, monospace;">
+
+        <nav class="nav">
+            <a href="./index.html">Home</a>
+            <a href="./routes.html">Routes</a>
+            <a href="./about.html">About</a>
+          </nav>
         
         <h1>Route Generator</h1>
+
 
             <!-- Map -->
         
@@ -25,11 +33,19 @@
 
         <div class="formClass">
             <h1>Create Route</h1>
+
+            <!-- Route Name Form -->
+
+            <form class="routeNameForm" action="">
+                <label for="Rname">Route Name</label><br>
+                <input type="text" id="Rname" name="Rname" placeholder="Name"><br>
+                <br><input type="submit" value="Create Route" onclick="alert('Route 501 Created!')"><br>
+            </form>
             <form>
 
             <!-- Customer Name Form -->
 
-                <label for="name">Customer:</label><br>
+                <br><label for="name">Customer:</label><br>
                 <input type="text" id="name" name= "name" placeholder="Name"><br>
                 <br>
 
@@ -63,18 +79,19 @@
                 <br><label for="quantity">Number Of Cases:</label><br>
                 <input type="number" id="quantity" name="quantity" min="1" max="300"><br>
 
-                <br><input type="submit" value="Add Stop" onclick="alert('Stop Added')"><br>
-
-                <br><button onclick="alert('Route Created')">Create Route</button>
-
+                <br><input type="submit" value="Add Stop" onclick="alert('Stop Added!')"><br>
 
             </form>
+            <div class="runRoute">
+                <br><button class="routeBtn" type="button" value="Run Route" onclick="alert('Running Route')">Run Route</button>
+            </div>
+
         </div>
 
             <!-- Display Route -->
 
         <div class="routeDisplay">
-            <h1>Display Route</h1>
+            <h1>Route 501</h1>
             <table style="width: 100%; text-align: left;">
                 <tr>
                     <th>Stop #</th>
@@ -82,6 +99,7 @@
                     <th>Address</th>
                     <th>Contact #</th>
                     <th>Key Stop</th>
+                    <th>Case Count</th>
                 </tr>
                 <tr>
                     <td>1</td>
@@ -89,6 +107,7 @@
                     <td>555 east 5th</td>
                     <td>555-555-5555</td>
                     <td>yes</td>
+                    <td>130</td>
                 </tr>
                 <tr>
                     <td>2</td>
@@ -96,6 +115,7 @@
                     <td>55 sycamore</td>
                     <td>555-555-5555</td>
                     <td>yes</td>
+                    <td>47</td>
                 </tr>
             </table>
         </div>
