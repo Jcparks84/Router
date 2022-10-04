@@ -9,14 +9,19 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Route Generator</title>
 
-    </head>
-    <body style="background-color: #232b2b; color: white; font-family: 'Courier New', Courier, monospace;">
+        <!-- NavBar -->
 
         <nav class="nav">
-            <a href="./index.html">Home</a>
-            <a href="./routes.html">Routes</a>
+            <img src="./../assets/truck.svg" alt="truck" style="width: 2em; height:2em; padding-right:4em;">
+            <a style="padding-right: 5em;" href="./index.html">Home</a>
+            <a style="padding-right: 5em;" href="./routes.html">Routes</a>
             <a href="./about.html">About</a>
           </nav>
+
+    </head>
+    <body>
+
+            
         
         <h1>Route Generator</h1>
 
@@ -83,7 +88,7 @@
 
             </form>
             <div class="runRoute">
-                <br><button class="routeBtn" type="button" value="Run Route" onclick="alert('Running Route')">Run Route</button>
+                <br><button class="routeBtn" type="button" value="Run Route" onclick="alert('Warning this route is in violation with DOT compliance')">Run Route</button>
             </div>
 
         </div>
@@ -91,8 +96,10 @@
             <!-- Display Route -->
 
         <div class="routeDisplay">
-            <h1>Route 501</h1>
-            <table style="width: 100%; text-align: left;">
+            <h1>Route: 501</h1>
+            <h3>Total cases: 177</h3>
+            <h3>Est route time: 14:37</h3>
+            <table style="width: 100%; text-align: left; margin-top: 0;">
                 <tr>
                     <th>Stop #</th>
                     <th>Customer Name</th>
@@ -114,11 +121,12 @@
                     <td>Amore</td>
                     <td>55 sycamore</td>
                     <td>555-555-5555</td>
-                    <td>yes</td>
+                    <td>No</td>
                     <td>47</td>
                 </tr>
             </table>
         </div>
+        <footer>&copy; Copyright 2022</footer>
     </body>
 
 </html>
