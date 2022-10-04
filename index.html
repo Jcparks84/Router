@@ -2,22 +2,78 @@
 <html lang="en">
     <head>
         <link rel="stylesheet" href="styles.css">
+        <meta charset="UTF-8">
+        <meta name="description" content="Route Generator">
+        <meta name="keywords" content="cdl, route">
+        <meta name="author" content="John Parks">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
-    <body style="background-color: black;">
+    <body style="background-color: black; color: white; font-family: 'Courier New', Courier, monospace;">
         <title>Route Generator</title>
         
-        <h1 style="color: white; font-family: 'Courier New', Courier, monospace;">Route Generator</h1>
+        <h1>Route Generator</h1>
+
+            <!-- Map -->
         
-        <h1 style="color: white;">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/b/bd/Google_Maps_Logo_2020.svg" alt="" height="250" width="250"/>
-        </h1>
-        <hr>
-        <h1> <a href="https://developers.google.com/maps/documentation">Good Maps documentation</a>
-        </h1>
-        <hr>
+        <div class="map">
+            <h1>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/b/bd/Google_Maps_Logo_2020.svg" alt="" height="250" width="250"/>
+            </h1>
+        </div>
         
-        <h1 style="color: white; font-family: 'Courier New', Courier, monospace;">Create Route</h1>
-        <div style="color: white; font-family: 'Courier New', Courier, monospace;">
+
+
+        <div class="formClass">
+            <h1>Create Route</h1>
+            <form>
+
+            <!-- Customer Name Form -->
+
+                <label for="name">Customer:</label><br>
+                <input type="text" id="name" name= "name" placeholder="Name"><br>
+                <br>
+
+            <!-- Address Form -->
+
+                <label for="address">Address:</label><br>
+                <input type="street" id="inputStreet" placeholder="Street">
+                <input type="city" id="inputCity" placeholder="City"><br>
+                <br>
+                <input type="state" id="inputState" placeholder="State">
+                <input type="zip" id="inputZip" placeholder="Zip"><br>
+                <br>
+
+            <!-- Contact # Form-->
+
+                <label for="Contact" id="phone">Contact:</label><br>
+                <input type="tel" id="phone" name="phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" maxlength="12" placeholder="555-555-5555"><br>
+                <br>
+
+
+            <!-- Key Drop Form -->
+
+                <label for="key">Key Stop?</label><br>
+                <select name="key" id="key">
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                </select><br>
+
+            <!-- Case Number Form (future iteration)-->
+
+                <br><label for="quantity">Number Of Cases:</label><br>
+                <input type="number" id="quantity" name="quantity" min="1" max="300"><br>
+
+                <br><input type="submit" value="Add Stop" onclick="alert('Stop Added')"><br>
+
+                <br><button onclick="alert('Route Created')">Create Route</button>
+
+
+            </form>
+        </div>
+
+            <!-- Display Route -->
+
+        <div class="routeDisplay">
             <h1>Display Route</h1>
             <table style="width: 100%; text-align: left;">
                 <tr>
@@ -25,12 +81,21 @@
                     <th>Customer Name</th>
                     <th>Address</th>
                     <th>Contact #</th>
+                    <th>Key Stop</th>
                 </tr>
                 <tr>
                     <td>1</td>
                     <td>Rosellis</td>
                     <td>555 east 5th</td>
                     <td>555-555-5555</td>
+                    <td>yes</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Amore</td>
+                    <td>55 sycamore</td>
+                    <td>555-555-5555</td>
+                    <td>yes</td>
                 </tr>
             </table>
         </div>
