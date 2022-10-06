@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <link rel="stylesheet" href="styles.css">
+        <!-- <link rel="stylesheet" href="styles.css"> -->
+        <link rel="stylesheet" href="index.css">
         <meta charset="UTF-8">
         <meta name="description" content="Route Generator">
         <meta name="keywords" content="cdl, route">
@@ -9,124 +10,124 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Route Generator</title>
 
-        <!-- NavBar -->
-
-        <nav class="nav">
-            <img src="./../assets/truck.svg" alt="truck" style="width: 2em; height:2em; padding-right:4em;">
-            <a style="padding-right: 5em;" href="./index.html">Home</a>
-            <a style="padding-right: 5em;" href="./routes.html">Routes</a>
-            <a href="./about.html">About</a>
-          </nav>
+       
 
     </head>
     <body>
+        
+        <div class="floatContainer">
 
+                <!-- NavBar -->
+
+            <ul class="nav">
+                <img class="truckImg" src="./../assets/truck.svg" alt="truck">
+                <a class="aNav" href="./index.html">Home</a>
+                <a class="aNav" href="./routes.html">Routes</a>
+                <a href="./about.html">About</a>
+            </ul>
             
-        
-        <h1>Route Generator</h1>
+            <h1>Route Generator</h1>
 
 
-            <!-- Map -->
-        
-        <div class="map">
-            <h1>
-                <img src="https://upload.wikimedia.org/wikipedia/commons/b/bd/Google_Maps_Logo_2020.svg" alt="" height="250" width="250"/>
-            </h1>
-        </div>
-        
-
-
-        <div class="formClass">
-            <h1>Create Route</h1>
-
-            <!-- Route Name Form -->
-
-            <form class="routeNameForm" action="">
-                <label for="Rname">Route Name</label><br>
-                <input type="text" id="Rname" name="Rname" placeholder="Name"><br>
-                <br><input type="submit" value="Create Route" onclick="alert('Route 501 Created!')"><br>
-            </form>
-            <form>
-
-            <!-- Customer Name Form -->
-
-                <br><label for="name">Customer:</label><br>
-                <input type="text" id="name" name= "name" placeholder="Name"><br>
-                <br>
-
-            <!-- Address Form -->
-
-                <label for="address">Address:</label><br>
-                <input type="street" id="inputStreet" placeholder="Street">
-                <input type="city" id="inputCity" placeholder="City"><br>
-                <br>
-                <input type="state" id="inputState" placeholder="State">
-                <input type="zip" id="inputZip" placeholder="Zip"><br>
-                <br>
-
-            <!-- Contact # Form-->
-
-                <label for="Contact" id="phone">Contact:</label><br>
-                <input type="tel" id="phone" name="phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" maxlength="12" placeholder="555-555-5555"><br>
-                <br>
-
-
-            <!-- Key Drop Form -->
-
-                <label for="key">Key Stop?</label><br>
-                <select name="key" id="key">
-                    <option value="Yes">Yes</option>
-                    <option value="No">No</option>
-                </select><br>
-
-            <!-- Case Number Form (future iteration)-->
-
-                <br><label for="quantity">Number Of Cases:</label><br>
-                <input type="number" id="quantity" name="quantity" min="1" max="300"><br>
-
-                <br><input type="submit" value="Add Stop" onclick="alert('Stop Added!')"><br>
-
-            </form>
-            <div class="runRoute">
-                <br><button class="routeBtn" type="button" value="Run Route" onclick="alert('Warning this route is in violation with DOT compliance')">Run Route</button>
+                <!-- Map -->
+            
+            <div class="map">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/b/bd/Google_Maps_Logo_2020.svg" alt="" height="300" width="300"/>
             </div>
 
-        </div>
 
-            <!-- Display Route -->
+            <div class="formContainer">
+                <h1>Create Route</h1>
 
-        <div class="routeDisplay">
-            <h1>Route: 501</h1>
-            <h3>Total cases: 177</h3>
-            <h3>Est route time: 14:37</h3>
-            <table style="width: 100%; text-align: left; margin-top: 0;">
-                <tr>
-                    <th>Stop #</th>
-                    <th>Customer Name</th>
-                    <th>Address</th>
-                    <th>Contact #</th>
-                    <th>Key Stop</th>
-                    <th>Case Count</th>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Rosellis</td>
-                    <td>555 east 5th</td>
-                    <td>555-555-5555</td>
-                    <td>yes</td>
-                    <td>130</td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>Amore</td>
-                    <td>55 sycamore</td>
-                    <td>555-555-5555</td>
-                    <td>No</td>
-                    <td>47</td>
-                </tr>
-            </table>
-        </div>
-        <footer>&copy; Copyright 2022</footer>
+                <!-- Route Name Form -->
+
+                <form class="routeNameForm" action="">
+                    <label for="Rname">Route Name</label><br>
+                    <input type="text" id="Rname" name="Rname" placeholder="Name"><br>
+                    <br><input type="submit" value="Create Route" onclick="alert('Route 501 Created!')"><br>
+                </form>
+                <form>
+
+                <!-- Customer Name Form -->
+
+                    <br><label for="name">Customer:</label><br>
+                    <input type="text" id="name" name= "name" placeholder="Name"><br>
+                    <br>
+
+                <!-- Address Form -->
+
+                    <label for="address">Address:</label><br>
+                    <input type="street" id="inputStreet" placeholder="Street">
+                    <input type="city" id="inputCity" placeholder="City"><br>
+                    <br>
+                    <input type="state" id="inputState" placeholder="State">
+                    <input type="zip" id="inputZip" placeholder="Zip"><br>
+                    <br>
+
+                <!-- Contact # Form-->
+
+                    <label for="Contact" id="phone">Contact:</label><br>
+                    <input type="tel" id="phone" name="phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" maxlength="12" placeholder="555-555-5555"><br>
+                    <br>
+
+
+                <!-- Key Drop Form -->
+
+                    <label for="key">Key Stop?</label><br>
+                    <select name="key" id="key">
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select><br>
+
+                <!-- Case Number Form (future iteration)-->
+
+                    <br><label for="quantity">Number Of Cases:</label><br>
+                    <input type="number" id="quantity" name="quantity" min="1" max="300"><br>
+
+                    <br><input type="submit" value="Add Stop" onclick="alert('Stop Added!')"><br>
+
+                </form>
+                <div class="runRoute">
+                    <br><button class="routeBtn" type="button" value="Run Route" onclick="alert('Warning this route is in violation with DOT compliance')">Run Route</button>
+                </div>
+
+            </div>
+
+                <!-- Display Route -->
+
+            <div class="routeDisplay">
+                <h1>Route: 501</h1>
+                <h3>Total cases: 177</h3>
+                <h3>Est route time: 14:37</h3>
+                <table style="width: 100%; text-align: left; margin-top: 0;">
+                    <tr>
+                        <th>Stop #</th>
+                        <th>Customer Name</th>
+                        <th>Address</th>
+                        <th>Contact #</th>
+                        <th>Key Stop</th>
+                        <th>Case Count</th>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>Rosellis</td>
+                        <td>555 east 5th</td>
+                        <td>555-555-5555</td>
+                        <td>yes</td>
+                        <td>130</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Amore</td>
+                        <td>55 sycamore</td>
+                        <td>555-555-5555</td>
+                        <td>No</td>
+                        <td>47</td>
+                    </tr>
+                </table>
+            </div>
+            <footer>&copy; Copyright 2022</footer>
+    </div>
     </body>
 
 </html>

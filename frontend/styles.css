@@ -1,9 +1,15 @@
 body {
+  position: flex;
   background-color: #232b2b;
   color: white;
 }
 
+h1 {
+  text-shadow: 2px 2px 5px #FF7F7F;
+}
+
 table, th, td {
+    position: flex;
     border: 1px solid white;
     border-collapse: collapse;
     font-family: 'Courier New', Courier, monospace;
@@ -13,8 +19,9 @@ tr:hover {
     background-color: #FF7F7F ;
 }
 
-.formClass {
-    position: relative;
+.formContainer {
+    position: flex;
+    justify-content: right;
     width: 25em;
     bottom: 40em;
     left: 93em;
@@ -32,23 +39,30 @@ tr:hover {
 }
 
 .map {
-    position: relative;
+    position: flex;
     background-color:#FF7F7F;
     width: 92.5em;
     height: 40em;
 }
 
 .routeDisplay {
-    position: relative;
+    position: flex;
     bottom: 40em;
 }
 
 .nav {
-    position: relative;
+    position: flex;
+    justify-content: space-around;
     font-size: 2em;
     color: white;
     border-bottom: solid;
     margin-bottom: 1em; 
+    text-shadow: 2px 2px 5px #FF7F7F;
+}
+
+img {
+  width: 2em;
+  height: 2em;
 }
 
 a:link {

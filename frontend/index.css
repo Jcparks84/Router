@@ -1,0 +1,105 @@
+body {
+    background-color: #232b2b;
+    font-family: 'Courier New', Courier, monospace;
+    color: white;
+    padding: 0;
+    margin: 0;
+}
+
+h1 {
+    color: white;
+    text-shadow: .03em .03em #FF7F7F;
+}
+
+.nav {
+    justify-content: space-around;
+    color: white;
+    border-bottom: solid;
+    margin-bottom: 1em;
+    max-width: 100;
+    font-size: 2em;
+    justify-content: space-around;
+}
+  
+  /* .nav li {
+    justify-content: space-around;
+    display: inline-block;
+    font-size: 2em;
+  } */
+
+a:link {
+    color: white;
+    background-color: transparent;
+    text-decoration: none;
+  }
+  
+a:visited {
+    color: white;
+    background-color: transparent;
+    text-decoration: none;
+  }
+  
+a:hover {
+    color:#FF7F7F;
+    background-color: transparent;
+    text-decoration: none;
+  }
+  
+a:active {
+    color: white;
+    background-color: transparent;
+    text-decoration: none;
+  }
+
+.truckImg {
+    width: 2em;
+    height: 2em;
+}
+
+table, th, td {
+    border: .15em solid white;
+    border-collapse: collapse;
+    /* max-width: 100; */
+}
+
+tr:hover {
+    background-color: #FF7F7F ;
+}
+
+.formContainer {
+    float: right;
+    border-top: solid;
+    border-right: hidden;
+    border-left: solid;
+    border-bottom: solid;
+    padding-left: .5em;
+    padding-right: .5em;
+}
+
+
+
+.routeNameForm {
+    border-bottom-style: solid;
+    border-color: white;
+    padding-bottom: 1em;
+}
+
+.runRoute {
+    border-top-style: solid;
+    border-color: white;
+    margin-top: 1em;
+  }
+
+
+
+.routeDisplay {
+    clear: both;
+}
+
+.runRoute {
+    padding-bottom: 1em;
+}
+
+.map {
+    display: inline-block;
+}
