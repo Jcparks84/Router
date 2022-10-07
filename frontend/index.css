@@ -1,3 +1,10 @@
+@media only screen and (max-width: 500px) {
+  .formContainer {
+    border-left: none;
+    background-color: blue;
+  }
+}
+
 body {
     background-color: #232b2b;
     font-family: 'Courier New', Courier, monospace;
@@ -6,26 +13,42 @@ body {
     margin: 0;
 }
 
+.flexboxContainer {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column; 
+}
+
+.flexboxContainer2 {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+}
+
 h1 {
     color: white;
     text-shadow: .03em .03em #FF7F7F;
 }
 
-.nav {
-    justify-content: space-around;
-    color: white;
-    border-bottom: solid;
-    margin-bottom: 1em;
-    max-width: 100;
-    font-size: 2em;
-    justify-content: space-around;
+.rGeneratorH1 {
+  align-self: center;
 }
+
+.nav {
+  border-bottom: solid;
+  margin-bottom: 1em;
+  font-size: 2em;
+  font-weight: bold;
+}
+
+.nav a {
+  justify-content: space-around;
+  width: 2em;
+  height: 2em;
+  /* padding: 2em; */
+  text-shadow: 2px 2px 5px #ff7f7f;
+  }
   
-  /* .nav li {
-    justify-content: space-around;
-    display: inline-block;
-    font-size: 2em;
-  } */
 
 a:link {
     color: white;
@@ -59,7 +82,7 @@ a:active {
 table, th, td {
     border: .15em solid white;
     border-collapse: collapse;
-    /* max-width: 100; */
+    max-width: 100;
 }
 
 tr:hover {
@@ -67,39 +90,42 @@ tr:hover {
 }
 
 .formContainer {
-    float: right;
-    border-top: solid;
-    border-right: hidden;
-    border-left: solid;
-    border-bottom: solid;
-    padding-left: .5em;
-    padding-right: .5em;
+  flex-grow: 1;
+  float: right;
+  border-top: solid;
+  border-right: hidden;
+  border-left: solid;
+  border-bottom: solid;
+  padding-left: .5em;
+  padding-right: .5em;
 }
 
 
 
 .routeNameForm {
-    border-bottom-style: solid;
-    border-color: white;
-    padding-bottom: 1em;
+  border-bottom-style: solid;
+  border-color: white;
+  padding-bottom: 1em;
 }
 
 .runRoute {
-    border-top-style: solid;
-    border-color: white;
-    margin-top: 1em;
+  border-top-style: solid;
+  border-color: white;
+  margin-top: 1em;
   }
 
 
 
 .routeDisplay {
-    clear: both;
+  clear: both;
 }
 
 .runRoute {
-    padding-bottom: 1em;
+  padding-bottom: 1em;
 }
 
 .map {
-    display: inline-block;
+  flex-grow: 10;
+  background-color: orange;
 }
+
