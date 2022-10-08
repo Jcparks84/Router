@@ -15,42 +15,58 @@
     </head>
     <body>
         
-        <div class="flexboxContainer">
+        <div class="flexbox-container">
 
                 <!-- NavBar -->
 
-            <nav class="nav">
-                <!-- <img class="truckImg" src="./../assets/truck.svg" alt="truck"> -->
-                <a class="aNav" href="./index.html">Home</a>
-                <a class="aNav" href="./routes.html">Routes</a>
-                <a href="./about.html">About</a>
-            </nav>
+                    <nav>
+                        <div id="logo">Logo</div>
+                
+                        <label for="drop" class="toggle">Menu</label>
+                        <input type="checkbox" id="drop" />
+                            <ul class="menu">
+                                <li><a href="./index.html">Home</a></li>
+                                <li>
+                                    <label for="drop-1" class="toggle">Routes</label>
+                                    <a href="./routes.html">Routes</a>
+                                    <input type="checkbox" id="drop-1"/>
+                                    <ul>
+                                        <li><a href="./101.html">101</a></li>
+                                        <li><a href="./101.html">102</a></li>
+                                        <li><a href="./101.html">103</a></li>
+                                    </ul> 
+                                    <li><a href="#">About</a></li>
+                            </ul>
+                        </nav>
             
-            <h1 class="rGeneratorH1">Route Generator</h1>
+            <div class="header">
+                <h1>Route Generator</h1>
+            </div>
 
 
                 <!-- Map -->
             
-            <div class="flexboxContainer2">
+            <div class="flexbox-container-2">
                 <div class="map">
                     <img src="https://upload.wikimedia.org/wikipedia/commons/b/bd/Google_Maps_Logo_2020.svg" alt="" height="300" width="300"/>
                 </div>
 
 
-                <div class="formContainer">
+                <div class="form-container">
                     <h1>Create Route</h1>
 
                     <!-- Route Name Form -->
 
-                    <form class="routeNameForm" action="">
+                    <form class="route-form" action="">
                         <label for="Rname">Route Name</label><br>
                         <input type="text" id="Rname" name="Rname" placeholder="Name"><br>
                         <br><input type="submit" value="Create Route" onclick="alert('Route 501 Created!')"><br>
                     </form>
-                    <form>
+                    
 
                     <!-- Customer Name Form -->
 
+                    <form class="customer-form">
                         <br><label for="name">Customer:</label><br>
                         <input type="text" id="name" name= "name" placeholder="Name"><br>
                         <br>
@@ -88,7 +104,8 @@
                         <br><input type="submit" value="Add Stop" onclick="alert('Stop Added!')"><br>
 
                     </form>
-                    <div class="runRoute">
+
+                    <div class="run-route">
                         <br><button class="routeBtn" type="button" value="Run Route" onclick="alert('Warning this route is in violation with DOT compliance')">Run Route</button>
                     </div>
 
@@ -98,7 +115,7 @@
 
                 <!-- Display Route -->
 
-            <div class="routeDisplay">
+            <div class="route-display">
                 <h1>Route: 501</h1>
                 <h3>Total cases: 177</h3>
                 <h3>Est route time: 14:37</h3>
