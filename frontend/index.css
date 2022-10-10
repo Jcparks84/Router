@@ -77,7 +77,7 @@ nav ul li ul li:hover { background: #232b2b;
     ; }
 
 nav a:hover { 
-    background-color: #232b2b;
+    background-color: #FF7F7F;
 }
 
 nav ul ul {
@@ -196,7 +196,7 @@ tr:hover {
 	}
 
 	.toggle:hover {
-        background-color: #232b2b;
+        background-color: #FF7F7F;
 	}
 
 	[id^=drop]:checked + ul {
@@ -219,7 +219,7 @@ tr:hover {
 
 	nav a:hover,
  	nav ul ul ul a {
-        background-color: #232b2b;
+        background-color: #FF7F7F;
 	}
   
 	nav ul li ul li .toggle,
