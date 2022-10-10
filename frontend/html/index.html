@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <!-- <link rel="stylesheet" href="styles.css"> -->
-        <link rel="stylesheet" href="index.css">
+        <link rel="stylesheet" href="../css/styles.css">
         <meta charset="UTF-8">
         <meta name="description" content="Route Generator">
         <meta name="keywords" content="cdl, route">
@@ -20,10 +20,6 @@
                 <!-- NavBar -->
 
                     <nav>
-                        <div id="logo">
-                            <img src="./../assets/truck.svg" alt="truck" width="75" height="75">
-                        </div>
-                
                         <label for="drop" class="toggle">Menu</label>
                         <input type="checkbox" id="drop" />
                             <ul class="menu">
@@ -37,7 +33,7 @@
                                         <li><a href="./101.html">102</a></li>
                                         <li><a href="./101.html">103</a></li>
                                     </ul> 
-                                    <li><a href="#">About</a></li>
+                                    <li><a href="./about.html">About</a></li>
                             </ul>
                         </nav>
             
@@ -46,7 +42,7 @@
             </div>
 
 
-                <!-- Map -->
+                    <!-- Map -->
             
             <div class="flexbox-container-2">
                 <div class="map">
@@ -55,7 +51,11 @@
 
 
                 <div class="form-container">
-                    <h1>Create Route</h1>
+                    <input id="collapsible" class="toggle" type="checkbox" checked>
+        <label for="collapsible" class="lbl-toggle">Create Route</label>
+        <div class="collapsible-content">
+          <div class="content-inner">
+            <h1>Create Route</h1>
 
                     <!-- Route Name Form -->
 
@@ -69,8 +69,8 @@
                     <!-- Customer Name Form -->
 
                     <form class="customer-form">
-                        <br><label for="name">Customer:</label><br>
-                        <input type="text" id="name" name= "name" placeholder="Name"><br>
+                        <br><label for="Cname">Customer:</label><br>
+                        <input type="text" id="name" name= "Cname" placeholder="Name"><br>
                         <br>
 
                     <!-- Address Form -->
@@ -110,10 +110,11 @@
                     <div class="run-route">
                         <br><button class="routeBtn" type="button" value="Run Route" onclick="alert('Warning this route is in violation with DOT compliance')">Run Route</button>
                     </div>
-
+          </div>
+        </div>
+                </div>
             </div>
 
-            </div>
 
                 <!-- Display Route -->
 
