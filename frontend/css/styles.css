@@ -1,7 +1,7 @@
 body {
   background-color: #232b2b;
-  font-family: 'Courier New', Courier, monospace;
-  color: white;
+  font-family: "Courier New", Courier, monospace;
+  color: #06e5e5;
   padding: 0;
   margin: 0;
 }
@@ -16,18 +16,15 @@ body {
   flex-wrap: wrap;
 }
 .toggle,
-[id^=drop] {
+[id^="drop"] {
   display: none;
 }
 nav {
-  margin: 0;
-  padding: 0;
   background-color: #232b2b;
-  border-bottom: solid;
+  border-bottom: solid #7d9595;
   font-size: 1.375em;
   line-height: 2em;
-  color: #ffffff;
-  font-family: 'Courier New', Courier, monospace;
+  font-family: "Courier New", Courier, monospace;
 }
 #logo {
   display: block;
@@ -53,26 +50,23 @@ nav ul li {
   display: inline-block;
   background-color: #232b2b;
 }
-nav a {
+nav ul li:hover {
+  background: #232b2b;
+}
+nav ul li a {
   display: block;
   padding: 0.875em 1.25em;
-  color: #FFF;
+  color: #fff;
   font-size: 1em;
   text-decoration: none;
 }
-nav ul li ul li:hover {
-  background: #232b2b;
-}
-nav a:hover {
-  background-color: #ff7f7f;
+nav ul li a:hover {
+  background-color: #024c4c;
 }
 nav ul ul {
   display: none;
   position: absolute;
   top: 3.75em;
-}
-nav ul li:hover > ul {
-  display: inherit;
 }
 nav ul ul li {
   width: 10.625em;
@@ -80,16 +74,20 @@ nav ul ul li {
   display: list-item;
   position: relative;
 }
-nav ul ul ul li {
+nav ul ul li ul {
+  width: 10.625em;
+  float: none;
+  display: list-item;
   position: relative;
-  top: -3.75em;
-  left: 10.625em;
+}
+nav ul li:hover > ul {
+  display: inherit;
 }
 li > a:after {
-  content: ' +';
+  content: " +";
 }
 li > a:only-child:after {
-  content: '';
+  content: "";
 }
 .header {
   align-self: center;
@@ -98,15 +96,15 @@ li > a:only-child:after {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #ff7f7f;
+  background-color: #024c4c;
   flex-grow: 5;
-  border: solid;
+  border: solid #7d9595;
   border-radius: 0.5em;
   padding: 0.5em;
   margin: 0.5em;
 }
 .form-container {
-  border: solid;
+  border: solid #7d9595;
   border-radius: 0.5em;
   padding: 0.5em;
   margin: 0.5em;
@@ -114,28 +112,28 @@ li > a:only-child:after {
 .wrap-collabsible {
   margin-bottom: 1.2rem 0;
 }
-input[type='checkbox'] {
+input[type="checkbox"] {
   display: none;
 }
 .lbl-toggle {
   display: block;
   font-weight: bold;
-  font-family: 'Courier New', Courier, monospace;
+  font-family: "Courier New", Courier, monospace;
   font-size: 1.2rem;
   text-transform: uppercase;
   text-align: center;
   padding: 1rem;
-  color: white;
-  background: #ff7f7f;
+  color: #06e5e5;
+  background: #232b2b;
   cursor: pointer;
-  border-radius: 0.5em;
+  border-radius: 0.5em #7d9595;
   transition: all 0.25s ease-out;
 }
 .lbl-toggle:hover {
-  color: white;
+  color: #06e5e5;
 }
 .lbl-toggle::before {
-  content: ' ';
+  content: " ";
   display: inline-block;
   border-top: 0.3em solid transparent;
   border-bottom: 0.3em solid transparent;
@@ -167,12 +165,12 @@ input[type='checkbox'] {
   padding: 0.5rem 1rem;
 }
 .route-form {
-  border-bottom: solid;
+  border-bottom: solid #7d9595;
   margin-bottom: 0.5em;
   padding-bottom: 0.5em;
 }
 .customer-form {
-  border-bottom: solid;
+  border-bottom: solid #7d9595;
   margin-bottom: 0.5em;
   padding-bottom: 0.5em;
 }
@@ -183,6 +181,7 @@ input[type='checkbox'] {
   margin: 0.5em;
 }
 .route-display {
+  flex-grow: 3;
   padding: 0.5em;
 }
 footer {
@@ -195,7 +194,7 @@ footer {
   padding: 0.5em;
 }
 a:visited {
-  color: white;
+  color: #06e5e5;
 }
 .about {
   padding: 0.5em;
@@ -204,23 +203,34 @@ a:visited {
   padding: 0.5em;
 }
 h1 {
-  color: white;
-  text-shadow: 0.03em 0.03em #ff7f7f;
+  color: #06e5e5;
+  text-shadow: 0.03em 0.03em #024c4c;
 }
 table,
 th,
 td {
-  border: 0.15em solid white;
+  border: 0.15em solid #7d9595;
   border-collapse: collapse;
   max-width: 100;
 }
 tr:hover {
-  background-color: #ff7f7f;
+  background-color: #024c4c;
+}
+.border1 {
+  border: solid #7d9595;
+  border-radius: 0.5em;
+  padding: 0.5em;
+  margin: 0.5em;
+}
+.border2 {
+  border-bottom: solid #7d9595;
+  margin-bottom: 0.5em;
+  padding-bottom: 0.5em;
 }
 /* Media Queries
 --------------------------------------------- */
 @media all and (max-width: 768px) {
-  .toggle:checked #logo {
+  #logo {
     display: block;
     padding: 0;
     width: 100%;
@@ -238,15 +248,15 @@ tr:hover {
     display: block;
     background-color: #232b2b;
     padding: 0.875em 1.25em;
-    color: #FFF;
+    color: #06e5e5;
     font-size: 1.0625em;
     text-decoration: none;
     border: none;
   }
   .toggle:hover {
-    background-color: #ff7f7f;
+    background-color: #024c4c;
   }
-  [id^=drop]:checked + ul {
+  [id^="drop"]:checked + ul {
     display: block;
   }
   nav ul li {
@@ -262,13 +272,13 @@ tr:hover {
   }
   nav a:hover,
   nav ul ul ul a {
-    background-color: #ff7f7f;
+    background-color: #024c4c;
   }
   nav ul li ul li .toggle,
   nav ul ul a,
   nav ul ul ul a {
     padding: 0.875em 1.25em;
-    color: #FFF;
+    color: #fff;
     font-size: 1.0625em;
   }
   nav ul li ul li .toggle,
