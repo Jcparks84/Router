@@ -1,20 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <!-- <link rel="stylesheet" href="styles.css"> -->
     <link rel="stylesheet" href="../less/styles.css" />
     <meta charset="UTF-8" />
     <meta name="description" content="Route Generator" />
     <meta name="keywords" content="cdl, route" />
     <meta name="author" content="John Parks" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Route Generator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <title>Route Buddy</title>
   </head>
   <body>
     <div class="container">
       <!-- NavBar -->
 
       <nav class="nav-container">
+        <!-- <div id="logo"></div>
+        <div id="logo">
+          <img
+            src="../../assets/logo.png"
+            alt="rBuddy"
+            width="125"
+            height="125"
+          />
+        </div> -->
         <label for="drop" class="toggle">Menu</label>
         <input type="checkbox" id="drop" />
         <ul class="menu">
@@ -35,7 +51,7 @@
       </nav>
 
       <div class="header">
-        <h1>Route Generator</h1>
+        <h1>Route Buddy</h1>
       </div>
 
       <!-- Map -->
@@ -55,7 +71,7 @@
           <label for="collapsible" class="form-lbl-toggle">Create Route</label>
           <div class="collapsible-content">
             <div class="content-inner">
-              <h1>Create Route</h1>
+              <!-- <h1>Create Route</h1> -->
 
               <!-- Route Name Form -->
 
@@ -137,7 +153,7 @@
 
               <div class="run-route">
                 <br /><button
-                  class="routeBtn"
+                  class="button"
                   type="button"
                   value="Run Route"
                   onclick="alert('Warning this route is in violation with DOT compliance')"
@@ -154,8 +170,10 @@
 
       <div class="route-display">
         <h1>Route: 501</h1>
+        <br />
         <h3>Total cases: 177</h3>
         <h3>Est route time: 14:37</h3>
+        <br />
         <table style="width: 100%; text-align: left; margin-top: 0">
           <tr>
             <th>Stop #</th>

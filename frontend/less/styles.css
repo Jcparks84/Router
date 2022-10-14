@@ -1,24 +1,163 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+body {
+  line-height: 1;
+}
+ol,
+ul {
+  list-style: none;
+}
+blockquote,
+q {
+  quotes: none;
+}
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: '';
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
 body {
   background: #06e5e5;
   background: radial-gradient(circle, #06e5e5 0%, #232b2b 74%);
-  font-family: "Courier New", Courier, monospace;
+  font-family: "Montserrat", sans-serif;
   color: #06e5e5;
   padding: 0;
   margin: 0;
 }
-body h1 {
-  text-shadow: 0.1em 0.1em #232b2b;
+body h1,
+body h3 {
+  text-shadow: 0.1em 0.1em #024c4c;
+  font-size: 1.5em;
+  font-weight: bold;
 }
-body table,
+body table {
+  background-color: #232b2b;
+  width: 100%;
+  margin-top: 0;
+  border-radius: 0.5em;
+}
 body th,
-body td {
+body td,
+body tr {
+  padding: 0.5em;
   border: 0.15em solid #7d9595;
   border-collapse: collapse;
   max-width: 100;
+  text-align: left;
 }
-body table tr:hover,
-body th tr:hover,
-body td tr:hover {
+body th:hover,
+body td:hover,
+body tr:hover {
   background-color: #7d9595;
 }
 .container {
@@ -33,10 +172,8 @@ body td tr:hover {
 }
 #logo {
   display: block;
-  padding: 0 1.875em;
+  padding: 0.5em;
   float: left;
-  font-size: 1.875em;
-  line-height: 3.75em;
 }
 .toggle,
 [id^="drop"] {
@@ -46,6 +183,7 @@ nav {
   border-bottom: solid #7d9595;
   font-size: 1.375em;
   line-height: 2em;
+  box-shadow: 0.5em 0.5em 0.5em #232b2b;
 }
 nav:after {
   content: "";
@@ -75,6 +213,8 @@ nav ul li a {
   font-size: 1em;
   color: #06e5e5;
   text-decoration: none;
+  font-weight: bold;
+  text-shadow: 0.1em 0.1em #024c4c;
 }
 nav ul li a:hover {
   background-color: #024c4c;
@@ -104,24 +244,29 @@ li > a:only-child:after {
   content: "";
 }
 .header {
-  align-self: center;
+  padding: 0.5em;
+  margin: 0.5em;
+  font-weight: bold;
+  font-size: 2em;
 }
 .map {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #024c4c;
+  background-color: transparent;
   flex-grow: 5;
   border: solid #7d9595;
   border-radius: 0.5em;
   padding: 0.5em;
   margin: 0.5em;
+  box-shadow: 0.5em 0.5em 0.5em #232b2b;
 }
 .form-container {
   border: solid #7d9595;
   border-radius: 0.5em;
   padding: 0.5em;
   margin: 0.5em;
+  box-shadow: 0.5em 0.5em 0.5em #232b2b;
 }
 .wrap-collabsible {
   margin-bottom: 1.2rem 0;
@@ -132,15 +277,14 @@ input[type="checkbox"] {
 .form-lbl-toggle {
   display: block;
   font-weight: bold;
-  font-family: "Courier New", Courier, monospace;
   font-size: 1.2rem;
   text-transform: uppercase;
   text-align: center;
   padding: 1rem;
   color: #06e5e5;
+  border-radius: 0.5em;
   background: #232b2b;
   cursor: pointer;
-  border-radius: 0.5em #7d9595;
   transition: all 0.25s ease-out;
 }
 .form-lbl-toggle:hover {
@@ -194,6 +338,29 @@ input[type="checkbox"] {
   padding: 0.5em;
   margin: 0.5em;
 }
+.button {
+  display: inline-block;
+  padding: 0.46em 1.6em;
+  border: 0.1em solid 1.6em;
+  margin: 0 0.2em 0.2em 0;
+  border-radius: 0.12em;
+  box-sizing: border-box;
+  text-decoration: none;
+  font-weight: 300;
+  color: #06e5e5;
+  text-shadow: 0 0.04em 0.04em #06e5e5;
+  background-color: #024c4c;
+  text-align: center;
+  transition: all 0.15s;
+  cursor: pointer;
+  border-radius: 0.5em;
+}
+.button:hover {
+  text-shadow: 0 0 2em #024c4c;
+  color: #024c4c;
+  background-color: #06e5e5;
+  border: #024c4c;
+}
 .route-display {
   flex-grow: 3;
   padding: 0.5em;
@@ -207,12 +374,18 @@ footer {
   font-size: 1.875em;
   padding: 0.5em;
 }
-.about {
+.rlist a {
+  display: block;
+  padding: 0.5em;
+  font-size: 1em;
+  color: #06e5e5;
+}
+.pages {
   padding: 0.5em;
   margin: 0.5em;
+  background-color: #232b2b;
 }
-.routes {
-  padding: 0.5em;
+.pages h1 {
   margin: 0.5em;
 }
 /* Media Queries
@@ -228,13 +401,15 @@ footer {
   nav {
     margin: 0;
   }
+  .form-container {
+    width: 100%;
+  }
   .toggle + a,
   ul.menu {
     display: none;
   }
   .toggle {
     display: block;
-    background-color: #232b2b;
     padding: 0.875em 1.25em;
     color: #06e5e5;
     font-size: 1.0625em;
@@ -246,6 +421,7 @@ footer {
   }
   [id^="drop"]:checked + ul {
     display: block;
+    float: left;
   }
   nav ul li {
     display: block;
@@ -288,11 +464,5 @@ footer {
   }
   nav ul ul ul li {
     position: static;
-  }
-}
-@media all and (max-width: 768px) and all and (max-width: 330px) {
-  nav ul li {
-    display: block;
-    width: 94%;
   }
 }

@@ -1,9 +1,11 @@
 @primary-color: #232b2b;
-@font-family: "Courier New", Courier, monospace;
+@font-family: "Montserrat", sans-serif;
 @padding-margin: 0.5em;
 @color-2: #06e5e5;
 @color-3: #024c4c;
 @border: solid #7d9595;
+@box-shadow: 0.5em 0.5em 0.5em @primary-color;
+@import "../reset/reset.less";
 
 body {
   background: rgb(6, 229, 229);
@@ -16,16 +18,27 @@ body {
   color: @color-2;
   padding: 0;
   margin: 0;
-  h1 {
-    text-shadow: 0.1em 0.1em @primary-color;
+  h1,
+  h3 {
+    text-shadow: 0.1em 0.1em @color-3;
+    font-size: 1.5em;
+    font-weight: bold;
   }
-  table,
+  table {
+    background-color: @primary-color;
+    width: 100%;
+    margin-top: 0;
+    border-radius: 0.5em;
+  }
   th,
-  td {
+  td,
+  tr {
+    padding: @padding-margin;
     border: 0.15em @border;
     border-collapse: collapse;
     max-width: 100;
-    tr:hover {
+    text-align: left;
+    &:hover {
       background-color: #7d9595;
     }
   }
@@ -45,10 +58,8 @@ body {
 
 #logo {
   display: block;
-  padding: 0 1.875em;
+  padding: 0.5em;
   float: left;
-  font-size: 1.875em;
-  line-height: 3.75em;
 }
 
 .toggle,
@@ -60,6 +71,7 @@ nav {
   border-bottom: @border;
   font-size: 1.375em;
   line-height: 2em;
+  box-shadow: @box-shadow;
   &:after {
     content: "";
     display: table;
@@ -86,6 +98,8 @@ nav {
         font-size: 1em;
         color: @color-2;
         text-decoration: none;
+        font-weight: bold;
+        text-shadow: 0.1em 0.1em @color-3;
         &:hover {
           background-color: @color-3;
         }
@@ -120,19 +134,24 @@ li > a:only-child:after {
 }
 
 .header {
-  align-self: center;
+  padding: @padding-margin;
+  margin: @padding-margin;
+  // align-self: center;
+  font-weight: bold;
+  font-size: 2em;
 }
 
 .map {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: @color-3;
+  background-color: transparent;
   flex-grow: 5;
   border: @border;
   border-radius: @padding-margin;
   padding: @padding-margin;
   margin: @padding-margin;
+  box-shadow: @box-shadow;
 }
 
 .form-container {
@@ -140,6 +159,7 @@ li > a:only-child:after {
   border-radius: @padding-margin;
   padding: @padding-margin;
   margin: @padding-margin;
+  box-shadow: @box-shadow;
 }
 .wrap-collabsible {
   margin-bottom: 1.2rem 0;
@@ -151,15 +171,14 @@ input[type="checkbox"] {
 .form-lbl-toggle {
   display: block;
   font-weight: bold;
-  font-family: "Courier New", Courier, monospace;
   font-size: 1.2rem;
   text-transform: uppercase;
   text-align: center;
   padding: 1rem;
-  color: #06e5e5;
-  background: #232b2b;
+  color: @color-2;
+  border-radius: 0.5em;
+  background: @primary-color;
   cursor: pointer;
-  border-radius: 0.5em #7d9595;
   transition: all 0.25s ease-out;
   &:hover {
     color: @color-2;
@@ -218,6 +237,30 @@ input[type="checkbox"] {
   margin: @padding-margin;
 }
 
+.button {
+  display: inline-block;
+  padding: 0.46em 1.6em;
+  border: 0.1em solid 1.6em;
+  margin: 0 0.2em 0.2em 0;
+  border-radius: 0.12em;
+  box-sizing: border-box;
+  text-decoration: none;
+  font-weight: 300;
+  color: @color-2;
+  text-shadow: 0 0.04em 0.04em @color-2;
+  background-color: @color-3;
+  text-align: center;
+  transition: all 0.15s;
+  cursor: pointer;
+  border-radius: 0.5em;
+  &:hover {
+    text-shadow: 0 0 2em @color-3;
+    color: @color-3;
+    background-color: @color-2;
+    border: @color-3;
+  }
+}
+
 .route-display {
   flex-grow: 3;
   padding: @padding-margin;
@@ -232,16 +275,21 @@ footer {
   flex-direction: column;
   font-size: 1.875em;
   padding: @padding-margin;
+  a {
+    display: block;
+    padding: @padding-margin;
+    font-size: 1em;
+    color: @color-2;
+  }
 }
 
-.about {
+.pages {
   padding: @padding-margin;
   margin: @padding-margin;
-}
-
-.routes {
-  padding: @padding-margin;
-  margin: @padding-margin;
+  background-color: @primary-color;
+  h1 {
+    margin: @padding-margin;
+  }
 }
 
 /* Media Queries
@@ -258,13 +306,16 @@ footer {
   nav {
     margin: 0;
   }
+
+  .form-container {
+    width: 100%;
+  }
   .toggle + a,
   ul.menu {
     display: none;
   }
   .toggle {
     display: block;
-    background-color: @primary-color;
     padding: 0.875em 1.25em;
     color: @color-2;
     font-size: 1.0625em;
@@ -277,6 +328,7 @@ footer {
   }
   [id^="drop"]:checked + ul {
     display: block;
+    float: left;
   }
   nav ul li {
     display: block;
@@ -319,12 +371,5 @@ footer {
   }
   nav ul ul ul li {
     position: static;
-  }
-
-  @media all and (max-width: 330px) {
-    nav ul li {
-      display: block;
-      width: 94%;
-    }
   }
 }
