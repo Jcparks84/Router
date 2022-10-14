@@ -1,30 +1,35 @@
 body {
-  background-color: #232b2b;
+  background: #06e5e5;
+  background: radial-gradient(circle, #06e5e5 0%, #232b2b 74%);
   font-family: "Courier New", Courier, monospace;
   color: #06e5e5;
   padding: 0;
   margin: 0;
 }
-.flexbox-container {
+body h1 {
+  text-shadow: 0.1em 0.1em #232b2b;
+}
+body table,
+body th,
+body td {
+  border: 0.15em solid #7d9595;
+  border-collapse: collapse;
+  max-width: 100;
+}
+body table tr:hover,
+body th tr:hover,
+body td tr:hover {
+  background-color: #7d9595;
+}
+.container {
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
 }
-.flexbox-container-2 {
+.container-2 {
   display: flex;
-  flex-direction: row;
   flex-wrap: wrap;
-}
-.toggle,
-[id^="drop"] {
-  display: none;
-}
-nav {
-  background-color: #232b2b;
-  border-bottom: solid #7d9595;
-  font-size: 1.375em;
-  line-height: 2em;
-  font-family: "Courier New", Courier, monospace;
+  flex-direction: row;
 }
 #logo {
   display: block;
@@ -32,6 +37,15 @@ nav {
   float: left;
   font-size: 1.875em;
   line-height: 3.75em;
+}
+.toggle,
+[id^="drop"] {
+  display: none;
+}
+nav {
+  border-bottom: solid #7d9595;
+  font-size: 1.375em;
+  line-height: 2em;
 }
 nav:after {
   content: "";
@@ -48,16 +62,18 @@ nav ul {
 nav ul li {
   margin: 0;
   display: inline-block;
-  background-color: #232b2b;
 }
 nav ul li:hover {
-  background: #232b2b;
+  background-color: #232b2b;
+}
+nav ul li:hover > ul {
+  display: inherit;
 }
 nav ul li a {
   display: block;
   padding: 0.875em 1.25em;
-  color: #fff;
   font-size: 1em;
+  color: #06e5e5;
   text-decoration: none;
 }
 nav ul li a:hover {
@@ -67,6 +83,7 @@ nav ul ul {
   display: none;
   position: absolute;
   top: 3.75em;
+  background-color: #232b2b;
 }
 nav ul ul li {
   width: 10.625em;
@@ -79,9 +96,6 @@ nav ul ul li ul {
   float: none;
   display: list-item;
   position: relative;
-}
-nav ul li:hover > ul {
-  display: inherit;
 }
 li > a:after {
   content: " +";
@@ -115,7 +129,7 @@ li > a:only-child:after {
 input[type="checkbox"] {
   display: none;
 }
-.lbl-toggle {
+.form-lbl-toggle {
   display: block;
   font-weight: bold;
   font-family: "Courier New", Courier, monospace;
@@ -129,10 +143,10 @@ input[type="checkbox"] {
   border-radius: 0.5em #7d9595;
   transition: all 0.25s ease-out;
 }
-.lbl-toggle:hover {
+.form-lbl-toggle:hover {
   color: #06e5e5;
 }
-.lbl-toggle::before {
+.form-lbl-toggle::before {
   content: " ";
   display: inline-block;
   border-top: 0.3em solid transparent;
@@ -143,26 +157,26 @@ input[type="checkbox"] {
   transform: translateY(-2px);
   transition: transform 0.2s ease-out;
 }
-.toggle:checked + .lbl-toggle::before {
-  transform: rotate(90deg) translateX(-0.18em);
-}
 .collapsible-content {
   max-height: 0;
   overflow: hidden;
   transition: max-height 0.25s ease-in-out;
 }
-.toggle:checked + .lbl-toggle + .collapsible-content {
-  max-height: 100vh;
-}
-.toggle:checked + .lbl-toggle {
-  border-bottom-right-radius: 0;
-  border-bottom-left-radius: 0;
-}
-.collapsible-content .content-inner {
+.collapsible-content div.content-inner {
   background: #232b2b;
   border-bottom-left-radius: 0.3em;
   border-bottom-right-radius: 0.3em;
   padding: 0.5rem 1rem;
+}
+.form-toggle:checked + .form-lbl-toggle::before {
+  transform: rotate(90deg) translateX(-0.18em);
+}
+.form-toggle:checked + .form-lbl-toggle {
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.form-toggle:checked + .form-lbl-toggle + .collapsible-content {
+  max-height: 100vh;
 }
 .route-form {
   border-bottom: solid #7d9595;
@@ -193,42 +207,16 @@ footer {
   font-size: 1.875em;
   padding: 0.5em;
 }
-a:visited {
-  color: #06e5e5;
-}
 .about {
-  padding: 0.5em;
-}
-.r101 {
-  padding: 0.5em;
-}
-h1 {
-  color: #06e5e5;
-  text-shadow: 0.03em 0.03em #024c4c;
-}
-table,
-th,
-td {
-  border: 0.15em solid #7d9595;
-  border-collapse: collapse;
-  max-width: 100;
-}
-tr:hover {
-  background-color: #024c4c;
-}
-.border1 {
-  border: solid #7d9595;
-  border-radius: 0.5em;
   padding: 0.5em;
   margin: 0.5em;
 }
-.border2 {
-  border-bottom: solid #7d9595;
-  margin-bottom: 0.5em;
-  padding-bottom: 0.5em;
+.routes {
+  padding: 0.5em;
+  margin: 0.5em;
 }
 /* Media Queries
---------------------------------------------- */
+  --------------------------------------------- */
 @media all and (max-width: 768px) {
   #logo {
     display: block;
@@ -241,7 +229,7 @@ tr:hover {
     margin: 0;
   }
   .toggle + a,
-  .menu {
+  ul.menu {
     display: none;
   }
   .toggle {
@@ -302,7 +290,7 @@ tr:hover {
     position: static;
   }
 }
-@media all and (max-width: 330px) {
+@media all and (max-width: 768px) and all and (max-width: 330px) {
   nav ul li {
     display: block;
     width: 94%;

@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <!-- <link rel="stylesheet" href="styles.css"> -->
-    <link rel="stylesheet" href="../css/styles.css" />
+    <link rel="stylesheet" href="../less/styles.css" />
     <meta charset="UTF-8" />
     <meta name="description" content="Route Generator" />
     <meta name="keywords" content="cdl, route" />
@@ -11,11 +11,10 @@
     <title>Route Generator</title>
   </head>
   <body>
-    <div class="flexbox-container">
-
+    <div class="container">
       <!-- NavBar -->
 
-      <nav>
+      <nav class="nav-container">
         <label for="drop" class="toggle">Menu</label>
         <input type="checkbox" id="drop" />
         <ul class="menu">
@@ -24,7 +23,7 @@
             <label for="drop-1" class="toggle">Routes</label>
             <a href="./routes.html">Routes</a>
             <input type="checkbox" id="drop-1" />
-            <ul>
+            <ul class="menu">
               <li><a href="./101.html">101</a></li>
               <li><a href="./101.html">102</a></li>
               <li><a href="./101.html">103</a></li>
@@ -41,7 +40,7 @@
 
       <!-- Map -->
 
-      <div class="flexbox-container-2">
+      <div class="container-2">
         <div class="map">
           <img
             src="https://upload.wikimedia.org/wikipedia/commons/b/bd/Google_Maps_Logo_2020.svg"
@@ -52,8 +51,8 @@
         </div>
 
         <div class="form-container">
-          <input id="collapsible" class="toggle" type="checkbox" checked />
-          <label for="collapsible" class="lbl-toggle">Create Route</label>
+          <input id="collapsible" class="form-toggle" type="checkbox" checked />
+          <label for="collapsible" class="form-lbl-toggle">Create Route</label>
           <div class="collapsible-content">
             <div class="content-inner">
               <h1>Create Route</h1>
