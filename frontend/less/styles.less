@@ -41,6 +41,9 @@ body {
     &:hover {
       background-color: #7d9595;
     }
+    a:visited {
+      color: @color-2;
+    }
   }
 }
 
@@ -48,6 +51,7 @@ body {
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
+  padding: 1em;
 }
 
 .container-2 {
@@ -136,7 +140,7 @@ li > a:only-child:after {
 .header {
   padding: @padding-margin;
   margin: @padding-margin;
-  // align-self: center;
+  align-self: center;
   font-weight: bold;
   font-size: 2em;
 }
@@ -146,12 +150,13 @@ li > a:only-child:after {
   align-items: center;
   justify-content: center;
   background-color: transparent;
-  flex-grow: 5;
+  flex-grow: 2;
   border: @border;
   border-radius: @padding-margin;
   padding: @padding-margin;
   margin: @padding-margin;
   box-shadow: @box-shadow;
+  height: 37.5em;
 }
 
 .form-container {
@@ -160,6 +165,8 @@ li > a:only-child:after {
   padding: @padding-margin;
   margin: @padding-margin;
   box-shadow: @box-shadow;
+  flex-grow: 0;
+  height: 100%;
 }
 .wrap-collabsible {
   margin-bottom: 1.2rem 0;
@@ -240,7 +247,7 @@ input[type="checkbox"] {
 .button {
   display: inline-block;
   padding: 0.46em 1.6em;
-  border: 0.1em solid 1.6em;
+  border-color: @color-2;
   margin: 0 0.2em 0.2em 0;
   border-radius: 0.12em;
   box-sizing: border-box;
@@ -264,6 +271,9 @@ input[type="checkbox"] {
 .route-display {
   flex-grow: 3;
   padding: @padding-margin;
+  a:visited {
+    color: @color-2;
+  }
 }
 
 footer {
@@ -284,6 +294,7 @@ footer {
 }
 
 .pages {
+  position: flex;
   padding: @padding-margin;
   margin: @padding-margin;
   background-color: @primary-color;
@@ -305,6 +316,10 @@ footer {
   }
   nav {
     margin: 0;
+  }
+
+  .map {
+    height: 18.75em;
   }
 
   .form-container {
