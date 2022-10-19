@@ -17,6 +17,12 @@
       href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
       rel="stylesheet"
     />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
     <script type="module" src="../javascript/map.js"></script>
     <title>Route Buddy</title>
@@ -76,29 +82,28 @@
               <!-- Route Name Form -->
 
               <form class="route-form" action="">
-                <label for="Rname">Route Name:</label><br />
+                <label for="route-name">Route Name:</label><br />
                 <input
                   type="text"
-                  id="Rname"
-                  name="Rname"
+                  class="route-name"
                   placeholder="Name"
                 /><br />
                 <br /><input
-                  class="button"
+                  class="button create-route-button"
                   type="button"
                   value="Create Route"
-                  onclick="alert('Route 501 Created!')"
                 /><br />
               </form>
 
               <!-- Customer Name Form -->
 
               <form class="customer-form">
-                <br /><label for="Cname">Customer:</label><br />
+                <br /><label for="c-name">Customer:</label><br />
                 <input
                   type="text"
+                  class="name"
                   id="name"
-                  name="Cname"
+                  name="c-name"
                   placeholder="Name"
                 /><br />
                 <br />
@@ -106,11 +111,21 @@
                 <!-- Address Form -->
 
                 <label for="address">Address:</label><br />
-                <input type="street" id="inputStreet" placeholder="Street" />
-                <input type="city" id="inputCity" placeholder="City" /><br />
+                <input
+                  type="street"
+                  class="input-street"
+                  id="input-street"
+                  placeholder="Street"
+                />
+                <input
+                  type="city"
+                  class="input-city"
+                  id="input-city"
+                  placeholder="City"
+                /><br />
                 <br />
-                <input type="state" id="inputState" placeholder="State" />
-                <input type="zip" id="inputZip" placeholder="Zip" /><br />
+                <input type="state" class="input-state" placeholder="State" />
+                <input type="zip" class="input-zip" placeholder="Zip" /><br />
                 <br />
 
                 <!-- Contact # Form-->
@@ -118,7 +133,8 @@
                 <label for="Contact" id="phone">Contact:</label><br />
                 <input
                   type="tel"
-                  id="phone"
+                  class="phone"
+                  id="name"
                   name="phone"
                   pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
                   maxlength="12"
@@ -129,7 +145,7 @@
                 <!-- Key Drop Form -->
 
                 <label for="key">Key Stop?</label><br />
-                <select name="key" id="key">
+                <select name="key" class="key" id="key">
                   <option value="Yes">Yes</option>
                   <option value="No">No</option></select
                 ><br />
@@ -139,17 +155,28 @@
                 <br /><label for="quantity">Number Of Cases:</label><br />
                 <input
                   type="number"
+                  class="quantity"
                   id="quantity"
                   name="quantity"
                   min="1"
                   max="300"
                 /><br />
 
+                <br /><label for="stop-notes">Driver Notes:</label><br />
+                <textarea
+                  type="text"
+                  class="stop-notes"
+                  id="stop-notes"
+                  name="stop-notes"
+                  maxlength="500"
+                ></textarea
+                ><br />
+
                 <br /><input
                   type="button"
-                  class="button"
+                  class="button add-stop-button"
                   value="Add Stop"
-                  onclick="alert('Stop Added!')"
+                  onclick="addTableRow()"
                 /><br />
               </form>
 
@@ -171,12 +198,13 @@
       <!-- Display Route -->
 
       <div class="route-display">
-        <h1>Route: 501</h1>
+        <h1>Route:</h1>
+        <h1 class="route-name-display">Create Route</h1>
         <br />
         <h3>Total cases: 177</h3>
         <h3>Est route time: 14:37</h3>
         <br />
-        <table>
+        <table class="table-results" id="table-results">
           <tr>
             <th>Stop #</th>
             <th>Customer Name</th>
@@ -187,7 +215,7 @@
           </tr>
           <tr>
             <td>1</td>
-            <td><a href="./stopInfo.html">Rosellis Pizza</a></td>
+            <td class="show-modal">Rosellis Pizza</td>
             <td>555 east 5th</td>
             <td>555-555-5555</td>
             <td>yes</td>
@@ -195,7 +223,7 @@
           </tr>
           <tr>
             <td>2</td>
-            <td><a href="./stopInfo.html">Amore Pizza</a></td>
+            <td class="show-modal">Amore Pizza</td>
             <td>55 sycamore</td>
             <td>555-555-5555</td>
             <td>No</td>
@@ -205,5 +233,23 @@
       </div>
       <footer>&copy; Copyright 2022</footer>
     </div>
+    <div class="modal hidden">
+      <button class="close-modal">&times;</button>
+      <h1>Roselli's Pizza</h1>
+      <br />
+      <p>
+        Key #5555, key works on the back door. Located on the south east corner
+        <br />
+        of 106th street in a strip mall. Plenty of rooom to drive around back
+        <br />
+        and park. Alarm #5555-1, alarm is located in the office as well as the
+        <br />
+        check. Bring freezer in first and place in frozen walk-in, cooler goes
+        <br />
+        in walk-in, and line dry goods up by buffet.
+      </p>
+    </div>
+    <div class="overlay hidden"></div>
   </body>
+  <script type="text/javascript" src="../javascript/apps.js"></script>
 </html>
