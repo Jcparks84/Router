@@ -13,65 +13,76 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
-      rel="stylesheet"
-    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=DM+Mono&family=Merriweather:wght@400;700&family=Poppins&family=Revalia&display=swap"
       rel="stylesheet"
     />
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-    <script type="module" src="../javascript/map.js"></script>
-    <title>Route Buddy</title>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.2/dist/leaflet.css"
+      integrity="sha256-sA+zWATbFveLLNqWO2gtiw3HL/lh1giY/Inf1BJ0z14="
+      crossorigin=""
+    />
+    <script
+      src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js"
+      integrity="sha256-o9N1jGDZrf5tS+Ft4gbIK7mYMipq9lqpVJ91xHSyKhg="
+      crossorigin=""
+    ></script>
+    <script
+      src="https://kit.fontawesome.com/6223e0d74e.js"
+      crossorigin="anonymous"
+    ></script>
+    <title>Route buddy</title>
   </head>
   <body>
     <div class="container">
       <!-- NavBar -->
 
       <nav class="nav-container">
-        <!-- <div id="logo"></div>
-        <div id="logo">
-          <img
-            src="../../assets/logo.png"
-            alt="rBuddy"
-            width="125"
-            height="125"
-          />
+        <!-- <div id="logo">
+          <img src="../../assets/logo-2.svg" alt="rBuddy" />
         </div> -->
         <label for="drop" class="toggle">Menu</label>
         <input type="checkbox" id="drop" />
         <ul class="menu">
-          <li><a href="./index.html">Home</a></li>
-          <li>
-            <label for="drop-1" class="toggle">Routes</label>
-            <a href="./routes.html">Routes</a>
-            <input type="checkbox" id="drop-1" />
-            <ul class="menu">
-              <li><a href="./101.html">101</a></li>
-              <li><a href="./101.html">102</a></li>
-              <li><a href="./101.html">103</a></li>
+          <li class="menu-li">
+            <a href="./index.html"><i class="fa-solid fa-house"></i> Home</a>
+          </li>
+          <li class="menu-li">
+            <a href="./routes.html"><i class="fa-solid fa-route"></i> Routes</a>
+            <input type="checkbox" id="drop1" />
+            <ul class="menu-dropdown">
+              <li class="menu-dropdown-li"><a href="./101.html">101</a></li>
+              <li class="menu-dropdown-li"><a href="./101.html">102</a></li>
+              <li class="menu-dropdown-li"><a href="./101.html">103</a></li>
             </ul>
           </li>
 
-          <li><a href="./about.html">About</a></li>
+          <li class="menu-li">
+            <a href="./about.html"
+              ><i class="fa-solid fa-circle-info"></i> About</a
+            >
+          </li>
         </ul>
       </nav>
 
       <div class="header">
-        <h1>Route Buddy</h1>
+        <h1><i class="fa-solid fa-truck-ramp-box"></i>RouteBuddy</h1>
       </div>
 
       <!-- Map -->
 
       <div class="container-2">
         <div id="map" class="map">
-          <script
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAnweV4rJUukPvLIohd-xypwaPSxTZ7IT8&callback=initMap&v=weekly"
-            defer
-          ></script>
+          <script type="module" src="../javascript/map.js"></script>
         </div>
 
         <div class="form-container">
@@ -97,12 +108,11 @@
 
               <!-- Customer Name Form -->
 
-              <form class="customer-form">
+              <form class="customer-form" onsubmit="onSubmit()">
                 <br /><label for="c-name">Customer:</label><br />
                 <input
                   type="text"
                   class="name"
-                  id="name"
                   name="c-name"
                   placeholder="Name"
                 /><br />
@@ -114,13 +124,11 @@
                 <input
                   type="street"
                   class="input-street"
-                  id="input-street"
                   placeholder="Street"
                 />
                 <input
                   type="city"
                   class="input-city"
-                  id="input-city"
                   placeholder="City"
                 /><br />
                 <br />
@@ -130,11 +138,10 @@
 
                 <!-- Contact # Form-->
 
-                <label for="Contact" id="phone">Contact:</label><br />
+                <label for="Contact" class="phone">Contact:</label><br />
                 <input
                   type="tel"
                   class="phone"
-                  id="name"
                   name="phone"
                   pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
                   maxlength="12"
@@ -145,7 +152,7 @@
                 <!-- Key Drop Form -->
 
                 <label for="key">Key Stop?</label><br />
-                <select name="key" class="key" id="key">
+                <select name="key" class="key">
                   <option value="Yes">Yes</option>
                   <option value="No">No</option></select
                 ><br />
@@ -156,7 +163,6 @@
                 <input
                   type="number"
                   class="quantity"
-                  id="quantity"
                   name="quantity"
                   min="1"
                   max="300"
@@ -166,17 +172,15 @@
                 <textarea
                   type="text"
                   class="stop-notes"
-                  id="stop-notes"
                   name="stop-notes"
                   maxlength="500"
                 ></textarea
                 ><br />
 
                 <br /><input
-                  type="button"
+                  type="submit"
                   class="button add-stop-button"
                   value="Add Stop"
-                  onclick="addTableRow()"
                 /><br />
               </form>
 
@@ -199,21 +203,23 @@
 
       <div class="route-display">
         <h1>Route:</h1>
-        <h1 class="route-name-display">Create Route</h1>
+        <h1 class="route-name-display"></h1>
         <br />
         <h3>Total cases: 177</h3>
         <h3>Est route time: 14:37</h3>
         <br />
         <table class="table-results" id="table-results">
-          <tr>
-            <th>Stop #</th>
-            <th>Customer Name</th>
-            <th>Address</th>
-            <th>Contact #</th>
-            <th>Key Stop</th>
-            <th>Case Count</th>
-          </tr>
-          <tr>
+          <thead>
+            <tr>
+              <th>Stop #</th>
+              <th>Customer Name</th>
+              <th>Address</th>
+              <th>Contact #</th>
+              <th>Key Stop</th>
+              <th>Case Count</th>
+            </tr>
+          </thead>
+          <!-- <tr>
             <td>1</td>
             <td class="show-modal">Rosellis Pizza</td>
             <td>555 east 5th</td>
@@ -228,12 +234,12 @@
             <td>555-555-5555</td>
             <td>No</td>
             <td>47</td>
-          </tr>
+          </tr> -->
         </table>
       </div>
       <footer>&copy; Copyright 2022</footer>
     </div>
-    <div class="modal hidden">
+    <!-- <div class="modal hidden">
       <button class="close-modal">&times;</button>
       <h1>Roselli's Pizza</h1>
       <br />
@@ -249,7 +255,7 @@
         in walk-in, and line dry goods up by buffet.
       </p>
     </div>
-    <div class="overlay hidden"></div>
+    <div class="overlay hidden"></div> -->
   </body>
   <script type="text/javascript" src="../javascript/apps.js"></script>
 </html>

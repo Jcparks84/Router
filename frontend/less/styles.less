@@ -1,31 +1,39 @@
-@primary-color: #232b2b;
-@font-family: "Merriweather", serif;
-@padding-margin: 0.5em;
-@color-2: #06e5e5;
-@color-3: #024c4c;
-@border: solid #7d9595;
-@box-shadow: 0.5em 0.5em 0.5em @primary-color;
+@font-family: "DM Mono", monospace;
+@font-mobile: "Poppins", sans-serif;
+@background-color-primary: radial-gradient(
+  circle,
+  rgba(129, 143, 149, 1) 0%,
+  rgba(51, 67, 75, 1) 100%
+);
+@background-color-containers: #314648;
+@backgound-color-form-toggle: #7c8e90;
+@color-font: #ecddcb;
+@color-hover: #818f95;
+@color-table-hover: #818f95;
+@color-button: #7c8e90;
+@color-button-font: #ffffff;
+@color-button-hover: #ffffff;
+@text-shadow: 0.12em 0.12em #33434b;
+@border: solid #ecddcb;
+@box-shadow: 0.5em 0.5em 0.5em #858f99;
+@padding-margin: 0.5em; // base padding and margin used.
+
 @import "../reset/reset.less";
 
 body {
-  background: rgb(6, 229, 229);
-  background: radial-gradient(
-    circle,
-    rgba(6, 229, 229, 1) 0%,
-    rgba(35, 43, 43, 1) 74%
-  );
+  background: @background-color-primary;
   font-family: @font-family;
-  color: @color-2;
+  color: @color-font;
   padding: 0;
   margin: 0;
   h1,
   h3 {
-    text-shadow: 0.1em 0.1em @color-3;
+    text-shadow: @text-shadow;
     font-size: 1.5em;
     font-weight: bold;
   }
   table {
-    background-color: @primary-color;
+    background-color: @background-color-containers;
     width: 100%;
     margin-top: 0;
     border-radius: 0.5em;
@@ -39,10 +47,10 @@ body {
     max-width: 100;
     text-align: left;
     &:hover {
-      background-color: #7d9595;
+      background-color: @color-table-hover;
     }
     a:visited {
-      color: @color-2;
+      color: @color-font;
     }
   }
 }
@@ -71,50 +79,57 @@ body {
   display: none;
 }
 
-nav {
+nav.nav-container {
   border-bottom: @border;
   font-size: 1.375em;
   line-height: 2em;
-  box-shadow: @box-shadow;
+  box-shadow: 0.2em 0.2em 0.2em #858f99;
+  text-shadow: @text-shadow;
   &:after {
     content: "";
     display: table;
     clear: both;
   }
-  ul {
+  ul.menu {
     float: right;
     padding: 0;
     margin: 0;
     list-style: none;
     position: relative;
-    li {
+    li.menu-li {
       margin: 0;
       display: inline-block;
       &:hover {
-        background-color: @primary-color;
+        background-color: @color-hover;
       }
       &:hover > ul {
         display: inherit;
+      }
+      & > a::after {
+        content: " +";
+      }
+      & > a:only-child:after {
+        content: "";
       }
       a {
         display: block;
         padding: 0.875em 1.25em;
         font-size: 1em;
-        color: @color-2;
+        color: @color-font;
         text-decoration: none;
         font-weight: bold;
-        text-shadow: 0.1em 0.1em @color-3;
+        text-shadow: @text-shadow;
         &:hover {
-          background-color: @color-3;
+          background-color: @color-hover;
         }
       }
     }
-    ul {
+    ul.menu-dropdown {
       display: none;
       position: absolute;
       top: 3.75em;
-      background-color: @primary-color;
-      li {
+      background-color: @background-color-containers;
+      li.menu-dropdown-li {
         width: 10.625em;
         float: none;
         display: list-item;
@@ -130,19 +145,14 @@ nav {
   }
 }
 
-li > a:after {
-  content: " +";
-}
-li > a:only-child:after {
-  content: "";
-}
-
 .header {
+  display: flex;
   padding: @padding-margin;
   margin: @padding-margin;
   // align-self: center;
   font-weight: bold;
-  font-size: 2em;
+  font-size: 1.375em;
+  font-family: "Revalia", cursive;
 }
 
 .map {
@@ -156,7 +166,7 @@ li > a:only-child:after {
   padding: @padding-margin;
   margin: @padding-margin;
   box-shadow: @box-shadow;
-  height: 44.25em;
+  height: 60em;
 }
 
 .form-container {
@@ -182,13 +192,13 @@ input[type="checkbox"] {
   text-transform: uppercase;
   text-align: center;
   padding: 1rem;
-  color: @color-2;
+  color: @color-font;
   border-radius: 0.5em;
-  background: @primary-color;
+  background: @backgound-color-form-toggle;
   cursor: pointer;
   transition: all 0.25s ease-out;
   &:hover {
-    color: @color-2;
+    color: @color-font;
   }
   &::before {
     content: " ";
@@ -208,7 +218,7 @@ input[type="checkbox"] {
   overflow: hidden;
   transition: max-height 0.25s ease-in-out;
   div.content-inner {
-    background: #232b2b;
+    background-color: @background-color-containers;
     border-bottom-left-radius: 0.3em;
     border-bottom-right-radius: 0.3em;
     padding: 0.5rem 1rem;
@@ -253,24 +263,24 @@ input[type="checkbox"] {
 .button {
   display: inline-block;
   padding: 0.46em 1.6em;
-  border-color: @color-2;
+  border: @border;
   margin: 0 0.2em 0.2em 0;
   border-radius: 0.12em;
   box-sizing: border-box;
   text-decoration: none;
   font-weight: 300;
-  color: @color-2;
-  text-shadow: 0 0.04em 0.04em @color-2;
-  background-color: @color-3;
+  color: @color-button-font;
+  text-shadow: 0 0.04em 0.04em @color-font;
+  background-color: @color-button;
   text-align: center;
   transition: all 0.15s;
   cursor: pointer;
   border-radius: 0.5em;
   &:hover {
-    text-shadow: 0 0 2em @color-3;
-    color: @color-3;
-    background-color: @color-2;
-    border: @color-3;
+    text-shadow: 0 0 2em @color-hover;
+    color: @color-font;
+    background-color: @color-button-hover;
+    border: @border;
   }
 }
 
@@ -278,7 +288,7 @@ input[type="checkbox"] {
   flex-grow: 3;
   padding: @padding-margin;
   a:visited {
-    color: @color-2;
+    color: @color-font;
   }
 }
 
@@ -295,7 +305,7 @@ footer {
     display: block;
     padding: @padding-margin;
     font-size: 1em;
-    color: @color-2;
+    color: @color-font;
   }
 }
 
@@ -324,7 +334,7 @@ footer {
   left: 50%;
   transform: translate(-50%, -50%);
   width: 50%;
-  background-color: @primary-color;
+  background-color: @background-color-containers;
   padding: @padding-margin;
   border-radius: @padding-margin;
   box-shadow: 0 3rem 5rem rgba(0, 0, 0, 0.3);
@@ -346,16 +356,29 @@ footer {
   position: flex;
   padding: @padding-margin;
   margin: @padding-margin;
-  background-color: @primary-color;
+  background-color: @background-color-containers;
   h1 {
     margin: @padding-margin;
   }
 }
 
+// i.fa-truck {
+//   position: absolute;
+//   display: inline-block;
+//   padding: 0;
+//   margin: 0;
+//   clip-path: polygon(50% 9%, 50% 100%, 100% 100%, 100% 0%);
+//   font-size: 48px !important;
+// }
+
 /* Media Queries
   --------------------------------------------- */
 
 @media all and (max-width: 768px) {
+  body {
+    font-family: @font-mobile;
+  }
+
   #logo {
     display: block;
     padding: 0;
@@ -363,16 +386,19 @@ footer {
     text-align: center;
     float: none;
   }
-  nav {
+
+  nav.nav-container {
     margin: 0;
   }
 
   .map {
-    height: 18.75em;
+    height: 40em;
+    margin-right: 1em;
   }
 
   .form-container {
     width: 100%;
+    margin-right: 1em;
   }
   .toggle + a,
   ul.menu {
@@ -381,59 +407,69 @@ footer {
   .toggle {
     display: block;
     padding: 0.875em 1.25em;
-    color: @color-2;
+    color: @color-font;
     font-size: 1.0625em;
     text-decoration: none;
     border: none;
   }
 
   .toggle:hover {
-    background-color: @color-3;
+    background-color: @color-hover;
   }
-  [id^="drop"]:checked + ul {
+  [id^="drop"]:checked + ul.menu {
     display: block;
     float: left;
   }
-  nav ul li {
+  nav.nav-container ul.menu li.menu-li {
+    float: inherit;
     display: block;
     width: 100%;
   }
-  nav ul ul .toggle,
-  nav ul ul a {
+  nav.nav-container ul.menu ul.menu-dropdown .toggle,
+  nav.nav-container ul.menu ul.menu-dropdown a {
     padding: 0 2.5em;
   }
-  nav ul ul ul a {
+  nav.nav-container ul.menu ul.menu-dropdown ul a {
     padding: 0 5em;
   }
-  nav a:hover,
-  nav ul ul ul a {
-    background-color: @color-3;
+  nav.nav-container a:hover,
+  nav.nav-container ul.menu ul.menu-dropdown ul a {
+    background-color: @color-hover;
   }
-  nav ul li ul li .toggle,
-  nav ul ul a,
-  nav ul ul ul a {
+  nav.nav-container
+    ul.menu
+    li.menu-li
+    ul.menu-dropdown
+    li.menu-dropdown-li
+    .toggle,
+  nav.nav-container ul.menu ul.menu-dropdown a,
+  nav.nav-container ul.menu ul.menu-dropdown ul a {
     padding: 0.875em 1.25em;
     color: #fff;
     font-size: 1.0625em;
   }
-  nav ul li ul li .toggle,
-  nav ul ul a {
-    background-color: @primary-color;
+  nav.nav-container
+    ul.menu
+    li.menu-li
+    ul.menu-dropdown
+    li.menu-dropdown-li
+    .toggle,
+  nav.nav-container ul.menu ul.menu-dropdown-li a {
+    background-color: @background-color-containers;
   }
-  nav ul ul {
+  nav.nav-container ul.menu ul.menu-dropdown {
     float: none;
     position: static;
-    color: #ffffff;
   }
-  nav ul ul li:hover > ul,
-  nav ul li:hover > ul {
+  nav.nav-container ul.menu ul.menu-dropdown li.menu-dropdown-li:hover > ul,
+  nav.nav-container ul.menu li.menu-li:hover > ul {
     display: none;
   }
-  nav ul ul li {
+  nav.nav-container ul.menu ul.menu-dropdown li.menu-dropdown-li {
     display: block;
     width: 100%;
   }
-  nav ul ul ul li {
+  nav.nav-container ul.menu ul.menu-dropdown ul li {
     position: static;
   }
 }

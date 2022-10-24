@@ -11,23 +11,32 @@
     <title>Router</title>
   </head>
   <body class="pages">
-    <nav>
+    <nav class="nav-container">
+      <!-- <div id="logo"></div>
+      <div id="logo">
+        <img
+          src="../../assets/logo.png"
+          alt="rBuddy"
+          width="125"
+          height="125"
+        />
+      </div> -->
       <label for="drop" class="toggle">Menu</label>
       <input type="checkbox" id="drop" />
       <ul class="menu">
-        <li><a href="./index.html">Home</a></li>
-        <li>
+        <li class="menu-li"><a href="./index.html">Home</a></li>
+        <li class="menu-li">
           <label for="drop-1" class="toggle">Routes</label>
           <a href="./routes.html">Routes</a>
           <input type="checkbox" id="drop-1" />
-          <ul>
-            <li><a href="./101.html">101</a></li>
-            <li><a href="./101.html">102</a></li>
-            <li><a href="./101.html">103</a></li>
+          <ul class="menu-dropdown">
+            <li class="menu-dropdown-li"><a href="./101.html">101</a></li>
+            <li class="menu-dropdown-li"><a href="./101.html">102</a></li>
+            <li class="menu-dropdown-li"><a href="./101.html">103</a></li>
           </ul>
         </li>
 
-        <li><a href="./about.html">About</a></li>
+        <li class="menu-li"><a href="./about.html">About</a></li>
       </ul>
     </nav>
 

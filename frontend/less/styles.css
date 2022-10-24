@@ -127,21 +127,20 @@ table {
   border-spacing: 0;
 }
 body {
-  background: #06e5e5;
-  background: radial-gradient(circle, #06e5e5 0%, #232b2b 74%);
-  font-family: "Merriweather", serif;
-  color: #06e5e5;
+  background: radial-gradient(circle, #818f95 0%, #33434b 100%);
+  font-family: "DM Mono", monospace;
+  color: #ecddcb;
   padding: 0;
   margin: 0;
 }
 body h1,
 body h3 {
-  text-shadow: 0.1em 0.1em #024c4c;
+  text-shadow: 0.12em 0.12em #33434b;
   font-size: 1.5em;
   font-weight: bold;
 }
 body table {
-  background-color: #232b2b;
+  background-color: #314648;
   width: 100%;
   margin-top: 0;
   border-radius: 0.5em;
@@ -150,7 +149,7 @@ body th,
 body td,
 body tr {
   padding: 0.5em;
-  border: 0.15em solid #7d9595;
+  border: 0.15em solid #ecddcb;
   border-collapse: collapse;
   max-width: 100;
   text-align: left;
@@ -158,12 +157,12 @@ body tr {
 body th:hover,
 body td:hover,
 body tr:hover {
-  background-color: #7d9595;
+  background-color: #818f95;
 }
 body th a:visited,
 body td a:visited,
 body tr a:visited {
-  color: #06e5e5;
+  color: #ecddcb;
 }
 .container {
   display: flex;
@@ -185,75 +184,78 @@ body tr a:visited {
 [id^="drop"] {
   display: none;
 }
-nav {
-  border-bottom: solid #7d9595;
+nav.nav-container {
+  border-bottom: solid #ecddcb;
   font-size: 1.375em;
   line-height: 2em;
-  box-shadow: 0.5em 0.5em 0.5em #232b2b;
+  box-shadow: 0.2em 0.2em 0.2em #858f99;
+  text-shadow: 0.12em 0.12em #33434b;
 }
-nav:after {
+nav.nav-container:after {
   content: "";
   display: table;
   clear: both;
 }
-nav ul {
+nav.nav-container ul.menu {
   float: right;
   padding: 0;
   margin: 0;
   list-style: none;
   position: relative;
 }
-nav ul li {
+nav.nav-container ul.menu li.menu-li {
   margin: 0;
   display: inline-block;
 }
-nav ul li:hover {
-  background-color: #232b2b;
+nav.nav-container ul.menu li.menu-li:hover {
+  background-color: #818f95;
 }
-nav ul li:hover > ul {
+nav.nav-container ul.menu li.menu-li:hover > ul {
   display: inherit;
 }
-nav ul li a {
+nav.nav-container ul.menu li.menu-li > a::after {
+  content: " +";
+}
+nav.nav-container ul.menu li.menu-li > a:only-child:after {
+  content: "";
+}
+nav.nav-container ul.menu li.menu-li a {
   display: block;
   padding: 0.875em 1.25em;
   font-size: 1em;
-  color: #06e5e5;
+  color: #ecddcb;
   text-decoration: none;
   font-weight: bold;
-  text-shadow: 0.1em 0.1em #024c4c;
+  text-shadow: 0.12em 0.12em #33434b;
 }
-nav ul li a:hover {
-  background-color: #024c4c;
+nav.nav-container ul.menu li.menu-li a:hover {
+  background-color: #818f95;
 }
-nav ul ul {
+nav.nav-container ul.menu ul.menu-dropdown {
   display: none;
   position: absolute;
   top: 3.75em;
-  background-color: #232b2b;
+  background-color: #314648;
 }
-nav ul ul li {
+nav.nav-container ul.menu ul.menu-dropdown li.menu-dropdown-li {
   width: 10.625em;
   float: none;
   display: list-item;
   position: relative;
 }
-nav ul ul li ul {
+nav.nav-container ul.menu ul.menu-dropdown li.menu-dropdown-li ul {
   width: 10.625em;
   float: none;
   display: list-item;
   position: relative;
-}
-li > a:after {
-  content: " +";
-}
-li > a:only-child:after {
-  content: "";
 }
 .header {
+  display: flex;
   padding: 0.5em;
   margin: 0.5em;
   font-weight: bold;
-  font-size: 2em;
+  font-size: 1.375em;
+  font-family: "Revalia", cursive;
 }
 .map {
   display: flex;
@@ -261,19 +263,19 @@ li > a:only-child:after {
   justify-content: center;
   background-color: transparent;
   flex-grow: 2;
-  border: solid #7d9595;
+  border: solid #ecddcb;
   border-radius: 0.5em;
   padding: 0.5em;
   margin: 0.5em;
-  box-shadow: 0.5em 0.5em 0.5em #232b2b;
-  height: 44.25em;
+  box-shadow: 0.5em 0.5em 0.5em #858f99;
+  height: 60em;
 }
 .form-container {
-  border: solid #7d9595;
+  border: solid #ecddcb;
   border-radius: 0.5em;
   padding: 0.5em;
   margin: 0.5em;
-  box-shadow: 0.5em 0.5em 0.5em #232b2b;
+  box-shadow: 0.5em 0.5em 0.5em #858f99;
   flex-grow: 0;
   height: 100%;
 }
@@ -290,14 +292,14 @@ input[type="checkbox"] {
   text-transform: uppercase;
   text-align: center;
   padding: 1rem;
-  color: #06e5e5;
+  color: #ecddcb;
   border-radius: 0.5em;
-  background: #232b2b;
+  background: #7c8e90;
   cursor: pointer;
   transition: all 0.25s ease-out;
 }
 .form-lbl-toggle:hover {
-  color: #06e5e5;
+  color: #ecddcb;
 }
 .form-lbl-toggle::before {
   content: " ";
@@ -316,7 +318,7 @@ input[type="checkbox"] {
   transition: max-height 0.25s ease-in-out;
 }
 .collapsible-content div.content-inner {
-  background: #232b2b;
+  background-color: #314648;
   border-bottom-left-radius: 0.3em;
   border-bottom-right-radius: 0.3em;
   padding: 0.5rem 1rem;
@@ -332,12 +334,12 @@ input[type="checkbox"] {
   max-height: 100vh;
 }
 .route-form {
-  border-bottom: solid #7d9595;
+  border-bottom: solid #ecddcb;
   margin-bottom: 0.5em;
   padding-bottom: 0.5em;
 }
 .customer-form {
-  border-bottom: solid #7d9595;
+  border-bottom: solid #ecddcb;
   margin-bottom: 0.5em;
   padding-bottom: 0.5em;
 }
@@ -355,32 +357,32 @@ input[type="checkbox"] {
 .button {
   display: inline-block;
   padding: 0.46em 1.6em;
-  border-color: #06e5e5;
+  border: solid #ecddcb;
   margin: 0 0.2em 0.2em 0;
   border-radius: 0.12em;
   box-sizing: border-box;
   text-decoration: none;
   font-weight: 300;
-  color: #06e5e5;
-  text-shadow: 0 0.04em 0.04em #06e5e5;
-  background-color: #024c4c;
+  color: #ffffff;
+  text-shadow: 0 0.04em 0.04em #ecddcb;
+  background-color: #7c8e90;
   text-align: center;
   transition: all 0.15s;
   cursor: pointer;
   border-radius: 0.5em;
 }
 .button:hover {
-  text-shadow: 0 0 2em #024c4c;
-  color: #024c4c;
-  background-color: #06e5e5;
-  border: #024c4c;
+  text-shadow: 0 0 2em #818f95;
+  color: #ecddcb;
+  background-color: #ffffff;
+  border: solid #ecddcb;
 }
 .route-display {
   flex-grow: 3;
   padding: 0.5em;
 }
 .route-display a:visited {
-  color: #06e5e5;
+  color: #ecddcb;
 }
 footer {
   padding: 0.5em;
@@ -395,7 +397,7 @@ footer {
   display: block;
   padding: 0.5em;
   font-size: 1em;
-  color: #06e5e5;
+  color: #ecddcb;
 }
 .show-modal {
   cursor: pointer;
@@ -419,7 +421,7 @@ footer {
   left: 50%;
   transform: translate(-50%, -50%);
   width: 50%;
-  background-color: #232b2b;
+  background-color: #314648;
   padding: 0.5em;
   border-radius: 0.5em;
   box-shadow: 0 3rem 5rem rgba(0, 0, 0, 0.3);
@@ -439,7 +441,7 @@ footer {
   position: flex;
   padding: 0.5em;
   margin: 0.5em;
-  background-color: #232b2b;
+  background-color: #314648;
 }
 .pages h1 {
   margin: 0.5em;
@@ -447,6 +449,9 @@ footer {
 /* Media Queries
   --------------------------------------------- */
 @media all and (max-width: 768px) {
+  body {
+    font-family: "Poppins", sans-serif;
+  }
   #logo {
     display: block;
     padding: 0;
@@ -454,14 +459,16 @@ footer {
     text-align: center;
     float: none;
   }
-  nav {
+  nav.nav-container {
     margin: 0;
   }
   .map {
-    height: 18.75em;
+    height: 40em;
+    margin-right: 1em;
   }
   .form-container {
     width: 100%;
+    margin-right: 1em;
   }
   .toggle + a,
   ul.menu {
@@ -470,58 +477,58 @@ footer {
   .toggle {
     display: block;
     padding: 0.875em 1.25em;
-    color: #06e5e5;
+    color: #ecddcb;
     font-size: 1.0625em;
     text-decoration: none;
     border: none;
   }
   .toggle:hover {
-    background-color: #024c4c;
+    background-color: #818f95;
   }
-  [id^="drop"]:checked + ul {
+  [id^="drop"]:checked + ul.menu {
     display: block;
     float: left;
   }
-  nav ul li {
+  nav.nav-container ul.menu li.menu-li {
+    float: inherit;
     display: block;
     width: 100%;
   }
-  nav ul ul .toggle,
-  nav ul ul a {
+  nav.nav-container ul.menu ul.menu-dropdown .toggle,
+  nav.nav-container ul.menu ul.menu-dropdown a {
     padding: 0 2.5em;
   }
-  nav ul ul ul a {
+  nav.nav-container ul.menu ul.menu-dropdown ul a {
     padding: 0 5em;
   }
-  nav a:hover,
-  nav ul ul ul a {
-    background-color: #024c4c;
+  nav.nav-container a:hover,
+  nav.nav-container ul.menu ul.menu-dropdown ul a {
+    background-color: #818f95;
   }
-  nav ul li ul li .toggle,
-  nav ul ul a,
-  nav ul ul ul a {
+  nav.nav-container ul.menu li.menu-li ul.menu-dropdown li.menu-dropdown-li .toggle,
+  nav.nav-container ul.menu ul.menu-dropdown a,
+  nav.nav-container ul.menu ul.menu-dropdown ul a {
     padding: 0.875em 1.25em;
     color: #fff;
     font-size: 1.0625em;
   }
-  nav ul li ul li .toggle,
-  nav ul ul a {
-    background-color: #232b2b;
+  nav.nav-container ul.menu li.menu-li ul.menu-dropdown li.menu-dropdown-li .toggle,
+  nav.nav-container ul.menu ul.menu-dropdown-li a {
+    background-color: #314648;
   }
-  nav ul ul {
+  nav.nav-container ul.menu ul.menu-dropdown {
     float: none;
     position: static;
-    color: #ffffff;
   }
-  nav ul ul li:hover > ul,
-  nav ul li:hover > ul {
+  nav.nav-container ul.menu ul.menu-dropdown li.menu-dropdown-li:hover > ul,
+  nav.nav-container ul.menu li.menu-li:hover > ul {
     display: none;
   }
-  nav ul ul li {
+  nav.nav-container ul.menu ul.menu-dropdown li.menu-dropdown-li {
     display: block;
     width: 100%;
   }
-  nav ul ul ul li {
+  nav.nav-container ul.menu ul.menu-dropdown ul li {
     position: static;
   }
 }
