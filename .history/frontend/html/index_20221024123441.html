@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Route Generator" />
+    <meta name="keywords" content="cdl, route" />
+    <meta name="author" content="John Parks" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../less/styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Mono&family=Merriweather:wght@400;700&family=Poppins&family=Revalia&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.2/dist/leaflet.css"
+      integrity="sha256-sA+zWATbFveLLNqWO2gtiw3HL/lh1giY/Inf1BJ0z14="
+      crossorigin=""
+    />
+    <script
+      src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js"
+      integrity="sha256-o9N1jGDZrf5tS+Ft4gbIK7mYMipq9lqpVJ91xHSyKhg="
+      crossorigin=""
+    ></script>
+    <script
+      src="https://kit.fontawesome.com/6223e0d74e.js"
+      crossorigin="anonymous"
+    ></script>
+    <title>Route buddy</title>
+  </head>
+  <body>
+    <div class="container">
+      <!-- NavBar -->
+
+      <nav class="nav-container">
+        <!-- <div id="logo">
+          <img src="../../assets/logo-2.svg" alt="rBuddy" />
+        </div> -->
+        <label for="drop" class="toggle">Menu</label>
+        <input type="checkbox" id="drop" />
+        <ul class="menu">
+          <li class="menu-li">
+            <a href="./index.html"><i class="fa-solid fa-house"></i> Home</a>
+          </li>
+          <li class="menu-li">
+            <a href="./routes.html"><i class="fa-solid fa-route"></i> Routes</a>
+            <input type="checkbox" id="drop1" />
+            <ul class="menu-dropdown">
+              <li class="menu-dropdown-li"><a href="./101.html">101</a></li>
+              <li class="menu-dropdown-li"><a href="./101.html">102</a></li>
+              <li class="menu-dropdown-li"><a href="./101.html">103</a></li>
+            </ul>
+          </li>
+
+          <li class="menu-li">
+            <a href="./about.html"
+              ><i class="fa-solid fa-circle-info"></i> About</a
+            >
+          </li>
+        </ul>
+      </nav>
+
+      <div class="header">
+        <h1><i class="fa-solid fa-truck-ramp-box"></i>RouteBuddy</h1>
+      </div>
+
+      <!-- Map -->
+
+      <div class="container-2">
+        <div id="map" class="map">
+          <script type="module" src="../javascript/map.js"></script>
+        </div>
+
+        <div class="form-container">
+          <input id="collapsible" class="form-toggle" type="checkbox" checked />
+          <label for="collapsible" class="form-lbl-toggle">Create Route</label>
+          <div class="collapsible-content">
+            <div class="content-inner">
+              <!-- Route Name Form -->
+
+              <form class="route-form" action="">
+                <label for="route-name">Route Name:</label><br />
+                <input
+                  type="text"
+                  class="route-name"
+                  placeholder="Name"
+                /><br />
+                <br /><input
+                  class="button create-route-button"
+                  type="button"
+                  value="Create Route"
+                /><br />
+              </form>
+
+              <!-- Customer Name Form -->
+
+              <form class="customer-form" onsubmit="onSubmit()">
+                <br /><label for="c-name">Customer:</label><br />
+                <input
+                  type="text"
+                  class="name"
+                  name="c-name"
+                  placeholder="Name"
+                /><br />
+                <br />
+
+                <!-- Address Form -->
+
+                <label for="address">Address:</label><br />
+                <input
+                  type="street"
+                  class="input-street"
+                  placeholder="Street"
+                />
+                <input
+                  type="city"
+                  class="input-city"
+                  placeholder="City"
+                /><br />
+                <br />
+                <input type="state" class="input-state" placeholder="State" />
+                <input type="zip" class="input-zip" placeholder="Zip" /><br />
+                <br />
+
+                <!-- Contact # Form-->
+
+                <label for="Contact" class="phone">Contact:</label><br />
+                <input
+                  type="tel"
+                  class="phone"
+                  name="phone"
+                  pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                  maxlength="12"
+                  placeholder="555-555-5555"
+                /><br />
+                <br />
+
+                <!-- Key Drop Form -->
+
+                <label for="key">Key Stop?</label><br />
+                <select name="key" class="key">
+                  <option value="Yes">Yes</option>
+                  <option value="No">No</option></select
+                ><br />
+
+                <!-- Case Number Form (future iteration)-->
+
+                <br /><label for="quantity">Number Of Cases:</label><br />
+                <input
+                  type="number"
+                  class="quantity"
+                  name="quantity"
+                  min="1"
+                  max="300"
+                /><br />
+
+                <br /><label for="stop-notes">Driver Notes:</label><br />
+                <textarea
+                  type="text"
+                  class="stop-notes"
+                  name="stop-notes"
+                  maxlength="500"
+                ></textarea
+                ><br />
+
+                <br /><input
+                  type="submit"
+                  class="button add-stop-button"
+                  value="Add Stop"
+                /><br />
+              </form>
+
+              <div class="run-route">
+                <br /><button
+                  class="button"
+                  type="button"
+                  value="Run Route"
+                  onclick="alert('Warning this route is in violation with DOT compliance')"
+                >
+                  Run Route
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Display Route -->
+
+      <div class="route-display">
+        <h1>Route:</h1>
+        <h1 class="route-name-display"></h1>
+        <br />
+        <h3>Total cases: 177</h3>
+        <h3>Est route time: 14:37</h3>
+        <br />
+        <table class="table-results" id="table-results">
+          <thead>
+            <tr>
+              <th>Stop #</th>
+              <th>Customer Name</th>
+              <th>Address</th>
+              <th>Contact #</th>
+              <th>Key Stop</th>
+              <th>Case Count</th>
+            </tr>
+          </thead>
+          
+          <!-- <tr>
+            <td>1</td>
+            <td class="show-modal">Rosellis Pizza</td>
+            <td>555 east 5th</td>
+            <td>555-555-5555</td>
+            <td>yes</td>
+            <td>130</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td class="show-modal">Amore Pizza</td>
+            <td>55 sycamore</td>
+            <td>555-555-5555</td>
+            <td>No</td>
+            <td>47</td>
+          </tr> -->
+        </table>
+      </div>
+      <footer>&copy; Copyright 2022</footer>
+    </div>
+    <!-- <div class="modal hidden">
+      <button class="close-modal">&times;</button>
+      <h1>Roselli's Pizza</h1>
+      <br />
+      <p>
+        Key #5555, key works on the back door. Located on the south east corner
+        <br />
+        of 106th street in a strip mall. Plenty of rooom to drive around back
+        <br />
+        and park. Alarm #5555-1, alarm is located in the office as well as the
+        <br />
+        check. Bring freezer in first and place in frozen walk-in, cooler goes
+        <br />
+        in walk-in, and line dry goods up by buffet.
+      </p>
+    </div>
+    <div class="overlay hidden"></div> -->
+  </body>
+  <script type="text/javascript" src="../javascript/apps.js"></script>
+</html>
