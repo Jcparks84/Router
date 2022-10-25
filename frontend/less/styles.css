@@ -269,7 +269,7 @@ nav.nav-container ul.menu ul.menu-dropdown li.menu-dropdown-li ul {
   margin: 0.5em;
   box-shadow: 0.5em 0.5em 0.5em #858f99;
   height: 60em;
-  z-index: -1 !important
+  z-index: -1 !important;
 }
 .form-container {
   border: solid #ecddcb;
@@ -404,7 +404,7 @@ footer {
   cursor: pointer;
 }
 .close-modal {
-  position: absolute;
+  float: right;
   top: 1.2rem;
   right: 2rem;
   font-size: 5rem;
@@ -417,7 +417,7 @@ footer {
   display: none;
 }
 .modal {
-  position: absolute;
+  position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -429,7 +429,7 @@ footer {
   z-index: 10;
 }
 .overlay {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;

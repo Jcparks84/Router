@@ -167,7 +167,7 @@ nav.nav-container {
   margin: @padding-margin;
   box-shadow: @box-shadow;
   height: 60em;
-  z-index: -1 !important
+  z-index: -1 !important;
 }
 
 .form-container {
@@ -315,7 +315,7 @@ footer {
 }
 
 .close-modal {
-  position: absolute;
+  float: right;
   top: 1.2rem;
   right: 2rem;
   font-size: 5rem;
@@ -330,7 +330,7 @@ footer {
 }
 
 .modal {
-  position: absolute;
+  position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -343,7 +343,7 @@ footer {
 }
 
 .overlay {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
