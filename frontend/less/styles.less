@@ -1,29 +1,30 @@
 @font-family: "DM Mono", monospace;
 @font-mobile: "Poppins", sans-serif;
+@font-header: "Revalia", cursive;
 @background-color-primary: radial-gradient(
   circle,
   rgba(129, 143, 149, 1) 0%,
   rgba(51, 67, 75, 1) 100%
 );
-@background-color-containers: #314648;
-@backgound-color-form-toggle: #7c8e90;
-@color-font: #ecddcb;
-@color-hover: #818f95;
-@color-table-hover: #818f95;
-@color-button: #7c8e90;
-@color-button-font: #ffffff;
-@color-button-hover: #ffffff;
-@text-shadow: 0.12em 0.12em #33434b;
-@border: solid #ecddcb;
-@box-shadow: 0.5em 0.5em 0.5em #858f99;
-@padding-margin: 0.5em; // base padding and margin used.
+@clMain: #314648; //Container & table backgrounds
+@clSecondaryFocus: spin(@clMain, 180); //Button color + text shadow
+@clFont: mix(@clMain, #ffffff); //Font color & shadow color
+@clButtonHover: spin(@clMain, 270); //Hover color
+@clHover: saturate(@clSecondaryFocus, 20%);
+@clButton: @clSecondaryFocus;
+@clTableHover: @clHover;
+@clbuttonFont: @clFont;
+@text-shadow: 0.12em 0.12em @clSecondaryFocus;
+@border: solid spin(@clFont, 90);
+@box-shadow: 0.5em 0.5em 0.5em @clFont;
+@padding-margin: 0.5em; // General padding & margin used
 
 @import "../reset/reset.less";
 
 body {
   background: @background-color-primary;
   font-family: @font-family;
-  color: @color-font;
+  color: @clFont;
   padding: 0;
   margin: 0;
   h1,
@@ -33,7 +34,7 @@ body {
     font-weight: bold;
   }
   table {
-    background-color: @background-color-containers;
+    background-color: @clMain;
     width: 100%;
     margin-top: 0;
     border-radius: 0.5em;
@@ -47,10 +48,10 @@ body {
     max-width: 100;
     text-align: left;
     &:hover {
-      background-color: @color-table-hover;
+      background-color: @clTableHover;
     }
     a:visited {
-      color: @color-font;
+      color: @clFont;
     }
   }
 }
@@ -100,7 +101,7 @@ nav.nav-container {
       margin: 0;
       display: inline-block;
       &:hover {
-        background-color: @color-hover;
+        background-color: @clHover;
       }
       &:hover > ul {
         display: inherit;
@@ -115,12 +116,12 @@ nav.nav-container {
         display: block;
         padding: 0.875em 1.25em;
         font-size: 1em;
-        color: @color-font;
+        color: @clFont;
         text-decoration: none;
         font-weight: bold;
         text-shadow: @text-shadow;
         &:hover {
-          background-color: @color-hover;
+          background-color: @clHover;
         }
       }
     }
@@ -128,7 +129,7 @@ nav.nav-container {
       display: none;
       position: absolute;
       top: 3.75em;
-      background-color: @background-color-containers;
+      background-color: @clMain;
       li.menu-dropdown-li {
         width: 10.625em;
         float: none;
@@ -152,7 +153,7 @@ nav.nav-container {
   // align-self: center;
   font-weight: bold;
   font-size: 1.375em;
-  font-family: "Revalia", cursive;
+  font-family: @font-header;
 }
 
 .map {
@@ -193,13 +194,13 @@ input[type="checkbox"] {
   text-transform: uppercase;
   text-align: center;
   padding: 1rem;
-  color: @color-font;
+  color: @clFont;
   border-radius: 0.5em;
-  background: @backgound-color-form-toggle;
+  background: @clSecondaryFocus;
   cursor: pointer;
   transition: all 0.25s ease-out;
   &:hover {
-    color: @color-font;
+    background-color: @clButtonHover;
   }
   &::before {
     content: " ";
@@ -219,7 +220,7 @@ input[type="checkbox"] {
   overflow: hidden;
   transition: max-height 0.25s ease-in-out;
   div.content-inner {
-    background-color: @background-color-containers;
+    background-color: @clMain;
     border-bottom-left-radius: 0.3em;
     border-bottom-right-radius: 0.3em;
     padding: 0.5rem 1rem;
@@ -270,17 +271,17 @@ input[type="checkbox"] {
   box-sizing: border-box;
   text-decoration: none;
   font-weight: 300;
-  color: @color-button-font;
-  text-shadow: 0 0.04em 0.04em @color-font;
-  background-color: @color-button;
+  color: @clbuttonFont;
+  text-shadow: 0 0.04em 0.04em @clFont;
+  background-color: @clButton;
   text-align: center;
   transition: all 0.15s;
   cursor: pointer;
   border-radius: 0.5em;
   &:hover {
-    text-shadow: 0 0 2em @color-hover;
-    color: @color-font;
-    background-color: @color-button-hover;
+    text-shadow: 0 0 2em @clHover;
+    color: @clFont;
+    background-color: @clButtonHover;
     border: @border;
   }
 }
@@ -289,7 +290,7 @@ input[type="checkbox"] {
   flex-grow: 3;
   padding: @padding-margin;
   a:visited {
-    color: @color-font;
+    color: @clFont;
   }
 }
 
@@ -306,11 +307,11 @@ footer {
     display: block;
     padding: @padding-margin;
     font-size: 1em;
-    color: @color-font;
+    color: @clFont;
   }
 }
 
-.show-modal {
+.modal-name {
   cursor: pointer;
 }
 
@@ -335,7 +336,7 @@ footer {
   left: 50%;
   transform: translate(-50%, -50%);
   width: 50%;
-  background-color: @background-color-containers;
+  background-color: @clMain;
   padding: @padding-margin;
   border-radius: @padding-margin;
   box-shadow: 0 3rem 5rem rgba(0, 0, 0, 0.3);
@@ -357,12 +358,16 @@ footer {
   position: flex;
   padding: @padding-margin;
   margin: @padding-margin;
-  background-color: @background-color-containers;
+  background-color: @clMain;
   h1 {
     margin: @padding-margin;
   }
 }
 
+.validationMessage {
+  display: block;
+  color: red;
+}
 // i.fa-truck {
 //   position: absolute;
 //   display: inline-block;
@@ -408,14 +413,14 @@ footer {
   .toggle {
     display: block;
     padding: 0.875em 1.25em;
-    color: @color-font;
+    color: @clFont;
     font-size: 1.0625em;
     text-decoration: none;
     border: none;
   }
 
   .toggle:hover {
-    background-color: @color-hover;
+    background-color: @clHover;
   }
   [id^="drop"]:checked + ul.menu {
     display: block;
@@ -435,7 +440,7 @@ footer {
   }
   nav.nav-container a:hover,
   nav.nav-container ul.menu ul.menu-dropdown ul a {
-    background-color: @color-hover;
+    background-color: @clHover;
   }
   nav.nav-container
     ul.menu
@@ -456,7 +461,7 @@ footer {
     li.menu-dropdown-li
     .toggle,
   nav.nav-container ul.menu ul.menu-dropdown-li a {
-    background-color: @background-color-containers;
+    background-color: @clMain;
   }
   nav.nav-container ul.menu ul.menu-dropdown {
     float: none;

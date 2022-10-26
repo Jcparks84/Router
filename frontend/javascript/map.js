@@ -7,5 +7,5 @@ L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
 
 L.marker([44.763057, -85.620632])
   .addTo(map)
-  .bindPopup("A pretty CSS3 popup.<br> Easily customizable.")
+  // .bindPopup("A pretty CSS3 popup.<br> Easily customizable.")
   .openPopup();

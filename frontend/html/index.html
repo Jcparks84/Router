@@ -40,7 +40,9 @@
       src="https://kit.fontawesome.com/6223e0d74e.js"
       crossorigin="anonymous"
     ></script>
-    <script src="../javascript/knockout.js"></script>
+    <script src="../libraries/knockout.js"></script>
+    <script src="../libraries/knockout-validation.js"></script>
+    <script src=""></script>
     <title>Route buddy</title>
   </head>
   <body>
@@ -93,25 +95,33 @@
             <div class="content-inner">
               <!-- Route Name Form -->
 
-              <form class="route-form" action="">
-                <label for="route-name">Route Name:</label><br />
+              <form
+                data-bind="submit: handleRouteNameSubmit"
+                class="route-form"
+              >
+                <label for="route-name">Route Name*:</label><br />
                 <input
+                  data-bind="value: routeName"
                   type="text"
                   class="route-name"
                   placeholder="Name"
                 /><br />
                 <br /><input
                   class="button create-route-button"
-                  type="button"
+                  type="submit"
                   value="Create Route"
                 /><br />
               </form>
 
               <!-- Customer Name Form -->
 
-              <form class="customer-form">
-                <br /><label for="c-name">Customer:</label><br />
+              <form
+                data-bind="submit: handleCustomerFormSubmit"
+                class="customer-form"
+              >
+                <br /><label for="c-name">Customer*:</label><br />
                 <input
+                  data-bind="value: customerName"
                   type="text"
                   class="c-name"
                   name="c-name"
@@ -121,25 +131,37 @@
 
                 <!-- Address Form -->
 
-                <label for="address">Address:</label><br />
+                <label for="address">Address*:</label><br />
                 <input
+                  data-bind="value: street"
                   type="street"
                   class="input-street"
                   placeholder="Street"
                 />
                 <input
+                  data-bind="value: city"
                   type="city"
                   class="input-city"
                   placeholder="City"
                 /><br />
                 <br />
-                <input type="state" class="input-state" placeholder="State" />
-                <input type="zip" class="input-zip" placeholder="Zip" /><br />
+                <input
+                  data-bind="value: state"
+                  type="state"
+                  class="input-state"
+                  placeholder="State"
+                />
+                <input
+                  data-bind="value: zip"
+                  type="zip"
+                  class="input-zip"
+                  placeholder="Zip"
+                /><br />
                 <br />
 
                 <!-- Contact # Form-->
 
-                <label for="Contact" class="phone">Contact:</label><br />
+                <label for="Contact" class="phone">Contact*:</label><br />
                 <input
                   type="tel"
                   class="c-phone"
@@ -152,7 +174,7 @@
 
                 <!-- Key Drop Form -->
 
-                <label for="key">Key Stop?</label><br />
+                <label for="key">Key Stop?*</label><br />
                 <select name="key" class="key">
                   <option value="Yes">Yes</option>
                   <option value="No">No</option></select
@@ -160,7 +182,7 @@
 
                 <!-- Case Number Form (future iteration)-->
 
-                <br /><label for="quantity">Number Of Cases:</label><br />
+                <br /><label for="quantity">Number Of Cases*:</label><br />
                 <input
                   type="number"
                   class="quantity"
@@ -169,9 +191,10 @@
                   max="300"
                 /><br />
 
-                <br /><label for="stop-notes">Driver Notes:</label><br />
+                <br /><label for="stop-notes">Driver Notes*:</label><br />
                 <textarea
                   type="text"
+                  placeholder="Parking, delivery instructions, alarm code etc..."
                   class="stop-notes"
                   name="stop-notes"
                   maxlength="500"
@@ -203,8 +226,10 @@
       <!-- Display Route -->
 
       <div class="route-display">
-        <h1>Route:</h1>
-        <h1 class="route-name-display"></h1>
+        <h1>
+          Route:
+          <span data-bind="text: routeName" class="route-name-display"></span>
+        </h1>
         <br />
         <h3>Total cases: 177</h3>
         <h3>Est route time: 14:37</h3>
@@ -218,6 +243,19 @@
               <th>Contact #</th>
               <th>Key Stop</th>
               <th>Case Count</th>
+            </tr>
+            <tr>
+              <td data-bind="text:"></td>
+              <td data-bind="text: customerName"></td>
+              <td data-bind="text: street"></td>
+              <td data-bind="text:"></td>
+              <td data-bind="text:"></td>
+              <td data-bind="text:"></td>
+              <td>
+                <button class="button delete" data-bind="click: ">
+                  Delete
+                </button>
+              </td>
             </tr>
           </thead>
           <tbody class="tbody"></tbody>
