@@ -40,9 +40,6 @@
       src="https://kit.fontawesome.com/6223e0d74e.js"
       crossorigin="anonymous"
     ></script>
-    <script src="../libraries/knockout.js"></script>
-    <script src="../libraries/knockout-validation.js"></script>
-    <script src=""></script>
     <title>Route buddy</title>
   </head>
   <body>
@@ -95,13 +92,9 @@
             <div class="content-inner">
               <!-- Route Name Form -->
 
-              <form
-                data-bind="submit: handleRouteNameSubmit"
-                class="route-form"
-              >
+              <form class="route-form">
                 <label for="route-name">Route Name*:</label><br />
                 <input
-                  data-bind="value: routeName"
                   type="text"
                   class="route-name"
                   placeholder="Name"
@@ -115,13 +108,9 @@
 
               <!-- Customer Name Form -->
 
-              <form
-                data-bind="submit: handleCustomerFormSubmit"
-                class="customer-form"
-              >
+              <form class="customer-form">
                 <br /><label for="c-name">Customer*:</label><br />
                 <input
-                  data-bind="value: customerName"
                   type="text"
                   class="c-name"
                   name="c-name"
@@ -226,9 +215,9 @@
       <!-- Display Route -->
 
       <div class="route-display">
-        <h1>
+        <h1 class="route-name-display">
           Route:
-          <span data-bind="text: routeName" class="route-name-display"></span>
+          <span></span>
         </h1>
         <br />
         <h3>Total cases: 177</h3>
@@ -244,19 +233,6 @@
               <th>Key Stop</th>
               <th>Case Count</th>
             </tr>
-            <tr>
-              <td data-bind="text:"></td>
-              <td data-bind="text: customerName"></td>
-              <td data-bind="text: street"></td>
-              <td data-bind="text:"></td>
-              <td data-bind="text:"></td>
-              <td data-bind="text:"></td>
-              <td>
-                <button class="button delete" data-bind="click: ">
-                  Delete
-                </button>
-              </td>
-            </tr>
           </thead>
           <tbody class="tbody"></tbody>
         </table>
@@ -270,5 +246,6 @@
     </div>
     <div class="overlay hidden"></div>
   </body>
-  <script type="text/javascript" src="../javascript/apps.js"></script>
+  <!-- <script type="text/javascript" src="../javascript/apps.js"></script> -->
+  <script src="../javascript/apps.js"></script>
 </html>
