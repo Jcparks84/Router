@@ -33,6 +33,10 @@
       crossorigin=""
     />
     <script
+      data-main="frontend/libraries/config.js"
+      src="../libraries/require.js"
+    ></script>
+    <script
       src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js"
       integrity="sha256-o9N1jGDZrf5tS+Ft4gbIK7mYMipq9lqpVJ91xHSyKhg="
       crossorigin=""
@@ -83,7 +87,7 @@
 
       <div class="container-2">
         <div id="map" class="map">
-          <script type="module" src="../javascript/map.js"></script>
+          <script type="module" src="../scripts/map.js"></script>
         </div>
 
         <div class="form-container">
@@ -248,5 +252,5 @@
     <div class="overlay hidden"></div>
   </body>
   <!-- <script type="text/javascript" src="../javascript/apps.js"></script> -->
-  <script src="../javascript/apps.js"></script>
+  <script src="../scripts/app.js"></script>
 </html>
