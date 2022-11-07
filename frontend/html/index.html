@@ -33,10 +33,6 @@
       crossorigin=""
     />
     <script
-      data-main="frontend/libraries/config.js"
-      src="../libraries/require.js"
-    ></script>
-    <script
       src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js"
       integrity="sha256-o9N1jGDZrf5tS+Ft4gbIK7mYMipq9lqpVJ91xHSyKhg="
       crossorigin=""
@@ -252,5 +248,9 @@
     <div class="overlay hidden"></div>
   </body>
   <!-- <script type="text/javascript" src="../javascript/apps.js"></script> -->
-  <script src="../scripts/app.js"></script>
+  <script
+    type="text/javascript"
+    data-main="../scripts/app.js"
+    src="../libraries/require.js"
+  ></script>
 </html>

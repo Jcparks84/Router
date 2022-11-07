@@ -1,4 +1,5 @@
-require(["config"], function App() {
+
+requirejs([], function App() {
   let selectedRow = null;
   let tableResults = document.querySelector(".table-results");
   const routeForm = document.querySelector(".route-form");
@@ -17,9 +18,24 @@ require(["config"], function App() {
   const overlay = document.querySelector(".overlay");
   const btnCloseModal = document.querySelector(".close-modal");
   const modalContent = document.querySelector(".modal-content");
-  const fs = require("js");
   let route = [];
   let addresses = [];
+  let locations = [];
+
+  //TypeAhead Textbox
+
+  fetch("../libraries/locations.json")
+    .then(res => res.json())
+    .then(data => locations.push(...data));
+
+  function findMatches(wordToMatch) {
+    console.log(wordToMatch);
+    return locations.filter(place => {
+      const regex = new RegExp(wordToMatch, "gi")
+      return place.city.match(regex) || place.state.match(regex)
+    })
+  }
+
 
   // Add Route to html
   function addRouteDisplay() {
@@ -131,16 +147,34 @@ require(["config"], function App() {
     console.log("!!!-ROUTE-!!!", route);
   }
 
+  // Route Form eventListner
+
   routeForm.addEventListener("submit", (e) => {
     e.preventDefault();
     addRouteDisplay();
     clearRouteForm();
   });
 
+  // Customer Form eventListner
+
   customerForm.addEventListener("submit", (e) => {
     e.preventDefault();
     addCustomerTable();
     addCustomer();
     clearCustomerForm();
+  });
+
+  //Type ahead city listner
+
+  city.addEventListener("keydown", (e) => {
+    let c = findMatches(city.value);
+    console.log(c);
+  });
+
+  // Type ahead state listner
+
+  state.addEventListener("keydown", (e) => {
+    let s = findMatches(state.value);
+    console.log(s);
   });
 })();
