@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Route Generator" />
+    <meta name="keywords" content="cdl, route" />
+    <meta name="author" content="John Parks" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../less/styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Mono&family=Merriweather:wght@400;700&family=Poppins&family=Revalia&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.2/dist/leaflet.css"
+      integrity="sha256-sA+zWATbFveLLNqWO2gtiw3HL/lh1giY/Inf1BJ0z14="
+      crossorigin=""
+    />
+    <script
+      src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js"
+      integrity="sha256-o9N1jGDZrf5tS+Ft4gbIK7mYMipq9lqpVJ91xHSyKhg="
+      crossorigin=""
+    ></script>
+    <script
+      src="https://kit.fontawesome.com/6223e0d74e.js"
+      crossorigin="anonymous"
+    ></script>
+    <title>Route buddy</title>
+  </head>
+  <body>
+    <div class="container">
+      <!-- NavBar -->
+
+      <nav class="nav-container">
+        <!-- <div id="logo">
+          <img src="../../assets/logo-2.svg" alt="rBuddy" />
+        </div> -->
+        <label for="drop" class="toggle">Menu</label>
+        <input type="checkbox" id="drop" />
+        <ul class="menu">
+          <li class="menu-li">
+            <a href="./index.html"><i class="fa-solid fa-house"></i> Home</a>
+          </li>
+          <li class="menu-li">
+            <a href="./routes.html"><i class="fa-solid fa-route"></i> Routes</a>
+            <input type="checkbox" id="drop1" />
+            <!-- <ul class="menu-dropdown">
+              <li class="menu-dropdown-li"><a href="#"></a></li>
+            </ul> -->
+            
+          </li>
+
+          <li class="menu-li">
+            <a href="./about.html"
+              ><i class="fa-solid fa-circle-info"></i> About</a
+            >
+          </li>
+        </ul>
+      </nav>
+
+      <div class="header">
+        <h1><i class="fa-solid fa-truck-ramp-box"></i>RouteBuddy</h1>
+      </div>
+
+      <!-- Map -->
+
+      <div class="container-2">
+        <div id="map" class="map">
+          <script type="module" src="../scripts/map.js"></script>
+        </div>
+
+        <div class="form-container">
+          <input id="collapsible" class="form-toggle" type="checkbox" checked />
+          <label for="collapsible" class="form-lbl-toggle">Create Route</label>
+          <div class="collapsible-content">
+            <div class="content-inner">
+              <!-- Route Name Form -->
+
+              <form class="route-form">
+                <label for="route-name">Route Name:</label><br />
+                <input
+                  type="text"
+                  class="route-name"
+                  placeholder="Name"
+                /><br />
+                <br /><input
+                  class="button create-route-button"
+                  type="submit"
+                  value="Create Route"
+                /><br />
+              </form>
+
+              <!-- Customer Name Form -->
+
+              <form class="customer-form">
+                <br /><label for="c-name">Customer:</label><br />
+                <input
+                  type="text"
+                  class="c-name"
+                  name="c-name"
+                  placeholder="Name"
+                /><br />
+                <br />
+
+                <!-- Address Form -->
+
+                <label for="address">Address:</label><br />
+                <input
+                  data-bind="value: street"
+                  type="street"
+                  class="input-street"
+                  placeholder="Street"
+                />
+                <input
+                  data-bind="value: city"
+                  type="city"
+                  class="input-city"
+                  placeholder="City"
+                />
+                <ul class="suggestions"></ul>
+                <br />
+                <input
+                  data-bind="value: state"
+                  type="state"
+                  class="input-state"
+                  placeholder="State"
+                />
+                <input
+                  data-bind="value: zip"
+                  type="zip"
+                  class="input-zip"
+                  placeholder="Zip"
+                /><br />
+                <br />
+
+                <!-- Contact # Form-->
+
+                <label for="Contact" class="phone">Contact:</label><br />
+                <input
+                  type="tel"
+                  class="c-phone"
+                  name="phone"
+                  pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                  maxlength="12"
+                  placeholder="555-555-5555"
+                /><br />
+                <br />
+
+                <!-- Key Drop Form -->
+
+                <label for="key">Key Stop?</label><br />
+                <select name="key" class="key">
+                  <option value="Yes">Yes</option>
+                  <option value="No">No</option></select
+                ><br />
+
+                <!-- Case Number Form (future iteration)-->
+
+                <br /><label for="quantity">Number Of Cases:</label><br />
+                <input
+                  type="number"
+                  class="quantity"
+                  name="quantity"
+                  min="1"
+                  max="300"
+                /><br />
+
+                <br /><label for="stop-notes">Driver Notes:</label><br />
+                <textarea
+                  type="text"
+                  placeholder="Parking, delivery instructions, alarm code etc..."
+                  class="stop-notes"
+                  name="stop-notes"
+                  maxlength="500"
+                ></textarea
+                ><br />
+
+                <br /><input
+                  type="submit"
+                  class="button add-stop-button"
+                  value="Add Stop"
+                /><br />
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Display Route -->
+
+    <div class="route-display">
+      <h1 class="route-name-display">
+        Route:
+        <span></span>
+      </h1>
+      <br />
+      <h3>Total cases:</h3>
+      <br />
+      <h3>Est route time:</h3>
+      <br />
+      <button class="button export">export</button>
+      <button data-modal-target="#modal-import" class="button import">
+        import
+      </button>
+      <div class="modal-import" id="modal-import">
+        <div class="modal-import-header">
+          <div class="modal-import-title">Example Modal</div>
+          <button data-close-button class="close-button">&times;</button>
+        </div>
+        <div class="modal-import-body">
+          <ul>
+            <li>101</li>
+            <li>102</li>
+          </ul>
+        </div>
+      </div>
+      <br />
+      <br />
+      <table class="table-results" id="table-results">
+        <thead>
+          <tr>
+            <th>Stop #</th>
+            <th>Customer Name</th>
+            <th>Address</th>
+            <th>Contact #</th>
+            <th>Key Stop</th>
+            <th>Case Count</th>
+          </tr>
+        </thead>
+        <tbody class="tbody"></tbody>
+      </table>
+      <div class="run-route">
+        <br /><button
+          class="button submitBtn"
+          type="button"
+          value="Run Route"
+          onclick="alert('Warning this route is in violation with DOT compliance')"
+        >
+          Run Route
+        </button>
+      </div>
+      <footer>&copy; Copyright 2022</footer>
+    </div>
+    <div class="modal hidden">
+      <button class="close-modal">&times;</button>
+      <br />
+      <p class="modal-content"></p>
+    </div>
+    <div class="overlay hidden"></div>
+    <div id="import-overlay"></div>
+  </body>
+  <!-- <script type="text/javascript" src="../javascript/apps.js"></script> -->
+  <script
+    type="text/javascript"
+    data-main="../scripts/app.js"
+    src="../libraries/require.js"
+  ></script>
+</html>
