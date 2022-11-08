@@ -60,12 +60,11 @@ for(let i =0; i < dropdowns.length; i++){
   let customers = currentName.map(elem=> elem.customers)
   console.log(customers)
  let mdString = ""
-  // let tableAddress =   customers[0].map(c=> Object.entries(c.address).map(([key, value])=> `<td>${value.join("")}</td>`))
-  // console.log(tableAddress)
+  let tableAddress =   customers[0].map(c=> object.entries(c.address).map([key, value]=> `<td>${value}</td>`);
  let newData =  customers[0].map((c,i)=> `<tr key=${i}>
                                     <td>${tableResults.rows.length}</td>
                                   <td>${c.name}</td>
-                              <td> ${Object.values(c.address).join(',')}</td>
+                                
                                   <td>${c.phone}</td>
                                   <td>${c.key}</td>
                                   <td>${c.cases}</td>
@@ -77,7 +76,7 @@ for(let i =0; i < dropdowns.length; i++){
 }
     })
 
-
+    
 
     // get current route
   //   function getRoute(){
@@ -184,33 +183,6 @@ for(let i =0; i < dropdowns.length; i++){
     });
   }
 
-
-  const modalImporter = document.querySelectorAll('.modal-route') 
-
-for(let i =0; i < modalImporter.length; i++){
-  modalImporter[i].addEventListener('click', (e)=>{
-    e.preventDefault()
-    let tbody = document.querySelector(".tbody");
-    // for (let i =0; i < dropdowns.length; i++){
-    let dropDown = e.target.textContent;
-    console.log(dropDown)
-          let currentName = routes.filter(r=> r.name == dropDown )
-  console.log(currentName)
-  let customers = currentName.map(elem=> elem.customers)
-  console.log(customers)
- let newData =  customers[0].map((c,i)=> `<tr key=${i}>
-                                    <td>${tableResults.rows.length}</td>
-                                  <td>${c.name}</td>
-                              <td> ${Object.values(c.address).join(',')}</td>
-                                  <td>${c.phone}</td>
-                                  <td>${c.key}</td>
-                                  <td>${c.cases}</td>
-                               </tr>` ).join('')
-
-    
-    tbody.innerHTML = newData
-  });
-}
   // Display Routes in import button Modal
 
   const openImportModal = document.querySelectorAll("[data-modal-target]");

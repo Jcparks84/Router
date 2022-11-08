@@ -190,7 +190,7 @@ for(let i =0; i < dropdowns.length; i++){
 for(let i =0; i < modalImporter.length; i++){
   modalImporter[i].addEventListener('click', (e)=>{
     e.preventDefault()
-    let tbody = document.querySelector(".tbody");
+   
     // for (let i =0; i < dropdowns.length; i++){
     let dropDown = e.target.textContent;
     console.log(dropDown)
@@ -210,7 +210,6 @@ for(let i =0; i < modalImporter.length; i++){
     
     tbody.innerHTML = newData
   });
-}
   // Display Routes in import button Modal
 
   const openImportModal = document.querySelectorAll("[data-modal-target]");

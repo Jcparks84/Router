@@ -188,9 +188,9 @@ for(let i =0; i < dropdowns.length; i++){
   const modalImporter = document.querySelectorAll('.modal-route') 
 
 for(let i =0; i < modalImporter.length; i++){
-  modalImporter[i].addEventListener('click', (e)=>{
+  modalI[i].addEventListener('click', (e)=>{
     e.preventDefault()
-    let tbody = document.querySelector(".tbody");
+   
     // for (let i =0; i < dropdowns.length; i++){
     let dropDown = e.target.textContent;
     console.log(dropDown)
@@ -198,6 +198,9 @@ for(let i =0; i < modalImporter.length; i++){
   console.log(currentName)
   let customers = currentName.map(elem=> elem.customers)
   console.log(customers)
+ let mdString = ""
+  // let tableAddress =   customers[0].map(c=> Object.entries(c.address).map(([key, value])=> `<td>${value.join("")}</td>`))
+  // console.log(tableAddress)
  let newData =  customers[0].map((c,i)=> `<tr key=${i}>
                                     <td>${tableResults.rows.length}</td>
                                   <td>${c.name}</td>
@@ -210,7 +213,6 @@ for(let i =0; i < modalImporter.length; i++){
     
     tbody.innerHTML = newData
   });
-}
   // Display Routes in import button Modal
 
   const openImportModal = document.querySelectorAll("[data-modal-target]");
