@@ -94,7 +94,7 @@
               <!-- Route Name Form -->
 
               <form class="route-form">
-                <label for="route-name">Route Name*:</label><br />
+                <label for="route-name">Route Name:</label><br />
                 <input
                   type="text"
                   class="route-name"
@@ -110,7 +110,7 @@
               <!-- Customer Name Form -->
 
               <form class="customer-form">
-                <br /><label for="c-name">Customer*:</label><br />
+                <br /><label for="c-name">Customer:</label><br />
                 <input
                   type="text"
                   class="c-name"
@@ -121,7 +121,7 @@
 
                 <!-- Address Form -->
 
-                <label for="address">Address*:</label><br />
+                <label for="address">Address:</label><br />
                 <input
                   data-bind="value: street"
                   type="street"
@@ -133,7 +133,8 @@
                   type="city"
                   class="input-city"
                   placeholder="City"
-                /><br />
+                />
+                <ul class="suggestions"></ul>
                 <br />
                 <input
                   data-bind="value: state"
@@ -151,7 +152,7 @@
 
                 <!-- Contact # Form-->
 
-                <label for="Contact" class="phone">Contact*:</label><br />
+                <label for="Contact" class="phone">Contact:</label><br />
                 <input
                   type="tel"
                   class="c-phone"
@@ -164,7 +165,7 @@
 
                 <!-- Key Drop Form -->
 
-                <label for="key">Key Stop?*</label><br />
+                <label for="key">Key Stop?</label><br />
                 <select name="key" class="key">
                   <option value="Yes">Yes</option>
                   <option value="No">No</option></select
@@ -172,7 +173,7 @@
 
                 <!-- Case Number Form (future iteration)-->
 
-                <br /><label for="quantity">Number Of Cases*:</label><br />
+                <br /><label for="quantity">Number Of Cases:</label><br />
                 <input
                   type="number"
                   class="quantity"
@@ -181,7 +182,7 @@
                   max="300"
                 /><br />
 
-                <br /><label for="stop-notes">Driver Notes*:</label><br />
+                <br /><label for="stop-notes">Driver Notes:</label><br />
                 <textarea
                   type="text"
                   placeholder="Parking, delivery instructions, alarm code etc..."
@@ -197,46 +198,64 @@
                   value="Add Stop"
                 /><br />
               </form>
-
-              <div class="run-route">
-                <br /><button
-                  class="button submitBtn"
-                  type="button"
-                  value="Run Route"
-                  onclick="alert('Warning this route is in violation with DOT compliance')"
-                >
-                  Run Route
-                </button>
-              </div>
             </div>
           </div>
         </div>
       </div>
+    </div>
 
-      <!-- Display Route -->
+    <!-- Display Route -->
 
-      <div class="route-display">
-        <h1 class="route-name-display">
-          Route:
-          <span></span>
-        </h1>
-        <br />
-        <h3>Total cases: 177</h3>
-        <h3>Est route time: 14:37</h3>
-        <br />
-        <table class="table-results" id="table-results">
-          <thead>
-            <tr>
-              <th>Stop #</th>
-              <th>Customer Name</th>
-              <th>Address</th>
-              <th>Contact #</th>
-              <th>Key Stop</th>
-              <th>Case Count</th>
-            </tr>
-          </thead>
-          <tbody class="tbody"></tbody>
-        </table>
+    <div class="route-display">
+      <h1 class="route-name-display">
+        Route:
+        <span></span>
+      </h1>
+      <br />
+      <h3>Total cases:</h3>
+      <br />
+      <h3>Est route time:</h3>
+      <br />
+      <button class="button export">export</button>
+      <button data-modal-target="#modal-import" class="button import">
+        import
+      </button>
+      <div class="modal-import" id="modal-import">
+        <div class="modal-import-header">
+          <div class="modal-import-title">Example Modal</div>
+          <button data-close-button class="close-button">&times;</button>
+        </div>
+        <div class="modal-import-body">
+          <ul>
+            <li>101</li>
+            <li>102</li>
+          </ul>
+        </div>
+      </div>
+      <br />
+      <br />
+      <table class="table-results" id="table-results">
+        <thead>
+          <tr>
+            <th>Stop #</th>
+            <th>Customer Name</th>
+            <th>Address</th>
+            <th>Contact #</th>
+            <th>Key Stop</th>
+            <th>Case Count</th>
+          </tr>
+        </thead>
+        <tbody class="tbody"></tbody>
+      </table>
+      <div class="run-route">
+        <br /><button
+          class="button submitBtn"
+          type="button"
+          value="Run Route"
+          onclick="alert('Warning this route is in violation with DOT compliance')"
+        >
+          Run Route
+        </button>
       </div>
       <footer>&copy; Copyright 2022</footer>
     </div>
@@ -246,6 +265,7 @@
       <p class="modal-content"></p>
     </div>
     <div class="overlay hidden"></div>
+    <div id="import-overlay"></div>
   </body>
   <!-- <script type="text/javascript" src="../javascript/apps.js"></script> -->
   <script

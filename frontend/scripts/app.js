@@ -1,7 +1,7 @@
-
 requirejs([], function App() {
   let selectedRow = null;
   let tableResults = document.querySelector(".table-results");
+  let suggestions = document.querySelector(".suggestions");
   const routeForm = document.querySelector(".route-form");
   const customerForm = document.querySelector(".customer-form");
   const routeName = document.querySelector(".route-name");
@@ -14,28 +14,48 @@ requirejs([], function App() {
   const key = document.querySelector(".key");
   const quantity = document.querySelector(".quantity");
   const stopNotes = document.querySelector(".stop-notes");
-  const modal = document.querySelector(".modal");
+  const stopInfomodal = document.querySelector(".modal");
   const overlay = document.querySelector(".overlay");
   const btnCloseModal = document.querySelector(".close-modal");
   const modalContent = document.querySelector(".modal-content");
+  let routes = [];
   let route = [];
   let addresses = [];
   let locations = [];
 
+  //Get Routes
+
+  fetch("../libraries/routes.json")
+    .then((r) => r.json())
+    .then((data) => routes.push(...data));
+
   //TypeAhead Textbox
 
   fetch("../libraries/locations.json")
-    .then(res => res.json())
-    .then(data => locations.push(...data));
+    .then((res) => res.json())
+    .then((data) => locations.push(...data));
 
   function findMatches(wordToMatch) {
-    console.log(wordToMatch);
-    return locations.filter(place => {
-      const regex = new RegExp(wordToMatch, "gi")
-      return place.city.match(regex) || place.state.match(regex)
-    })
+    return locations.filter((place) => {
+      let regex = new RegExp(wordToMatch, "gi");
+      return place.city.match(regex) || place.state.match(regex);
+    });
   }
 
+  // Display TypeAhead Matches
+
+  function displayMatches() {
+    const matchArray = findMatches(this.value, locations);
+    const html = matchArray.map((place) => {
+      return `
+    <li>
+    <span class = "suggestions-city">${place.city}</span>
+    `;
+    });
+    suggestions.innerHTML = html;
+  }
+
+  city.addEventListener("keyup", displayMatches);
 
   // Add Route to html
   function addRouteDisplay() {
@@ -44,6 +64,8 @@ requirejs([], function App() {
     span.innerHTML = `${routeName.value}`;
     h1.append(span);
   }
+
+  console.log(routes);
 
   //Add customer info to table/modal
 
@@ -57,7 +79,6 @@ requirejs([], function App() {
                  <td>${phone.value}</td>
                  <td>${key.value}</td>
                  <td>${quantity.value}</td>
-                 <td><button class="button edit">Edit</button></td>
                  <td><button class="button delete">Delete</button></td>`;
 
     tbody.appendChild(tr);
@@ -66,14 +87,14 @@ requirejs([], function App() {
 
     const btnsOpenModal = document.getElementsByClassName("modal-name");
     const closeModal = function () {
-      modal.classList.add("hidden");
+      stopInfomodal.classList.add("hidden");
       overlay.classList.add("hidden");
     };
 
     //Modal inner content
 
     const openModal = function (name, notes) {
-      modal.classList.remove("hidden");
+      stopInfomodal.classList.remove("hidden");
       overlay.classList.remove("hidden");
       console.log(notes);
       modalContent.innerHTML = ` <h1>${name}</h1> <br> ${notes}`;
@@ -96,10 +117,49 @@ requirejs([], function App() {
 
     //Close Modal with escape key
     document.addEventListener("keydown", function (e) {
-      if (e.key === "Escape" && !modal.classList.contains("hidden")) {
+      if (e.key === "Escape" && !stopInfomodal.classList.contains("hidden")) {
         closeModal();
       }
     });
+  }
+
+  // Display Routes in import button Modal
+
+  const openImportModal = document.querySelectorAll("[data-modal-target]");
+  const closeImportModal = document.querySelectorAll("[data-close-button]");
+  const importOverlay = document.getElementById("import-overlay");
+
+  openImportModal.forEach((button) => {
+    button.addEventListener("click", () => {
+      const importModal = document.querySelector(button.dataset.modalTarget);
+      openModal(importModal);
+    });
+  });
+
+  overlay.addEventListener("click", () => {
+    const importModals = document.querySelectorAll(".modal-import.active");
+    importModals.forEach((importModal) => {
+      closeModal(importModal);
+    });
+  });
+
+  closeImportModal.forEach((button) => {
+    button.addEventListener("click", () => {
+      const importModal = button.closest(".modal-import");
+      closeModal(importModal);
+    });
+  });
+
+  function openModal(importModal) {
+    if (importModal === null) return;
+    importModal.classList.add("active");
+    importOverlay.classList.add("active");
+  }
+
+  function closeModal(importModal) {
+    if (importModal === null) return;
+    importModal.classList.remove("active");
+    importOverlay.classList.remove("active");
   }
 
   //Clear customer forms
@@ -144,7 +204,7 @@ requirejs([], function App() {
     });
     localStorage.setItem("addresses", JSON.stringify(addresses));
     localStorage.setItem("routes", JSON.stringify(route));
-    console.log("!!!-ROUTE-!!!", route);
+    console.warn("!!!-ROUTE-!!!", route);
   }
 
   // Route Form eventListner

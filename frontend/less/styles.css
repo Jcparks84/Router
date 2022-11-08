@@ -143,7 +143,6 @@ body table {
   background-color: #314648;
   width: 100%;
   margin-top: 0;
-  border-radius: 0.5em;
 }
 body th,
 body td,
@@ -335,12 +334,10 @@ input[type="checkbox"] {
   max-height: 100vh;
 }
 .route-form {
-  border-bottom: solid #9f98a4;
   margin-bottom: 0.5em;
   padding-bottom: 0.5em;
 }
 .customer-form {
-  border-bottom: solid #9f98a4;
   margin-bottom: 0.5em;
   padding-bottom: 0.5em;
 }
@@ -428,6 +425,64 @@ footer {
   box-shadow: 0 3rem 5rem rgba(0, 0, 0, 0.3);
   z-index: 10;
 }
+*,
+*::after,
+::before {
+  box-sizing: border-box;
+}
+.modal-import {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  transition: 200ms ease-in-out;
+  border: solid #9f98a4;
+  z-index: 10;
+  background-color: #ffffff;
+  width: 31.25em;
+  max-width: 80%;
+  border-radius: 0.5em;
+}
+.modal-import.active {
+  transform: translate(-50%, -50%) scale(1);
+}
+.modal-import-header {
+  padding: 0.5em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: solid #9f98a4;
+}
+.modal-import-title {
+  font-size: 1.25em;
+  font-weight: bold;
+}
+.close-button {
+  cursor: pointer;
+  border: none;
+  outline: none;
+  background: none;
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+.modal-import-body {
+  padding: 0.5em;
+}
+#import-overlay {
+  position: fixed;
+  opacity: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  pointer-events: none;
+  transition: 200ms ease-in-out;
+}
+#import-overlay.active {
+  opacity: 1;
+  pointer-events: all;
+}
 .overlay {
   position: fixed;
   top: 0;
@@ -446,6 +501,10 @@ footer {
 }
 .pages h1 {
   margin: 0.5em;
+}
+.suggestions {
+  background-color: #ffffff;
+  width: 50%;
 }
 /* Media Queries
   --------------------------------------------- */
