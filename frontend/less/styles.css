@@ -241,6 +241,8 @@ nav.nav-container ul.menu ul.menu-dropdown li.menu-dropdown-li {
   float: none;
   display: list-item;
   position: relative;
+  cursor: pointer;
+  padding: 0.5em;
 }
 nav.nav-container ul.menu ul.menu-dropdown li.menu-dropdown-li ul {
   width: 10.625em;
@@ -505,6 +507,10 @@ footer {
 .suggestions {
   background-color: #ffffff;
   width: 50%;
+  color: black;
+}
+.list-items {
+  cursor: pointer;
 }
 /* Media Queries
   --------------------------------------------- */

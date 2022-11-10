@@ -43,7 +43,7 @@
     ></script>
     <title>Route buddy</title>
   </head>
-  <body >
+  <body>
     <div class="container">
       <!-- NavBar -->
 
@@ -133,6 +133,7 @@
                   placeholder="City"
                 />
                 <ul class="suggestions"></ul>
+
                 <br />
                 <input
                   data-bind="value: state"
@@ -207,10 +208,13 @@
     <div class="route-display">
       <h1 class="route-name-display">
         Route:
-        <span></span>
+        <span class="route-span"></span>
       </h1>
       <br />
-      <h3>Total cases:</h3>
+      <h3>
+        Total cases:
+        <span class="cases-span"></span>
+      </h3>
       <br />
       <h3>Est route time:</h3>
       <br />
@@ -224,9 +228,9 @@
           <button data-close-button class="close-button">&times;</button>
         </div>
         <div class="modal-import-body">
-          <ul>
-            <li class="modal-route">101</li>
-            <li class="modal-route">102</li>
+          <ul class="ul-modal-route">
+            <li class="modal-route"></li>
+            <!-- <li class="modal-route">102</li> -->
           </ul>
         </div>
       </div>

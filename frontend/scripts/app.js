@@ -2,94 +2,74 @@ requirejs([], function App() {
   let selectedRow = null;
   let tableResults = document.querySelector(".table-results");
   let suggestions = document.querySelector(".suggestions");
-  const routeForm = document.querySelector(".route-form");
-  const customerForm = document.querySelector(".customer-form");
-  const routeName = document.querySelector(".route-name");
-  const customerName = document.querySelector(".c-name");
-  const street = document.querySelector(".input-street");
-  const city = document.querySelector(".input-city");
-  const state = document.querySelector(".input-state");
-  const zip = document.querySelector(".input-zip");
-  const phone = document.querySelector(".c-phone");
-  const key = document.querySelector(".key");
-  const quantity = document.querySelector(".quantity");
-  const stopNotes = document.querySelector(".stop-notes");
-  const stopInfomodal = document.querySelector(".modal");
-  const overlay = document.querySelector(".overlay");
-  const btnCloseModal = document.querySelector(".close-modal");
-  const modalContent = document.querySelector(".modal-content");
-  let routes = [];
-  let route = [];
+  let routeForm = document.querySelector(".route-form");
+  let customerForm = document.querySelector(".customer-form");
+  let routeName = document.querySelector(".route-name");
+  let customerName = document.querySelector(".c-name");
+  let street = document.querySelector(".input-street");
+  let city = document.querySelector(".input-city");
+  let state = document.querySelector(".input-state");
+  let zip = document.querySelector(".input-zip");
+  let phone = document.querySelector(".c-phone");
+  let key = document.querySelector(".key");
+  let quantity = document.querySelector(".quantity");
+  let stopNotes = document.querySelector(".stop-notes");
+  let stopInfomodal = document.querySelector(".modal");
+  let overlay = document.querySelector(".overlay");
+  let btnCloseModal = document.querySelector(".close-modal");
+  let modalContent = document.querySelector(".modal-content");
+  let btnDelete = document.querySelector(".button delete");
+  let routes = []; // import routes
+  let route = []; // export route
   let addresses = [];
   let locations = [];
 
+  const menudropDown = document.querySelector(".menu-dropdown");
+  const routedropDown = document.getElementById("route");
+
   //Get Routes
- const menudropDown = document.querySelector('.menu-dropdown')
-  const menuIcon = document.querySelector('.fa-route')
- 
-   const routedropDown = document.getElementById('route') 
 
- 
-
-      fetch("../libraries/routes.json")
+  fetch("../libraries/routes.json")
     .then((r) => r.json())
-    .then((data) => routes.push(...data)
-    
-    );
+    .then((data) => routes.push(...data));
 
-    // show menu icon
-    routedropDown.addEventListener('mouseover', ()=>{
-    console.log(routes)
+  // Display Routes in NavBar Dropdown
+
+  routedropDown.addEventListener("mouseover", () => {
     let tbody = document.querySelector(".tbody");
-  let nameArray = routes.map(r=> r.name);
-  console.log(nameArray)
- nameArray = nameArray.map(n=> `<li class="menu-dropdown-li">${n}</li>`).join("")
- console.log(nameArray)
-menudropDown.innerHTML = nameArray;
-const dropdowns = document.querySelectorAll('.menu-dropdown-li') 
+    let nameArray = routes.map((r) => r.name);
+    nameArray = nameArray
+      .map((n) => `<li class="menu-dropdown-li">${n}</li>`)
+      .join("");
+    menudropDown.innerHTML = nameArray;
+    const dropdowns = document.querySelectorAll(".menu-dropdown-li");
 
-for(let i =0; i < dropdowns.length; i++){
-  dropdowns[i].addEventListener('click', (e)=>{
-    e.preventDefault()
-   
-    // for (let i =0; i < dropdowns.length; i++){
-    let dropDown = e.target.textContent;
-    console.log(dropDown)
-          let currentName = routes.filter(r=> r.name == dropDown )
-  console.log(currentName)
-  let customers = currentName.map(elem=> elem.customers)
-  console.log(customers)
- let mdString = ""
-  // let tableAddress =   customers[0].map(c=> Object.entries(c.address).map(([key, value])=> `<td>${value.join("")}</td>`))
-  // console.log(tableAddress)
- let newData =  customers[0].map((c,i)=> `<tr key=${i}>
+    for (let i = 0; i < dropdowns.length; i++) {
+      dropdowns[i].addEventListener("click", (e) => {
+        e.preventDefault();
+
+        let dropDown = e.target.textContent;
+        let currentName = routes.filter((r) => r.name == dropDown);
+        let customers = currentName.map((elem) => elem.customers);
+        let newData = customers[0]
+          .map(
+            (c, i) => `<tr key=${i}>
                                     <td>${tableResults.rows.length}</td>
                                   <td>${c.name}</td>
-                              <td> ${Object.values(c.address).join(',')}</td>
+                              <td> ${Object.values(c.address).join(",")}</td>
                                   <td>${c.phone}</td>
                                   <td>${c.key}</td>
                                   <td>${c.cases}</td>
-                               </tr>` ).join('')
+                                  <td><button class="button edit">Edit</button></td>
+                                  <td><button class="button delete">Delete</button></td>
+                               </tr>`
+          )
+          .join("");
 
-    
-    tbody.innerHTML = newData
+        tbody.innerHTML = newData;
+      });
+    }
   });
-}
-    })
-
-
-
-    // get current route
-  //   function getRoute(){
-  //     const dropdowns = document.querySelectorAll('.menu-dropdown-li')
-  //   for (let i =0; i < dropdowns.length; i++){
-  //   let dropDown =      dropdowns[i].firstElementChild.text;
-  //   console.log(dropDown)
-  //         let currentName = routes.find(r=> r.name == dropDown )
-  // console.log(currentName)
-  //   }
-  // // const currentRoute = routes.
-  // } 
 
   //TypeAhead Textbox
 
@@ -97,36 +77,78 @@ for(let i =0; i < dropdowns.length; i++){
     .then((res) => res.json())
     .then((data) => locations.push(...data));
 
-  function findMatches(wordToMatch) {
-    return locations.filter((place) => {
-      let regex = new RegExp(wordToMatch, "gi");
-      return place.city.match(regex) || place.state.match(regex);
+  let sortedLocations = locations.sort();
+  let inputCity = document.querySelector(".input-city");
+  let inputState = document.querySelector(".input-state");
+
+  // Typeahead City
+
+  inputCity.addEventListener("keyup", (e) => {
+    let cities = sortedLocations.map(({ city }) => {
+      return city;
+    });
+    removeElements();
+    for (let i of cities) {
+      if (
+        i.toLocaleLowerCase().startsWith(inputCity.value.toLocaleLowerCase()) &&
+        inputCity.value != ""
+      ) {
+        let listItem = document.createElement("li");
+        listItem.classList.add("list-items");
+        listItem.setAttribute("onclick", "displayNames('" + i + "')");
+        let word = "<b>" + i.substr(0, inputCity.value.length) + "</b>";
+        word += i.substr(inputCity.value.length);
+        listItem.innerHTML = word;
+        document.querySelector(".suggestions").appendChild(listItem);
+      }
+    }
+  });
+
+  // Typeahead State
+
+  inputState.addEventListener("keyup", (e) => {
+    let state = sortedLocations.map(({ state }) => {
+      return state;
+    });
+    let states = [...new Set(state)];
+    removeElements();
+    for (let i of states) {
+      if (
+        i
+          .toLocaleLowerCase()
+          .startsWith(inputState.value.toLocaleLowerCase()) &&
+        inputState.value != ""
+      ) {
+        let listItem = document.createElement("li");
+        listItem.classList.add("list-items");
+        listItem.setAttribute("onclick", "displayNames('" + i + "')");
+        let word = "<b>" + i.substr(0, inputState.value.length) + "</b>";
+        word += i.substr(inputState.value.length);
+        listItem.innerHTML = word;
+        document.querySelector(".suggestions").appendChild(listItem);
+      }
+    }
+  });
+
+  function displayNames(value) {
+    inputCity.value = value;
+    inputState.value = value;
+  }
+  function removeElements() {
+    //Clear all the items
+    let item = document.querySelectorAll(".list-items");
+    item.forEach((item) => {
+      item.remove();
     });
   }
-
-  // Display TypeAhead Matches
-
-  function displayMatches() {
-    const matchArray = findMatches(this.value, locations);
-    const html = matchArray.map((place) => {
-      return `
-    <li>
-    <span class = "suggestions-city">${place.city}</span>
-    `;
-    });
-    suggestions.innerHTML = html;
-  }
-
-  city.addEventListener("keyup", displayMatches);
 
   // Add Route to html
   function addRouteDisplay() {
-    let span = document.querySelector("span");
+    let span = document.querySelector("route-span");
     let h1 = document.querySelector(".route-name-display");
     span.innerHTML = `${routeName.value}`;
     h1.append(span);
   }
-
 
   //Add customer info to table/modal
 
@@ -140,6 +162,7 @@ for(let i =0; i < dropdowns.length; i++){
                  <td>${phone.value}</td>
                  <td>${key.value}</td>
                  <td>${quantity.value}</td>
+                 <td><button class="button edit">Edit</button></td>
                  <td><button class="button delete">Delete</button></td>`;
 
     tbody.appendChild(tr);
@@ -184,43 +207,86 @@ for(let i =0; i < dropdowns.length; i++){
     });
   }
 
+  // Table Row Delete button !!!-FIX, click anywhere delets rows -!!!
 
-  const modalImporter = document.querySelectorAll('.modal-route') 
+  function onDeleteRow(e) {
+    if (e.target.classList.contains("button-delete")) {
+      return;
+    }
+    const btn = e.target;
+    btn.closest("tr").remove();
+  }
 
-for(let i =0; i < modalImporter.length; i++){
-  modalImporter[i].addEventListener('click', (e)=>{
-    e.preventDefault()
-    let tbody = document.querySelector(".tbody");
-    // for (let i =0; i < dropdowns.length; i++){
-    let dropDown = e.target.textContent;
-    console.log(dropDown)
-          let currentName = routes.filter(r=> r.name == dropDown )
-  console.log(currentName)
-  let customers = currentName.map(elem=> elem.customers)
-  console.log(customers)
- let newData =  customers[0].map((c,i)=> `<tr key=${i}>
-                                    <td>${tableResults.rows.length}</td>
-                                  <td>${c.name}</td>
-                              <td> ${Object.values(c.address).join(',')}</td>
-                                  <td>${c.phone}</td>
-                                  <td>${c.key}</td>
-                                  <td>${c.cases}</td>
-                               </tr>` ).join('')
+  tableResults.addEventListener("click", onDeleteRow);
 
-    
-    tbody.innerHTML = newData
-  });
-}
   // Display Routes in import button Modal
 
   const openImportModal = document.querySelectorAll("[data-modal-target]");
   const closeImportModal = document.querySelectorAll("[data-close-button]");
   const importOverlay = document.getElementById("import-overlay");
+  const modalRouteDisplay = document.querySelector(".ul-modal-route");
+  const modalImporter = document.querySelectorAll(".modal-route");
+
+  //Open Modal
 
   openImportModal.forEach((button) => {
     button.addEventListener("click", () => {
       const importModal = document.querySelector(button.dataset.modalTarget);
       openModal(importModal);
+      let tbody = document.querySelector(".tbody");
+      let routeNames = routes.map((r) => r.name);
+
+      //Add Routes To Modal
+      routeNames = routeNames
+        .map((n) => `<li class="modal-route">${n}</li>`)
+        .join("");
+      modalRouteDisplay.innerHTML = routeNames;
+
+      //Add Routes to table
+      const routeName = document.querySelectorAll(".modal-route");
+      for (let i = 0; i < routeName.length; i++) {
+        routeName[i].addEventListener("click", (e) => {
+          e.preventDefault();
+
+          //Add Route Name
+          let routeSpan = document.querySelector(".route-span");
+          let display = e.target.textContent;
+          let currentName = routes.filter((r) => r.name == display);
+          routeSpan.innerHTML = currentName.map((elem) => elem.name);
+
+          //Add Customer Data To Table
+          let customers = currentName.map((elem) => elem.customers);
+          let newData = customers[0]
+            .map(
+              (c, i) => `<tr key=${i}>
+                                      <td>${tableResults.rows.length}</td>
+                                    <td>${c.name}</td>
+                                <td> ${Object.values(c.address).join(",")}</td>
+                                    <td>${c.phone}</td>
+                                    <td>${c.key}</td>
+                                    <td>${c.cases}</td>
+                                    <td><button class="button edit">Edit</button></td>
+                                    <td><button class="button delete">Delete</button></td>
+                                 </tr>`
+            )
+            .join("");
+
+          tbody.innerHTML = newData;
+
+          //Add Total Cases
+          let caseSpan = document.querySelector(".cases-span");
+          console.log("!!!-CUSTOMERS-!!!", customers);
+          let cases = customers[0].map(({ cases }) => {
+            return parseInt(cases, 10);
+          });
+          console.log(cases);
+          let totalCases = cases.reduce(function (a, b) {
+            return a + b;
+          }, 0);
+          console.log(totalCases);
+          caseSpan.innerHTML = totalCases;
+        });
+      }
     });
   });
 
@@ -310,19 +376,5 @@ for(let i =0; i < modalImporter.length; i++){
     addCustomerTable();
     addCustomer();
     clearCustomerForm();
-  });
-
-  //Type ahead city listner
-
-  city.addEventListener("keydown", (e) => {
-    let c = findMatches(city.value);
-    console.log(c);
-  });
-
-  // Type ahead state listner
-
-  state.addEventListener("keydown", (e) => {
-    let s = findMatches(state.value);
-    console.log(s);
   });
 })();
