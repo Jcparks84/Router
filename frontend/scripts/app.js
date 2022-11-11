@@ -71,7 +71,7 @@ requirejs([], function App() {
     }
   });
 
-  //TypeAhead Textbox
+  //TypeAhead Textbox, Get
 
   fetch("../libraries/locations.json")
     .then((res) => res.json())
@@ -95,11 +95,15 @@ requirejs([], function App() {
       ) {
         let listItem = document.createElement("li");
         listItem.classList.add("list-items");
-        listItem.setAttribute("onclick", "displayNames('" + i + "')");
+        // listItem.setAttribute("onclick", "displayNames('" + i + "')");
+        listItem.onclick = () => {
+          displayCityNames(i);
+          removeElements();
+        };
         let word = "<b>" + i.substr(0, inputCity.value.length) + "</b>";
         word += i.substr(inputCity.value.length);
         listItem.innerHTML = word;
-        document.querySelector(".suggestions").appendChild(listItem);
+        document.querySelector(".suggestions-city").appendChild(listItem);
       }
     }
   });
@@ -121,18 +125,25 @@ requirejs([], function App() {
       ) {
         let listItem = document.createElement("li");
         listItem.classList.add("list-items");
-        listItem.setAttribute("onclick", "displayNames('" + i + "')");
+        // listItem.setAttribute("onclick", "displayNames('" + i + "')");
+        listItem.onclick = () => {
+          displayStateNames(i);
+          removeElements();
+        };
         let word = "<b>" + i.substr(0, inputState.value.length) + "</b>";
         word += i.substr(inputState.value.length);
         listItem.innerHTML = word;
-        document.querySelector(".suggestions").appendChild(listItem);
+        document.querySelector(".suggestions-state").appendChild(listItem);
       }
     }
   });
 
-  function displayNames(value) {
+  function displayCityNames(value) {
     inputCity.value = value;
-    inputState.value = value;
+  }
+
+  function displayStateNames(v) {
+    inputState.value = v;
   }
   function removeElements() {
     //Clear all the items

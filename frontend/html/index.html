@@ -120,34 +120,50 @@
                 <!-- Address Form -->
 
                 <label for="address">Address:</label><br />
-                <input
-                  data-bind="value: street"
-                  type="street"
-                  class="input-street"
-                  placeholder="Street"
-                />
-                <input
-                  data-bind="value: city"
-                  type="city"
-                  class="input-city"
-                  placeholder="City"
-                />
-                <ul class="suggestions"></ul>
-
-                <br />
-                <input
-                  data-bind="value: state"
-                  type="state"
-                  class="input-state"
-                  placeholder="State"
-                />
-                <input
-                  data-bind="value: zip"
-                  type="zip"
-                  class="input-zip"
-                  placeholder="Zip"
-                /><br />
-                <br />
+                <div class="address-container">
+                  <div class="a1">
+                    <div>
+                      <input
+                        data-bind="value: street"
+                        type="street"
+                        class="input-street"
+                        placeholder="Street"
+                      />
+                    </div>
+                    <br />
+                    <div>
+                      <input
+                        data-bind="value: city"
+                        type="city"
+                        class="input-city"
+                        placeholder="City"
+                      />
+                      <ul class="suggestions-city"></ul>
+                      <br />
+                    </div>
+                  </div>
+                  <div class="a2">
+                    <div>
+                      <input
+                        data-bind="value: state"
+                        type="state"
+                        class="input-state"
+                        placeholder="State"
+                      />
+                      <ul class="suggestions-state"></ul>
+                      <br />
+                    </div>
+                    <div>
+                      <input
+                        data-bind="value: zip"
+                        type="zip"
+                        class="input-zip"
+                        placeholder="Zip"
+                      /><br />
+                    </div>
+                  </div>
+                  <br />
+                </div>
 
                 <!-- Contact # Form-->
 
