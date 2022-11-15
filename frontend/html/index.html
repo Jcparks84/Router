@@ -6,6 +6,10 @@
     <meta name="keywords" content="cdl, route" />
     <meta name="author" content="John Parks" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="http://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.css"
+    />
     <link rel="stylesheet" href="../less/styles.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -21,7 +25,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <link
       href="https://fonts.googleapis.com/css2?family=DM+Mono&family=Merriweather:wght@400;700&family=Poppins&family=Revalia&display=swap"
       rel="stylesheet"
@@ -32,11 +35,16 @@
       integrity="sha256-sA+zWATbFveLLNqWO2gtiw3HL/lh1giY/Inf1BJ0z14="
       crossorigin=""
     />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script
       src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js"
       integrity="sha256-o9N1jGDZrf5tS+Ft4gbIK7mYMipq9lqpVJ91xHSyKhg="
       crossorigin=""
     ></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.js"></script>
+    <script src="https://www.mapquestapi.com/sdk/leaflet/v2.2/mq-map.js?key=ejLFSB4eBrlRP7Lwl1pIZZm9O1AoOeTl"></script>
+    <script src="https://www.mapquestapi.com/sdk/leaflet/v2.2/mq-routing.js?key=ejLFSB4eBrlRP7Lwl1pIZZm9O1AoOeTl"></script>
+
     <script
       src="https://kit.fontawesome.com/6223e0d74e.js"
       crossorigin="anonymous"
@@ -48,9 +56,6 @@
       <!-- NavBar -->
 
       <nav class="nav-container">
-        <!-- <div id="logo">
-          <img src="../../assets/logo-2.svg" alt="rBuddy" />
-        </div> -->
         <label for="drop" class="toggle">Menu</label>
         <input type="checkbox" id="drop" />
         <ul class="menu">
@@ -58,11 +63,11 @@
             <a href="./index.html"><i class="fa-solid fa-house"></i> Home</a>
           </li>
           <li class="menu-li">
-            <a href="#" id="route"><i class="fa-solid fa-route"></i> Routes</a>
+            <p class="nav-routes" href="#" id="route">
+              <i class="fa-solid fa-route"></i> Routes
+            </p>
             <input type="checkbox" id="drop1" />
-            <ul class="menu-dropdown">
-              <!-- <li class="menu-dropdown-li"><a href="#"></a></li> -->
-            </ul>
+            <ul class="menu-dropdown"></ul>
           </li>
 
           <li class="menu-li">
@@ -100,7 +105,7 @@
                 /><br />
                 <br /><input
                   class="button create-route-button"
-                  type="submit"
+                  type="button"
                   value="Create Route"
                 /><br />
               </form>
@@ -182,8 +187,8 @@
 
                 <label for="key">Key Stop?</label><br />
                 <select name="key" class="key">
-                  <option value="Yes">Yes</option>
-                  <option value="No">No</option></select
+                  <option value="No">No</option>
+                  <option value="Yes">Yes</option></select
                 ><br />
 
                 <!-- Case Number Form (future iteration)-->
@@ -266,12 +271,7 @@
         <tbody class="tbody"></tbody>
       </table>
       <div class="run-route">
-        <br /><button
-          class="button submitBtn"
-          type="button"
-          value="Run Route"
-          onclick="alert('Warning this route is in violation with DOT compliance')"
-        >
+        <br /><button class="button runRoute" type="button" value="Run Route">
           Run Route
         </button>
       </div>

@@ -1,6 +1,7 @@
 requirejs([], function App() {
   let selectedRow = null;
   let tableResults = document.querySelector(".table-results");
+  let tableData = document.querySelector(".td-address");
   let suggestions = document.querySelector(".suggestions");
   let routeForm = document.querySelector(".route-form");
   let customerForm = document.querySelector(".customer-form");
@@ -18,7 +19,7 @@ requirejs([], function App() {
   let overlay = document.querySelector(".overlay");
   let btnCloseModal = document.querySelector(".close-modal");
   let modalContent = document.querySelector(".modal-content");
-  let btnDelete = document.querySelector(".button delete");
+  let navRoute = document.querySelector(".nav-routes");
   let routes = []; // import routes
   let route = []; // export route
   let addresses = [];
@@ -95,7 +96,6 @@ requirejs([], function App() {
       ) {
         let listItem = document.createElement("li");
         listItem.classList.add("list-items");
-        // listItem.setAttribute("onclick", "displayNames('" + i + "')");
         listItem.onclick = () => {
           displayCityNames(i);
           removeElements();
@@ -154,8 +154,13 @@ requirejs([], function App() {
   }
 
   // Add Route to html
+
+  // function addRouteDisplay() {
+  //   let span = document.querySelector("")
+  // }
+
   function addRouteDisplay() {
-    let span = document.querySelector("route-span");
+    let span = document.querySelector(".route-span");
     let h1 = document.querySelector(".route-name-display");
     span.innerHTML = `${routeName.value}`;
     h1.append(span);
@@ -218,18 +223,6 @@ requirejs([], function App() {
     });
   }
 
-  // Table Row Delete button !!!-FIX, click anywhere delets rows -!!!
-
-  function onDeleteRow(e) {
-    if (e.target.classList.contains("button-delete")) {
-      return;
-    }
-    const btn = e.target;
-    btn.closest("tr").remove();
-  }
-
-  tableResults.addEventListener("click", onDeleteRow);
-
   // Display Routes in import button Modal
 
   const openImportModal = document.querySelectorAll("[data-modal-target]");
@@ -277,24 +270,26 @@ requirejs([], function App() {
                                     <td>${c.key}</td>
                                     <td>${c.cases}</td>
                                     <td><button class="button edit">Edit</button></td>
-                                    <td><button class="button delete">Delete</button></td>
+                                    <td><button class="button delete" >Delete</button></td>
                                  </tr>`
             )
             .join("");
 
           tbody.innerHTML = newData;
 
+          function deleteRow(btn) {
+            let row = btn.parentNode.parentNode;
+            row.parentNode.removeChild(row);
+          }
+
           //Add Total Cases
           let caseSpan = document.querySelector(".cases-span");
-          console.log("!!!-CUSTOMERS-!!!", customers);
           let cases = customers[0].map(({ cases }) => {
             return parseInt(cases, 10);
           });
-          console.log(cases);
           let totalCases = cases.reduce(function (a, b) {
             return a + b;
           }, 0);
-          console.log(totalCases);
           caseSpan.innerHTML = totalCases;
         });
       }
@@ -327,6 +322,18 @@ requirejs([], function App() {
     importOverlay.classList.remove("active");
   }
 
+  //Delete Table Rows
+
+  // function onDeleteRow(e) {
+  //   if (e.target.classList.contains("button-delete")) {
+  //     return;
+  //   }
+  //   const btn = e.target;
+  //   btn.closest("tr").remove();
+  // }
+
+  // tableResults.addEventListener("click", onDeleteRow);
+
   //Clear customer forms
 
   function clearCustomerForm() {
@@ -336,7 +343,7 @@ requirejs([], function App() {
     state.value = "";
     zip.value = "";
     phone.value = "";
-    key.value = "";
+    key.value = "No";
     quantity.value = "";
     stopNotes.value = "";
   }
@@ -370,11 +377,12 @@ requirejs([], function App() {
     localStorage.setItem("addresses", JSON.stringify(addresses));
     localStorage.setItem("routes", JSON.stringify(route));
     console.warn("!!!-ROUTE-!!!", route);
+    console.log(addresses);
   }
 
   // Route Form eventListner
 
-  routeForm.addEventListener("submit", (e) => {
+  routeForm.addEventListener("click", (e) => {
     e.preventDefault();
     addRouteDisplay();
     clearRouteForm();

@@ -230,11 +230,26 @@ nav.nav-container ul.menu li.menu-li a {
 nav.nav-container ul.menu li.menu-li a:hover {
   background-color: #542925;
 }
+nav.nav-container ul.menu li.menu-li p {
+  padding: 0.875em 1.25em;
+  font-size: 1em;
+  color: #98a3a4;
+  text-decoration: none;
+  font-weight: bold;
+  text-shadow: 0.12em 0.12em #483331;
+  cursor: pointer;
+}
+nav.nav-container ul.menu li.menu-li p:hover {
+  background-color: #542925;
+}
 nav.nav-container ul.menu ul.menu-dropdown {
   display: none;
   position: absolute;
   top: 3.75em;
   background-color: #314648;
+}
+nav.nav-container ul.menu ul.menu-dropdown :hover {
+  background-color: #542925;
 }
 nav.nav-container ul.menu ul.menu-dropdown li.menu-dropdown-li {
   width: 10.625em;
@@ -243,12 +258,6 @@ nav.nav-container ul.menu ul.menu-dropdown li.menu-dropdown-li {
   position: relative;
   cursor: pointer;
   padding: 0.5em;
-}
-nav.nav-container ul.menu ul.menu-dropdown li.menu-dropdown-li ul {
-  width: 10.625em;
-  float: none;
-  display: list-item;
-  position: relative;
 }
 .header {
   display: flex;
@@ -367,6 +376,14 @@ input[type="checkbox"] {
 .suggestions-city :hover {
   background-color: beige;
 }
+.suggestions-state {
+  background-color: #ffffff;
+  font-family: Arial, Helvetica, sans-serif;
+  color: black;
+}
+.suggestions-state :hover {
+  background-color: beige;
+}
 .stop-notes {
   width: 100%;
   height: 5em;
@@ -479,6 +496,9 @@ footer {
   align-items: center;
   border-bottom: solid #9f98a4;
 }
+.modal-import-header .modal-route {
+  cursor: pointer;
+}
 .modal-import-title {
   font-size: 1.25em;
   font-weight: bold;
@@ -493,6 +513,9 @@ footer {
 }
 .modal-import-body {
   padding: 0.5em;
+}
+.modal-route {
+  cursor: pointer;
 }
 #import-overlay {
   position: fixed;

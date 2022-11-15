@@ -123,12 +123,27 @@ nav.nav-container {
           background-color: @clHover;
         }
       }
+      p {
+        padding: 0.875em 1.25em;
+        font-size: 1em;
+        color: @clFont;
+        text-decoration: none;
+        font-weight: bold;
+        text-shadow: @text-shadow;
+        cursor: pointer;
+        &:hover {
+          background-color: @clHover;
+        }
+      }
     }
     ul.menu-dropdown {
       display: none;
       position: absolute;
       top: 3.75em;
       background-color: @clMain;
+      :hover {
+        background-color: @clHover;
+      }
       li.menu-dropdown-li {
         width: 10.625em;
         float: none;
@@ -136,12 +151,6 @@ nav.nav-container {
         position: relative;
         cursor: pointer;
         padding: @padding-margin;
-        ul {
-          width: 10.625em;
-          float: none;
-          display: list-item;
-          position: relative;
-        }
       }
     }
   }
@@ -275,6 +284,10 @@ input[type="checkbox"] {
   }
 }
 
+.suggestions-state {
+  .suggestions-city;
+}
+
 .stop-notes {
   width: 100%;
   height: 5em;
@@ -399,6 +412,9 @@ footer {
   justify-content: space-between;
   align-items: center;
   border-bottom: @border;
+  .modal-route {
+    cursor: pointer;
+  }
 }
 
 .modal-import-title {
@@ -417,6 +433,10 @@ footer {
 
 .modal-import-body {
   padding: @padding-margin;
+}
+
+.modal-route {
+  cursor: pointer;
 }
 
 #import-overlay {
