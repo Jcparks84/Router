@@ -41,7 +41,22 @@ requirejs([], function Main() {
   function displayCreatedRouteName() {
     let r = routeName.value;
     routeHTML.innerHTML = r;
+    validateForm(r);
     createNewRoute(r);
+  }
+
+  console.log(routeNames);
+
+  function validateForm(r) {
+    if (r === "") {
+      alert("Please enter a route name");
+      return false;
+    } else if (r === routeNames) {
+      alert("Please choose another name");
+      return false;
+    } else {
+      return true;
+    }
   }
 
   // Create Route Object
@@ -71,7 +86,6 @@ requirejs([], function Main() {
   let addStopBtn = document.querySelector(".add-stop-button");
   addStopBtn.addEventListener("click", (e) => {
     addCustomer();
-    addCustomerTable();
     clearCustomerForm();
   });
 
@@ -98,21 +112,22 @@ requirejs([], function Main() {
       zip: customerInfo.address.zip,
     });
     createdRoute[0].customers.push(customerInfo);
-    console.log(createdRoute);
+    console.log(customerInfo);
     console.warn("STOP ADDED", customerInfo);
+    addFormCustomerToTable();
   }
 
-  function addCustomerTable() {
+  function addFormCustomerToTable() {
     let tr = document.createElement("tr");
     let tbody = document.querySelector(".tbody");
     tr.innerHTML = `
-                 <td>${tableResults.rows.length}</td>
-                 <td class="modal-name">${customerName.value}</td>
-                 <td>${street.value} ${city.value} ${state.value} ${zip.value}
-                 <td>${phone.value}</td>
-                 <td>${key.value}</td>
-                 <td>${quantity.value}</td>
-                 `;
+                       <td>${tableResults.rows.length}</td>
+                       <td class="modal-name">${customerName.value}</td>
+                       <td>${street.value} ${city.value} ${state.value} ${zip.value}
+                       <td>${phone.value}</td>
+                       <td>${key.value}</td>
+                       <td>${quantity.value}</td>
+                       `;
 
     tbody.appendChild(tr);
   }
@@ -129,7 +144,87 @@ requirejs([], function Main() {
     stopNotes.value = "";
   }
 
-  //////////////////////////// Type ahead ////////////////////////////////////////
+  //////////////////////////////////// Type ahead ////////////////////////////////////////
+
+  //Import locations
+  fetch("../libraries/locations.json")
+    .then((res) => res.json())
+    .then((data) => locations.push(...data));
+
+  let locations = [];
+  let sortedLocations = locations.sort();
+  let inputCity = document.querySelector(".input-city");
+  let inputState = document.querySelector(".input-state");
+
+  // Typeahead City
+
+  inputCity.addEventListener("keyup", (e) => {
+    let cities = sortedLocations.map(({ city }) => {
+      return city;
+    });
+    removeElements();
+    for (let i of cities) {
+      if (
+        i.toLocaleLowerCase().startsWith(inputCity.value.toLocaleLowerCase()) &&
+        inputCity.value != ""
+      ) {
+        let listItem = document.createElement("li");
+        listItem.classList.add("list-items");
+        listItem.onclick = () => {
+          displayCityNames(i);
+          removeElements();
+        };
+        let word = "<b>" + i.substr(0, inputCity.value.length) + "</b>";
+        word += i.substr(inputCity.value.length);
+        listItem.innerHTML = word;
+        document.querySelector(".suggestions-city").appendChild(listItem);
+      }
+    }
+  });
+
+  // Typeahead State
+
+  inputState.addEventListener("keyup", (e) => {
+    let state = sortedLocations.map(({ state }) => {
+      return state;
+    });
+    let states = [...new Set(state)];
+    removeElements();
+    for (let i of states) {
+      if (
+        i
+          .toLocaleLowerCase()
+          .startsWith(inputState.value.toLocaleLowerCase()) &&
+        inputState.value != ""
+      ) {
+        let listItem = document.createElement("li");
+        listItem.classList.add("list-items");
+        // listItem.setAttribute("onclick", "displayNames('" + i + "')");
+        listItem.onclick = () => {
+          displayStateNames(i);
+          removeElements();
+        };
+        let word = "<b>" + i.substr(0, inputState.value.length) + "</b>";
+        word += i.substr(inputState.value.length);
+        listItem.innerHTML = word;
+        document.querySelector(".suggestions-state").appendChild(listItem);
+      }
+    }
+  });
+
+  function displayCityNames(value) {
+    inputCity.value = value;
+  }
+
+  function displayStateNames(v) {
+    inputState.value = v;
+  }
+  function removeElements() {
+    let item = document.querySelectorAll(".list-items");
+    item.forEach((item) => {
+      item.remove();
+    });
+  }
 
   /////////////////////////////////////////// Modal ////////////////////////////////////////
 
@@ -207,20 +302,23 @@ requirejs([], function Main() {
   // Add Customers to HTML Table
 
   function addCustomersToTable(customers) {
-    console.log(customers);
     let newData = customers
       .map(
         (c, i) => `<tr key=${i}>
-                                      <td>${c.length}</td>
-                                    <td>${c.name}</td>
-                                <td> ${Object.values(c.address).join(",")}</td>
-                                    <td>${c.phone}</td>
-                                    <td>${c.key}</td>
-                                    <td>${c.cases}</td>
-                                    <td style="display: none" >${
-                                      c.driverNotes
-                                    }</td>
-                                 </tr>`
+                                          <td>${i + 1}</td>
+                                        <td customer-modal-target="#modal-import" >${
+                                          c.name
+                                        }</td>
+                                    <td> ${Object.values(c.address).join(
+                                      ","
+                                    )}</td>
+                                        <td>${c.phone}</td>
+                                        <td>${c.key}</td>
+                                        <td>${c.cases}</td>
+                                        <td style="display: none" >${
+                                          c.driverNotes
+                                        }</td>
+                                     </tr>`
       )
       .join("");
 
@@ -237,6 +335,43 @@ requirejs([], function Main() {
       return a + b;
     }, 0);
     casesHTML.innerHTML = totalCases;
+  }
+
+  /////////////////////////////////// StopInfo Modal //////////////////////////////////
+
+  const openCustomerModal = document.querySelectorAll(
+    "[data-customer-modal-target]"
+  );
+  const closeCustomerModal = document.querySelectorAll("[data-close-button]");
+  //   const importOverlay = document.getElementById("import-overlay");
+
+  openCustomerModal.forEach((button) => {
+    button.addEventListener("click", () => {
+      const CustomerModal = document.querySelector(
+        button.dataset.customerModalTarget
+      );
+      openModal(CustomerModal);
+    });
+  });
+
+  closeCustomerModal.forEach((button) => {
+    button.addEventListener("click", () => {
+      clearModalContent();
+      const CustomerModal = button.closest(".modal-customer");
+      closeModal(CustomerModal);
+    });
+  });
+
+  function openModal(CustomerModal) {
+    if (CustomerModal === null) return;
+    CustomerModal.classList.add("active");
+    importOverlay.classList.add("active");
+  }
+
+  function closeModal(CustomerModal) {
+    if (CustomerModal === null) return;
+    CustomerModal.classList.remove("active");
+    importOverlay.classList.remove("active");
   }
 
   // Clear Table

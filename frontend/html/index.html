@@ -249,18 +249,37 @@
       <span class="routeTime-span"></span>
       <br />
       <button class="button export">export</button>
+
+      <!-- Import Routes Modal -->
       <button data-modal-target="#modal-import" class="button import">
         import
       </button>
       <div class="modal-import" id="modal-import">
         <div class="modal-import-header">
-          <div class="modal-import-title">Example Modal</div>
+          <div class="modal-import-title">Routes</div>
           <button data-close-button class="close-button">&times;</button>
         </div>
         <div class="modal-import-body">
           <ul class="ul-modal-route">
             <li class="modal-route"></li>
           </ul>
+        </div>
+      </div>
+
+      <!-- Import Stop info Modal -->
+      <button
+        data-customer-modal-target="#modal-customer"
+        class="button import"
+      >
+        stopNotes
+      </button>
+      <div class="modal-customer" id="modal-customer">
+        <div class="modal-customer-header">
+          <div class="modal-customer-title">Driver Notes</div>
+          <button data-close-button class="close-button">&times;</button>
+        </div>
+        <div class="modal-customer-body">
+          <p class="p-modal-customer"></p>
         </div>
       </div>
       <br />

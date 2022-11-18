@@ -526,6 +526,36 @@ footer {
 .modal-route {
   cursor: pointer;
 }
+.modal-customer {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  transition: 200ms ease-in-out;
+  border: solid #9f98a4;
+  z-index: 10;
+  background-color: #ffffff;
+  width: 31.25em;
+  max-width: 80%;
+  border-radius: 0.5em;
+}
+.modal-customer.active {
+  transform: translate(-50%, -50%) scale(1);
+}
+.modal-customer-header {
+  padding: 0.5em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: solid #9f98a4;
+}
+.modal-customer-header .modal-route {
+  cursor: pointer;
+}
+.modal-customer-title {
+  font-size: 1.25em;
+  font-weight: bold;
+}
 #import-overlay {
   position: fixed;
   opacity: 0;
