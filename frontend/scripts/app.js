@@ -39,6 +39,7 @@ requirejs([], function App() {
   routedropDown.addEventListener("mouseover", () => {
     let tbody = document.querySelector(".tbody");
     let nameArray = routes.map((r) => r.name);
+    console.log(nameArray);
     nameArray = nameArray
       .map((n) => `<li class="menu-dropdown-li">${n}</li>`)
       .join("");
@@ -225,11 +226,15 @@ requirejs([], function App() {
 
   // Display Routes in import button Modal
 
+  //////////////////////////keep///////////////////////
+
   const openImportModal = document.querySelectorAll("[data-modal-target]");
   const closeImportModal = document.querySelectorAll("[data-close-button]");
   const importOverlay = document.getElementById("import-overlay");
   const modalRouteDisplay = document.querySelector(".ul-modal-route");
   const modalImporter = document.querySelectorAll(".modal-route");
+
+  //////////////////////////////////////////////////////
 
   //Open Modal
 
@@ -239,6 +244,7 @@ requirejs([], function App() {
       openModal(importModal);
       let tbody = document.querySelector(".tbody");
       let routeNames = routes.map((r) => r.name);
+      console.log("!!!-ROUTE NAMES-!!!");
 
       //Add Routes To Modal
       routeNames = routeNames
@@ -260,6 +266,10 @@ requirejs([], function App() {
 
           //Add Customer Data To Table
           let customers = currentName.map((elem) => elem.customers);
+          console.log("!!!-ROUTE NAMES-!!!", routeNames);
+          console.log("!!!-CURRENT NAME-!!!", currentName);
+          console.log("!!!--!!!");
+          console.log("!!!-CUSTOMERS-!!!", customers);
           let newData = customers[0]
             .map(
               (c, i) => `<tr key=${i}>
@@ -269,18 +279,35 @@ requirejs([], function App() {
                                     <td>${c.phone}</td>
                                     <td>${c.key}</td>
                                     <td>${c.cases}</td>
+                                    <td style="display: none" >${
+                                      c.driverNotes
+                                    }</td>
                                     <td><button class="button edit">Edit</button></td>
-                                    <td><button class="button delete" >Delete</button></td>
+                                    <td><button onclick="deleteRow()" id="dltBtn" class="button delete" >Delete</button></td>
                                  </tr>`
             )
             .join("");
 
           tbody.innerHTML = newData;
 
-          function deleteRow(btn) {
-            let row = btn.parentNode.parentNode;
-            row.parentNode.removeChild(row);
+          function deleteRow() {
+            // let btn = document.querySelector(".delete");
+            // btn.addEventListener("click", (e) => {
+            console.log(e);
+            // });
           }
+
+          deleteRow();
+
+          // function onDeleteRow(e) {
+          //   if (e.target.classList.contains("button-delete")) {
+          //     return;
+          //   }
+          //   const btn = e.target;
+          //   btn.closest("tr").remove();
+          // }
+
+          tableResults.addEventListener("click", onDeleteRow);
 
           //Add Total Cases
           let caseSpan = document.querySelector(".cases-span");
@@ -334,7 +361,7 @@ requirejs([], function App() {
 
   // tableResults.addEventListener("click", onDeleteRow);
 
-  //Clear customer forms
+  // Clear customer forms
 
   function clearCustomerForm() {
     customerName.value = "";
@@ -379,6 +406,17 @@ requirejs([], function App() {
     console.warn("!!!-ROUTE-!!!", route);
     console.log(addresses);
   }
+
+  //Delete Table Rows
+  let clearTableBtn = document.querySelector(".clearTable");
+
+  function clearTable() {
+    $("#tbody").empty();
+  }
+
+  clearTableBtn.addEventListener("click", (e) => {
+    clearTable();
+  });
 
   // Route Form eventListner
 

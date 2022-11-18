@@ -44,7 +44,7 @@
     <script src="http://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.js"></script>
     <script src="https://www.mapquestapi.com/sdk/leaflet/v2.2/mq-map.js?key=ejLFSB4eBrlRP7Lwl1pIZZm9O1AoOeTl"></script>
     <script src="https://www.mapquestapi.com/sdk/leaflet/v2.2/mq-routing.js?key=ejLFSB4eBrlRP7Lwl1pIZZm9O1AoOeTl"></script>
-
+    <script src="https://www.mapquestapi.com/sdk/leaflet/v2.2/mq-traffic.js?key=ejLFSB4eBrlRP7Lwl1pIZZm9O1AoOeTl"></script>
     <script
       src="https://kit.fontawesome.com/6223e0d74e.js"
       crossorigin="anonymous"
@@ -63,11 +63,18 @@
             <a href="./index.html"><i class="fa-solid fa-house"></i> Home</a>
           </li>
           <li class="menu-li">
-            <p class="nav-routes" href="#" id="route">
+            <p
+              data-modal-target="#modal-import"
+              class="nav-routes"
+              href="#"
+              id="route"
+            >
               <i class="fa-solid fa-route"></i> Routes
             </p>
             <input type="checkbox" id="drop1" />
-            <ul class="menu-dropdown"></ul>
+            <ul class="menu-dropdown">
+              <!-- <li id="menu-dropdown-li"></li> -->
+            </ul>
           </li>
 
           <li class="menu-li">
@@ -213,7 +220,7 @@
                 ><br />
 
                 <br /><input
-                  type="submit"
+                  type="button"
                   class="button add-stop-button"
                   value="Add Stop"
                 /><br />
@@ -226,6 +233,7 @@
 
     <!-- Display Route -->
 
+    <div class="route-narrative" id="route-narrative"></div>
     <div class="route-display">
       <h1 class="route-name-display">
         Route:
@@ -238,6 +246,7 @@
       </h3>
       <br />
       <h3>Est route time:</h3>
+      <span class="routeTime-span"></span>
       <br />
       <button class="button export">export</button>
       <button data-modal-target="#modal-import" class="button import">
@@ -251,7 +260,6 @@
         <div class="modal-import-body">
           <ul class="ul-modal-route">
             <li class="modal-route"></li>
-            <!-- <li class="modal-route">102</li> -->
           </ul>
         </div>
       </div>
@@ -268,9 +276,13 @@
             <th>Case Count</th>
           </tr>
         </thead>
-        <tbody class="tbody"></tbody>
+        <tbody id="tbody" class="tbody"></tbody>
       </table>
       <div class="run-route">
+        <button class="button clearTable" type="button" value="Clear Table">
+          Clear Table
+        </button>
+        <br />
         <br /><button class="button runRoute" type="button" value="Run Route">
           Run Route
         </button>
@@ -288,7 +300,12 @@
   <!-- <script type="text/javascript" src="../javascript/apps.js"></script> -->
   <script
     type="text/javascript"
-    data-main="../scripts/app.js"
+    data-main="../javascript/main.js"
     src="../libraries/require.js"
   ></script>
+  <!-- <script
+    type="text/javascript"
+    data-main="../scripts/app.js"
+    src="../libraries/require.js"
+  ></script> -->
 </html>
