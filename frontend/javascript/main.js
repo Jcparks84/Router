@@ -1,4 +1,5 @@
 requirejs([], function Main() {
+  // "use strict";
   let routes = []; // Variable all imported routes are stored in
 
   // Import Routes
@@ -45,8 +46,6 @@ requirejs([], function Main() {
     createNewRoute(r);
   }
 
-  console.log(routeNames);
-
   function validateForm(r) {
     if (r === "") {
       alert("Please enter a route name");
@@ -63,7 +62,6 @@ requirejs([], function Main() {
   function createNewRoute(r) {
     let obj = { name: r, customers: [] };
     createdRoute.push(obj);
-    console.log(createdRoute);
   }
 
   function clearRouteForm() {
@@ -112,24 +110,34 @@ requirejs([], function Main() {
       zip: customerInfo.address.zip,
     });
     createdRoute[0].customers.push(customerInfo);
-    console.log(customerInfo);
     console.warn("STOP ADDED", customerInfo);
-    addFormCustomerToTable();
+    addFormCustomerToTable(customerInfo);
+    getTotalCases(customerInfo);
   }
 
-  function addFormCustomerToTable() {
+  function addFormCustomerToTable(customerInfo) {
     let tr = document.createElement("tr");
     let tbody = document.querySelector(".tbody");
     tr.innerHTML = `
                        <td>${tableResults.rows.length}</td>
-                       <td class="modal-name">${customerName.value}</td>
-                       <td>${street.value} ${city.value} ${state.value} ${zip.value}
-                       <td>${phone.value}</td>
-                       <td>${key.value}</td>
-                       <td>${quantity.value}</td>
+                       <td>${customerInfo.name}</td>
+                       <td>${customerInfo.address.street} ${customerInfo.address.city} ${customerInfo.address.stae} ${customerInfo.address.zip}
+                       <td>${customerInfo.phone}</td>
+                       <td>${customerInfo.key}</td>
+                       <td>${customerInfo.cases}</td>
                        `;
 
     tbody.appendChild(tr);
+  }
+
+  console.log(document.querySelector(".cases-span").textContent);
+
+  function getTotalCases(customerInfo) {
+    let html = document.querySelector(".cases-span");
+    let cases = JSON.parse(customerInfo.cases);
+    if (html.textContent === "") {
+      html.innerHTML = cases;
+    } else html.innerHTML = cases + JSON.parse(html.textContent);
   }
 
   function clearCustomerForm() {
@@ -323,14 +331,15 @@ requirejs([], function Main() {
       .join("");
 
     tbody.innerHTML = newData;
-    getTotalCases(customers);
+    getImportTotalCases(customers);
   }
 
-  function getTotalCases(customers) {
+  function getImportTotalCases(customers) {
     let casesHTML = document.querySelector(".cases-span");
     let cases = customers.map(({ cases }) => {
       return parseInt(cases, 10);
     });
+    console.log(cases);
     let totalCases = cases.reduce(function (a, b) {
       return a + b;
     }, 0);

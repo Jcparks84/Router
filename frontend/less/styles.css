@@ -602,7 +602,7 @@ footer {
   --------------------------------------------- */
 @media all and (max-width: 768px) {
   body {
-    font-family: "Poppins", sans-serif;
+    font-family: "Lato", sans-serif;
   }
   #logo {
     display: block;
