@@ -2,8 +2,6 @@ requirejs([], function App() {
   let tableResults = document.querySelector(".table-results");
   let runRoute = document.querySelector(".runRoute");
 
-  // let map = L.map("map").setView([44.763057, -85.620632], 2);
-
   // default map layer
 
   let mapOptions = {

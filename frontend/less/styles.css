@@ -430,6 +430,10 @@ input[type="checkbox"] {
 .route-display {
   flex-grow: 3;
   padding: 0.5em;
+  text-decoration: none;
+}
+.route-display a {
+  text-decoration: none;
 }
 .route-display a:visited {
   color: #98a3a4;
@@ -506,6 +510,7 @@ footer {
   border-bottom: solid #9f98a4;
 }
 .modal-import-header .modal-route {
+  text-decoration: none;
   cursor: pointer;
 }
 .modal-import-title {
@@ -550,6 +555,7 @@ footer {
   border-bottom: solid #9f98a4;
 }
 .modal-customer-header .modal-route {
+  text-decoration: none;
   cursor: pointer;
 }
 .modal-customer-title {

@@ -1,5 +1,30 @@
 requirejs([], function Main() {
-  // "use strict";
+  let pubSub = (function () {
+    var messages = {},
+      hasOwnProp = Object.prototype.hasOwnProperty;
+
+    function listen(message, listenerFn) {
+      if (!hasOwnProp.call(messages, message)) {
+        messages[message] = [];
+      }
+      messages[message].push(listenerFn);
+    }
+
+    function trigger(message, data) {
+      if (!messages[message]) {
+        return;
+      }
+      messages[message].forEach(function (listner) {
+        listner(data);
+      });
+    }
+
+    return {
+      publish: trigger,
+      subscribe: listen,
+    };
+  })();
+
   let routes = []; // Variable all imported routes are stored in
 
   // Import Routes
@@ -120,6 +145,13 @@ requirejs([], function Main() {
     let tbody = document.querySelector(".tbody");
     tr.innerHTML = `
                        <td>${tableResults.rows.length}</td>
+                       <td><button
+                       data-customer-modal-target="#modal-customer"
+                       class="button stopNotes"
+                     >
+                       Driver Notes
+                     </button></td>
+
                        <td>${customerInfo.name}</td>
                        <td>${customerInfo.address.street} ${customerInfo.address.city} ${customerInfo.address.stae} ${customerInfo.address.zip}
                        <td>${customerInfo.phone}</td>
@@ -129,8 +161,6 @@ requirejs([], function Main() {
 
     tbody.appendChild(tr);
   }
-
-  console.log(document.querySelector(".cases-span").textContent);
 
   function getTotalCases(customerInfo) {
     let html = document.querySelector(".cases-span");
@@ -276,11 +306,16 @@ requirejs([], function Main() {
     routeNames.forEach((r) => {
       let li = document.createElement("li");
       li.classList.add("modal-route");
-      li.innerText = r;
-      modalul.appendChild(li).addEventListener("click", (e) => {
-        let route = e.target.textContent;
-        addRouteName(route);
-      });
+      let a = document.createElement("a");
+      a.innerText = r;
+      a.href = "#route-display";
+      modalul
+        .appendChild(li)
+        .appendChild(a)
+        .addEventListener("click", (e) => {
+          let route = e.target.textContent;
+          addRouteName(route);
+        });
     });
   }
 
@@ -303,6 +338,7 @@ requirejs([], function Main() {
       if (routes[i].name === r) {
         let customers = routes[i].customers;
         addCustomersToTable(customers);
+        pubSub.publish("customers", { customers });
       }
     }
   }
@@ -314,9 +350,7 @@ requirejs([], function Main() {
       .map(
         (c, i) => `<tr key=${i}>
                                           <td>${i + 1}</td>
-                                        <td customer-modal-target="#modal-import" >${
-                                          c.name
-                                        }</td>
+                                        <td>${c.name}</td>
                                     <td> ${Object.values(c.address).join(
                                       ","
                                     )}</td>
@@ -329,8 +363,8 @@ requirejs([], function Main() {
                                      </tr>`
       )
       .join("");
-
     tbody.innerHTML = newData;
+    console.log(customers);
     getImportTotalCases(customers);
   }
 
@@ -339,7 +373,6 @@ requirejs([], function Main() {
     let cases = customers.map(({ cases }) => {
       return parseInt(cases, 10);
     });
-    console.log(cases);
     let totalCases = cases.reduce(function (a, b) {
       return a + b;
     }, 0);
@@ -371,17 +404,17 @@ requirejs([], function Main() {
     });
   });
 
-  function openModal(CustomerModal) {
-    if (CustomerModal === null) return;
-    CustomerModal.classList.add("active");
-    importOverlay.classList.add("active");
-  }
+  // function openModal(CustomerModal) {
+  //   if (CustomerModal === null) return;
+  //   CustomerModal.classList.add("active");
+  //   importOverlay.classList.add("active");
+  // }
 
-  function closeModal(CustomerModal) {
-    if (CustomerModal === null) return;
-    CustomerModal.classList.remove("active");
-    importOverlay.classList.remove("active");
-  }
+  // function closeModal(CustomerModal) {
+  //   if (CustomerModal === null) return;
+  //   CustomerModal.classList.remove("active");
+  //   importOverlay.classList.remove("active");
+  // }
 
   // Clear Table
 
@@ -389,6 +422,22 @@ requirejs([], function Main() {
   clearTableBtn.addEventListener("click", (e) => {
     clearTable(e);
   });
+
+  pubSub.subscribe("customers", (c) => {
+    customerInfoModalContent(c);
+  });
+
+  function customerInfoModalContent(customers) {
+    let body = document.querySelector(".modal-customer-body");
+    let c = customers.customers;
+    c.forEach((i) => {
+      let h4 = document.createElement("h4");
+      (h4.innerHTML = i.name), ":";
+      let p = document.createElement("p");
+      p.innerHTML = i.driverNotes;
+      body.appendChild(h4).appendChild(p);
+    });
+  }
 
   function clearTable() {
     $("#tbody").empty();

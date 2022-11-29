@@ -37,6 +37,12 @@
       integrity="sha256-sA+zWATbFveLLNqWO2gtiw3HL/lh1giY/Inf1BJ0z14="
       crossorigin=""
     />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/pubsub-js/1.9.4/pubsub.min.js"
+      integrity="sha512-GGfBS5/WTGwqhjo4nCGzQEWrX3+gkjF2G/JHs3cfhpynh5Lck+qqCwofvZlHoKuv/2P0B0Oo4Mq3Xa3Beyyf9A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script
       src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js"
@@ -95,7 +101,7 @@
 
       <div class="container-2">
         <div id="map" class="map">
-          <script type="module" src="../scripts/map.js"></script>
+          <script type="module" src="../javascript/map.js"></script>
         </div>
 
         <div class="form-container">
@@ -204,6 +210,7 @@
 
                 <br /><label for="quantity">Number Of Cases:</label><br />
                 <input
+                  value="0"
                   type="number"
                   class="quantity"
                   name="quantity"
@@ -236,7 +243,7 @@
     <!-- Display Route -->
 
     <div class="route-narrative" id="route-narrative"></div>
-    <div class="route-display">
+    <div class="route-display" id="route-display">
       <h1 class="route-name-display">
         Route:
         <span class="route-span"></span>
@@ -280,9 +287,7 @@
           <div class="modal-customer-title">Driver Notes</div>
           <button data-close-button class="close-button">&times;</button>
         </div>
-        <div class="modal-customer-body">
-          <p class="p-modal-customer"></p>
-        </div>
+        <div class="modal-customer-body"></div>
       </div>
       <br />
       <br />
@@ -319,14 +324,14 @@
     <div id="import-overlay"></div>
   </body>
   <!-- <script type="text/javascript" src="../javascript/apps.js"></script> -->
-  <script
+  <!-- <script
     type="text/javascript"
     data-main="../javascript/main.js"
     src="../libraries/require.js"
-  ></script>
-  <!-- <script
+  ></script> -->
+  <script
     type="text/javascript"
     data-main="../scripts/app.js"
     src="../libraries/require.js"
-  ></script> -->
+  ></script>
 </html>
