@@ -23,7 +23,6 @@ function Form() {
       let r = routeName.value;
       routeHTML.innerHTML = r;
       createNewRoute(r);
-      let name = r;
     }
 
     function clearRouteForm() {
@@ -72,17 +71,17 @@ function Form() {
         state: customerInfo.address.state,
         zip: customerInfo.address.zip,
       });
-      routes[0].customers.push(customerInfo);
-      createNewRoute(customerInfo);
+      // routes[0].customers.push(customerInfo);
+      pubSub.publish("addedCustomer", customerInfo);
       addFormCustomerToTable(customerInfo);
       getTotalCases(customerInfo);
     }
 
     // Create Route Object
-    function createNewRoute(r, customerInfo) {
-      let obj = { name: r, customers: [customerInfo] };
-      routes.push(obj);
-      pubSub.publish("route", { name: r, customers: [customerInfo] });
+    function createNewRoute(r) {
+      // let obj = { name: r, customers: [] };
+      // routes.push(obj);
+      pubSub.publish("route", r);
     }
 
     function addFormCustomerToTable(customerInfo) {

@@ -3,11 +3,21 @@
 function Route() {
   requirejs(["./pubsub"], function () {
     let routes = [];
-    let routeNames = [];
+    let obj = {
+      name: "",
+      customers: [],
+    };
 
     pubSub.subscribe("route", (r) => {
-      getAllRoutes(r);
+      obj.name = r;
     });
+
+    pubSub.subscribe("addedCustomer", (c) => {
+      obj.customers.push(c);
+      console.log(routes);
+    });
+
+    routes.push(obj);
 
     ////////////////////////////////
     let exportBtn = document.querySelector(".export");
@@ -18,8 +28,6 @@ function Route() {
     /////////////////////////////////////
 
     function getAllRoutes(r) {
-      console.log("!!!-R-!!!", r);
-      routes.push(r);
       console.log(routes);
     }
 
