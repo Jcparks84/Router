@@ -13,7 +13,12 @@ function Form() {
     createRouteBtn.addEventListener("click", (e) => {
       displayRouteName();
       clearRouteForm();
+      clearTable();
     });
+
+    function clearTable() {
+      $("#tbody").empty();
+    }
 
     // Displays Created Route in HTML
     let routeHTML = document.querySelector(".route-span");

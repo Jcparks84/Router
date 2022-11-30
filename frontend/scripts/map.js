@@ -1,4 +1,4 @@
-requirejs([], function App() {
+requirejs(["./pubsub", "./form", "./route"], function App() {
   let tableResults = document.querySelector(".table-results");
   let runRoute = document.querySelector(".runRoute");
 
@@ -20,18 +20,21 @@ requirejs([], function App() {
 
   let addresses = [];
 
-  function getAddress() {
-    for (let i = 0; i < tableResults.rows.length; i++) {
-      let currentAddress = tableResults.rows[i].children[2].textContent;
-      addresses.push(currentAddress);
+  pubSub.subscribe("selectedRoute", (selectedRoute) => {
+    getAddresses(selectedRoute);
+  });
+
+  function getAddresses(selectedRoute) {
+    let route = selectedRoute.customers;
+    for (let i = 0; i < route.length; i++) {
+      addresses.push(route[i].address);
     }
   }
 
-  function displayRoute() {
+  function displayRoute(selectedRoute) {
     //Get and Display Directions
-
     let dir = MQ.routing.directions().on("success", function (data) {
-      var legs = data.route.legs,
+      let legs = data.route.legs,
         html = "",
         maneuvers,
         i;
@@ -54,13 +57,35 @@ requirejs([], function App() {
       }
     });
 
-    //////////////////////////////////////////////////
+    let estTime = MQ.routing.directions().on("success", function (data) {
+      let legs = data.route.legs;
+      console.log(data);
+      let html = document.querySelector(".routeTime-span");
+      let cases = Number(document.querySelector(".cases-span").textContent);
 
-    //Get Est Route Time
+      console.log(cases);
 
-    /////////////////////////////////////////////////////
+      let driveTime = 0;
+
+      for (let i = 0; i < legs.length; i++) {
+        driveTime += legs[i].time;
+      }
+
+      let totalCarts = cases / 8;
+      let deliveryTime = totalCarts * 180;
+
+      let totalTime = new Date(driveTime + deliveryTime * 1000)
+        .toISOString()
+        .slice(11, 19);
+
+      html.innerHTML = totalTime;
+    });
 
     dir.route({
+      locations: addresses,
+    });
+
+    estTime.route({
       locations: addresses,
     });
 
@@ -125,9 +150,6 @@ requirejs([], function App() {
 
   runRoute.onclick = function (e) {
     e.preventDefault();
-    getAddress();
-    addresses.shift();
     displayRoute();
-    // GetEstRouteTime();
   };
 })();

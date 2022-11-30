@@ -18,34 +18,18 @@ function Route() {
     });
 
     routes.push(obj);
+    pubSub.publish("allRoutes", routes);
 
-    ////////////////////////////////
     let exportBtn = document.querySelector(".export");
     exportBtn.addEventListener("click", (e) => {
       console.log("clicked");
     });
-
-    /////////////////////////////////////
-
-    function getAllRoutes(r) {
-      console.log(routes);
-    }
 
     // Import Routes
 
     fetch("../libraries/routes.json")
       .then((r) => r.json())
       .then((data) => routes.push(...data));
-
-    // function getRouteNames() {
-    //   for (let i = 0; i < routes.length; i++) {
-    //     let currentName = routes[i].name;
-    //   }
-    // }
-
-    // window.addEventListener("load", (event) => {
-    //   getRouteNames();
-    // });
 
     const openImportModal = document.querySelectorAll("[data-modal-target]");
     const closeImportModal = document.querySelectorAll("[data-close-button]");
@@ -116,6 +100,8 @@ function Route() {
     function getCustomers(r) {
       for (let i = 0; i < routes.length; i++) {
         if (routes[i].name === r) {
+          let selectedRoute = routes[i];
+          pubSub.publish("selectedRoute", selectedRoute);
           let customers = routes[i].customers;
           addCustomersToTable(customers);
           pubSub.publish("customers", { customers });
@@ -196,6 +182,7 @@ function Route() {
 
     function customerInfoModalContent(customers) {
       let body = document.querySelector(".modal-customer-body");
+      console.log(customers);
       let c = customers.customers;
       c.forEach((i) => {
         let h4 = document.createElement("h4");
