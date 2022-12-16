@@ -1,4 +1,4 @@
-let pubSub = (function () {
+export let pubSub = (function () {
   var messages = {},
     hasOwnProp = Object.prototype.hasOwnProperty;
 

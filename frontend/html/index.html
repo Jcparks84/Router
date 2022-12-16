@@ -85,11 +85,11 @@
             </ul>
           </li>
 
-          <li class="menu-li">
+          <!-- <li class="menu-li">
             <a href="./about.html"
               ><i class="fa-solid fa-circle-info"></i> About</a
             >
-          </li>
+          </li> -->
         </ul>
       </nav>
 
@@ -101,7 +101,7 @@
 
       <div class="container-2">
         <div id="map" class="map">
-          <script type="module" src="../scripts/map.js"></script>
+          <!-- <script type="module" src="../scripts/map.js"></script> -->
         </div>
 
         <div class="form-container">
@@ -246,7 +246,7 @@
     <div class="route-display" id="route-display">
       <h1 class="route-name-display">
         Route:
-        <span class="route-span"></span>
+        <span class="route-span" data-bind="text: routeName"></span>
       </h1>
       <br />
       <h3>
@@ -325,15 +325,7 @@
     <div class="overlay hidden"></div>
     <div id="import-overlay"></div>
   </body>
-  <!-- <script type="text/javascript" src="../javascript/apps.js"></script> -->
-  <!-- <script
-    type="text/javascript"
-    data-main="../javascript/main.js"
-    src="../libraries/require.js"
-  ></script> -->
-  <script
-    type="text/javascript"
-    data-main="../scripts/app.js"
-    src="../libraries/require.js"
-  ></script>
+  <script>var exports = {};</script>
+  <script src="../build/libraries/knockout.js"></script>
+  <script type="module" src="../build/index.js"></script>
 </html>
