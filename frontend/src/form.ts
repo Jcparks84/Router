@@ -3,10 +3,7 @@ import { CustomerProps, LocationProps } from "./interface";
 import { pubSub } from "./pubSub.js";
 declare var ko: KnockoutStatic;
 
-
-
-  export function Form(){
-
+export function Form() {
   // const self = this
 
   // self.routeName = ko.observable("bob")
@@ -103,7 +100,9 @@ declare var ko: KnockoutStatic;
     tr.innerHTML = `
                          <td>${tableResults.rows.length}</td>
                          <td>${customerInfo.name}</td>
-                         <td>${customerInfo.address!.street} ${customerInfo.address!.city} ${customerInfo.address!.state} ${customerInfo.address!.zip}
+                         <td>${customerInfo.address!.street} ${
+      customerInfo.address!.city
+    } ${customerInfo.address!.state} ${customerInfo.address!.zip}
                          <td>${customerInfo.phone}</td>
                          <td>${customerInfo.key}</td>
                          <td>${customerInfo.cases}</td>
@@ -195,6 +194,7 @@ declare var ko: KnockoutStatic;
     }
   });
 
+  
   function displayCityNames(value: string) {
     city.value = value;
   }
@@ -210,7 +210,16 @@ declare var ko: KnockoutStatic;
   }
 }
 
-const form = Form()
+const form = Form();
 
-const knockoutApp = document.querySelector(".container");
-ko.applyBindings(form, knockoutApp)
+var myViewModel = {
+  personName: 'Bob',
+  personAge: 123,
+  routeName: "123"
+};
+
+console.log("hello");
+// const knockoutApp = document.querySelector(".container");
+ko.applyBindings(myViewModel);
+
+

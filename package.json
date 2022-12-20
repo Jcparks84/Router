@@ -1,4 +1,8 @@
 {
+  "scripts": {
+    "start": "tsc --watch --project frontend",
+    "build": "tsc --project frontend"
+  },
   "dependencies": {
     "@mapquest/io": "^0.3.21",
     "@types/knockout": "^3.4.72",
