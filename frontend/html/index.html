@@ -6,11 +6,11 @@
     <meta name="keywords" content="cdl, route" />
     <meta name="author" content="John Parks" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../less/styles.css" />
     <link
       rel="stylesheet"
       href="http://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.css"
     />
-    <link rel="stylesheet" href="../less/styles.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -109,16 +109,19 @@
           <label for="collapsible" class="form-lbl-toggle">Create Route</label>
           <div class="collapsible-content">
             <div class="content-inner">
+
               <!-- Route Name Form -->
 
               <form class="route-form">
                 <label for="route-name">Route Name:</label><br />
                 <input
+                  data-bind="value: routeName"
                   type="text"
                   class="route-name"
                   placeholder="Name"
                 /><br />
                 <br /><input
+                  data-bind="click: onRouteButtonClick()"
                   class="button create-route-button"
                   type="button"
                   value="Create Route"
@@ -130,6 +133,7 @@
               <form class="customer-form">
                 <br /><label for="c-name">Customer:</label><br />
                 <input
+                data-bind="value: customerName"
                   type="text"
                   class="c-name"
                   name="c-name"
@@ -144,6 +148,7 @@
                   <div class="a1">
                     <div>
                       <input
+                        data-bind="value: customerStreet"
                         type="street"
                         class="input-street"
                         placeholder="Street"
@@ -152,6 +157,7 @@
                     <br />
                     <div>
                       <input
+                        data-bind="value: customerCity"
                         type="city"
                         class="input-city"
                         placeholder="City"
@@ -163,6 +169,7 @@
                   <div class="a2">
                     <div>
                       <input
+                        data-bind="value: customerState"
                         type="state"
                         class="input-state"
                         placeholder="State"
@@ -172,6 +179,7 @@
                     </div>
                     <div>
                       <input
+                        data-bind="value: customerZip"
                         type="zip"
                         class="input-zip"
                         placeholder="Zip"
@@ -185,6 +193,7 @@
 
                 <label for="Contact" class="phone">Contact:</label><br />
                 <input
+                  data-bind="customerPhone"
                   type="tel"
                   class="c-phone"
                   name="phone"
@@ -206,6 +215,7 @@
 
                 <br /><label for="quantity">Number Of Cases:</label><br />
                 <input
+                  data-bind="value: customerCases"
                   value="0"
                   type="number"
                   class="quantity"
@@ -216,6 +226,7 @@
 
                 <br /><label for="stop-notes">Driver Notes:</label><br />
                 <textarea
+                  data-bind="value: stopNotes"
                   type="text"
                   placeholder="Parking, delivery instructions, alarm code etc..."
                   class="stop-notes"
@@ -225,6 +236,7 @@
                 ><br />
 
                 <br /><input
+                  data-bind="click: onCustomerButtonClick"
                   type="button"
                   class="button add-stop-button"
                   value="Add Stop"
@@ -310,10 +322,10 @@
         <br /><button class="button runRoute" type="button" value="Run Route">
           Run Route
         </button>
-      </div>
+      <!-- </div>
       <div>
         The name is <span data-bind="text: personName">hello</span>
-      </div>
+      </div> -->
       <footer>&copy; Copyright 2022</footer>
     </div>
     <div class="modal hidden">

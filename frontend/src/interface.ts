@@ -1,6 +1,6 @@
 export interface RouteProps {
-    name: string,
-    customers: CustomerProps[]
+    name?: string,
+    customers?: CustomerProps[]
 }
 
 export interface CustomerProps{
@@ -8,20 +8,20 @@ export interface CustomerProps{
     address?: AddressProps,
     phone?: string,
     key?: string,
-    cases: string,
+    cases?: string,
     driverNotes?: string,
 }
 
 export interface LocationProps {
     city: string,
-    state: string
+    state: string,
 }
 
 export interface AddressProps{
-    street: string,
-    city: string,
-    state: string,
-    zip: string,
+    street?: string,
+    city?: string,
+    state?: string,
+    zip?: string,
   }
 
 
