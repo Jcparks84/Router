@@ -19,7 +19,7 @@ export function Route() {
   });
 
   pubSub.subscribe("addedCustomer", (c: CustomerProps) => {
-    route.customers.push(c);
+    route.customers?.push(c);
   });
 
   routes.push(route);
@@ -78,7 +78,7 @@ export function Route() {
       let li = document.createElement("li");
       li.classList.add("modal-route");
       let a = document.createElement("a");
-      a.innerText = r.name;
+      a.innerText = r.name!;
       a.href = "#route-display";
       modalul
         .appendChild(li)
@@ -101,7 +101,7 @@ export function Route() {
 
     function addRouteName(r: RouteProps) {
       let routeNameHtml = document.querySelector(".route-span")!;
-      routeNameHtml.innerHTML = r.name;
+      routeNameHtml.innerHTML = r.name!;
       getCustomers(r);
     }
 
@@ -110,7 +110,7 @@ export function Route() {
         if (routes[i].name === r.name) {
           let selectedRoute = routes[i];
           pubSub.publish("selectedRoute", selectedRoute);
-          let customers: CustomerProps[] = routes[i].customers;
+          let customers: CustomerProps[] | undefined = routes[i].customers;
           console.log(customers);
           
           addCustomersToTable(customers);
@@ -121,11 +121,11 @@ export function Route() {
 
     // Add Customers to HTML Table
 
-    function addCustomersToTable(customers: CustomerProps[]) {
+    function addCustomersToTable(customers: CustomerProps[] | undefined) {
         console.log("CUSTOMERS", customers);
         
         //   let newData = customers
-        let newData:string = customers
+        let newData:string = customers!
         .map(
             (c, i:number) => 
                                             `<tr key=${i}>
@@ -157,10 +157,10 @@ export function Route() {
       $("#tbody").empty();
     }
 
-    function getImportTotalCases(customers: CustomerProps[]) {
+    function getImportTotalCases(customers: CustomerProps[] | undefined) {
       let casesHTML = document.querySelector(".cases-span")!;
-      let cases = customers.map(({ cases }) => {        
-        return parseInt(cases, 10);
+      let cases = customers!.map(({ cases }) => {        
+        return parseInt(cases!, 10);
       });
       let totalCases = cases.reduce(function (a, b) {
         return a + b;

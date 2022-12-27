@@ -113,7 +113,7 @@ export function Form() {
 
   function getTotalCases(customerInfo: CustomerProps) {
     let html = document.querySelector(".cases-span")!;
-    let cases = JSON.parse(customerInfo.cases);
+    let cases = JSON.parse(customerInfo.cases!);
     if (html.textContent === "") {
       html.innerHTML = cases;
     } else html.innerHTML = cases + JSON.parse(html.textContent as string);

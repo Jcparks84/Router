@@ -157,7 +157,7 @@
                     <br />
                     <div>
                       <input
-                        data-bind="value: customerCity"
+                        data-bind="value: customerCity, event: {keyup: matchingCities(event) }"  
                         type="city"
                         class="input-city"
                         placeholder="City"
@@ -169,7 +169,7 @@
                   <div class="a2">
                     <div>
                       <input
-                        data-bind="value: customerState"
+                        data-bind="value: customerState, event: {keyup: matchingStates()}"
                         type="state"
                         class="input-state"
                         placeholder="State"

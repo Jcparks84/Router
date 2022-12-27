@@ -1,4 +1,5 @@
 import { pubSub } from "./src/libraries/pubsub.js";
+import { Route } from "./src/routes.js";
 import { CustomerProps, RouteProps, AddressProps, LocationProps } from "./src/interface.js";
 import validation from "knockout.validation";
 
@@ -77,7 +78,6 @@ export class routeViewModel {
     });
     pubSub.publish("addedCustomer", newCustomer);
     this.addFormCustomerToTable(newCustomer);
-    console.log(newCustomer.name);
     this.getTotalCases(newCustomer);
   }
 
@@ -117,6 +117,91 @@ export class routeViewModel {
 
 
 
+  // to-do data-bind event listener?
+matchingCities(e: Event){
+    // console.log(e);
+    
+    this.getMatchingLocations()    
+    let cities = this.sortedLocations.map(({ city }) => {        
+        return city
+    });
+
+    // to-do ko customercity not being read?
+    let customerCity = this.customerCity()
+    console.log(customerCity);
+    
+    
+    this.removeElements();
+    console.log(this.customerCity());
+    for (let i of cities) {        
+        if (            
+          i.toLocaleLowerCase().startsWith(this.customerCity().toLocaleLowerCase()) &&
+          this.customerCity() != ""
+        ) 
+        {
+          let listItem = document.createElement("li");
+          listItem.classList.add("list-items");
+          listItem.onclick = () => {
+            this.displayCityNames(i);
+            this.removeElements();
+          };
+          let word = "<b>" + i.substr(0, this.customerCity().length) + "</b>";          
+          word += i.substr(this.customerCity().length);
+          listItem.innerHTML = word;
+          document.querySelector(".suggestions-city")!.appendChild(listItem);
+        }
+      }  
 }
+
+  // to-do data-bind event listener?
+matchingStates(){
+    this.getMatchingLocations()
+    let statesMultiples = this.sortedLocations.map(({ state }) =>{
+        return state
+    });
+    this.removeElements();
+    let states = [...new Set(statesMultiples)];
+    for (let i of states) {
+        if (
+          i.toLocaleLowerCase().startsWith(this.customerState().toLocaleLowerCase()) &&
+          this.customerState() != ""
+        ) {
+          let listItem = document.createElement("li");
+          listItem.classList.add("list-items");
+          listItem.onclick = () => {
+            // this.displayStateNames(i);
+            this.removeElements();
+          };
+          let word = "<b>" + i.substr(0, this.customerState().length) + "</b>";
+          word += i.substr(this.customerState().length);
+          listItem.innerHTML = word;
+          document.querySelector(".suggestions-state")!.appendChild(listItem);
+        }
+      }
+  }
+
+  //to-do both display functions need rewritten
+
+displayCityNames(value: string) {
+    value = this.customerCity();
+  }
+
+displayStateNames(value: string) {
+    this.customerState(value);
+  }
+removeElements() {
+    let item = document.querySelectorAll(".list-items");
+    item.forEach((item) => {
+      item.remove();
+    });
+  }
+
+
+
+
+
+}
+
+Route()
 
 ko.applyBindings(new routeViewModel());
