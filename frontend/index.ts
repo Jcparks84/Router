@@ -1,11 +1,14 @@
 import { pubSub } from "./src/libraries/pubsub.js";
 import { Route } from "./src/routes.js";
-import { CustomerProps, RouteProps, AddressProps, LocationProps } from "./src/interface.js";
+import {
+  CustomerProps,
+  RouteProps,
+  AddressProps,
+  LocationProps,
+} from "./src/interface.js";
 import validation from "knockout.validation";
 
-
 declare var ko: KnockoutStatic;
-
 
 export class routeViewModel {
   routeName: KnockoutObservable<string>;
@@ -21,9 +24,8 @@ export class routeViewModel {
   addresses: AddressProps[];
   customers: CustomerProps[];
   routes: RouteProps[];
-  matchingLocations: LocationProps[]
-  sortedLocations: LocationProps[]
-
+  matchingLocations: LocationProps[];
+  sortedLocations: LocationProps[];
 
   constructor() {
     this.routeName = ko.observable("");
@@ -39,8 +41,8 @@ export class routeViewModel {
     this.addresses = [];
     this.customers = [];
     this.routes = [];
-    this.matchingLocations = []
-    this.sortedLocations = this.matchingLocations.sort()
+    this.matchingLocations = [];
+    this.sortedLocations = this.matchingLocations.sort();
   }
 
   onRouteButtonClick() {
@@ -52,7 +54,7 @@ export class routeViewModel {
   }
 
   onCustomerButtonClick() {
-    this.addCustomer()
+    this.addCustomer();
   }
 
   addCustomer() {
@@ -109,99 +111,94 @@ export class routeViewModel {
     } else html.innerHTML = cases + JSON.parse(html.textContent as string);
   }
 
-  getMatchingLocations(){
+  getMatchingLocations() {
     fetch("/frontend/src/libraries/locations.json")
-    .then((res) => res.json())
-    .then((data) => this.matchingLocations.push(...data));    
+      .then((res) => res.json())
+      .then((data) => this.matchingLocations.push(...data));
   }
 
-
-
   // to-do data-bind event listener?
-matchingCities(e: Event){
+  matchingCities(e: Event) {
     // console.log(e);
-    
-    this.getMatchingLocations()    
-    let cities = this.sortedLocations.map(({ city }) => {        
-        return city
+
+    this.getMatchingLocations();
+    let cities = this.sortedLocations.map(({ city }) => {
+      return city;
     });
 
     // to-do ko customercity not being read?
-    let customerCity = this.customerCity()
+    let customerCity = this.customerCity();
     console.log(customerCity);
-    
-    
+
     this.removeElements();
     console.log(this.customerCity());
-    for (let i of cities) {        
-        if (            
-          i.toLocaleLowerCase().startsWith(this.customerCity().toLocaleLowerCase()) &&
-          this.customerCity() != ""
-        ) 
-        {
-          let listItem = document.createElement("li");
-          listItem.classList.add("list-items");
-          listItem.onclick = () => {
-            this.displayCityNames(i);
-            this.removeElements();
-          };
-          let word = "<b>" + i.substr(0, this.customerCity().length) + "</b>";          
-          word += i.substr(this.customerCity().length);
-          listItem.innerHTML = word;
-          document.querySelector(".suggestions-city")!.appendChild(listItem);
-        }
-      }  
-}
+    for (let i of cities) {
+      if (
+        i
+          .toLocaleLowerCase()
+          .startsWith(this.customerCity().toLocaleLowerCase()) &&
+        this.customerCity() != ""
+      ) {
+        let listItem = document.createElement("li");
+        listItem.classList.add("list-items");
+        listItem.onclick = () => {
+          this.displayCityNames(i);
+          this.removeElements();
+        };
+        let word = "<b>" + i.substr(0, this.customerCity().length) + "</b>";
+        word += i.substr(this.customerCity().length);
+        listItem.innerHTML = word;
+        document.querySelector(".suggestions-city")!.appendChild(listItem);
+      }
+    }
+  }
 
   // to-do data-bind event listener?
-matchingStates(){
-    this.getMatchingLocations()
-    let statesMultiples = this.sortedLocations.map(({ state }) =>{
-        return state
+  matchingStates() {
+    this.getMatchingLocations();
+    let statesMultiples = this.sortedLocations.map(({ state }) => {
+      return state;
     });
     this.removeElements();
     let states = [...new Set(statesMultiples)];
     for (let i of states) {
-        if (
-          i.toLocaleLowerCase().startsWith(this.customerState().toLocaleLowerCase()) &&
-          this.customerState() != ""
-        ) {
-          let listItem = document.createElement("li");
-          listItem.classList.add("list-items");
-          listItem.onclick = () => {
-            // this.displayStateNames(i);
-            this.removeElements();
-          };
-          let word = "<b>" + i.substr(0, this.customerState().length) + "</b>";
-          word += i.substr(this.customerState().length);
-          listItem.innerHTML = word;
-          document.querySelector(".suggestions-state")!.appendChild(listItem);
-        }
+      if (
+        i
+          .toLocaleLowerCase()
+          .startsWith(this.customerState().toLocaleLowerCase()) &&
+        this.customerState() != ""
+      ) {
+        let listItem = document.createElement("li");
+        listItem.classList.add("list-items");
+        listItem.onclick = () => {
+          // this.displayStateNames(i);
+          this.removeElements();
+        };
+        let word = "<b>" + i.substr(0, this.customerState().length) + "</b>";
+        word += i.substr(this.customerState().length);
+        listItem.innerHTML = word;
+        document.querySelector(".suggestions-state")!.appendChild(listItem);
       }
+    }
   }
 
   //to-do both display functions need rewritten
 
-displayCityNames(value: string) {
+  displayCityNames(value: string) {
     value = this.customerCity();
   }
 
-displayStateNames(value: string) {
+  displayStateNames(value: string) {
     this.customerState(value);
   }
-removeElements() {
+  removeElements() {
     let item = document.querySelectorAll(".list-items");
     item.forEach((item) => {
       item.remove();
     });
   }
-
-
-
-
-
 }
 
-Route()
+Route();
 
 ko.applyBindings(new routeViewModel());
