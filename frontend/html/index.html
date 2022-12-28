@@ -206,14 +206,15 @@
                 <!-- Key Drop Form -->
 
                 <label for="key">Key Stop?</label><br />
-                <select name="key" class="key">
-                  <option value="No">No</option>
-                  <option value="Yes">Yes</option></select
+                <select name="key" class="key" data-bind="options: keystopOptions, selectedOptions: keystop">
+                  <!-- <option value="No">No</option>
+                  <option value="Yes">Yes</option></select -->
                 ><br />
 
                 <!-- Case Number Form (future iteration)-->
 
-                <br /><label for="quantity">Number Of Cases:</label><br />
+                <br />
+                <label for="quantity">Number Of Cases:</label><br />
                 <input
                   data-bind="value: customerCases"
                   value="0"
@@ -259,7 +260,7 @@
       <br />
       <h3>
         Total cases:
-        <span class="cases-span"></span>
+        <span class="cases-span" data-bind="text: casesCount"></span>
       </h3>
       <br />
       <h3>
@@ -313,6 +314,14 @@
           </tr>
         </thead>
         <tbody id="tbody" class="tbody"></tbody>
+        <tr>
+          <td>todo</td>
+          <td data-bind="text: customerName"></td>
+          <td data-bind="text: customerStreet"></td>
+          <td data-bind="text: customerPhone"></td>
+          <td data-bind="text: keystop"></td>
+          <td data-bind="text: customerCases"></td>
+        </tr>
       </table>
       <div class="run-route">
         <button class="button clearTable" type="button" value="Clear Table">

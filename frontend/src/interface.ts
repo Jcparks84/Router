@@ -8,7 +8,7 @@ export interface CustomerProps{
     address?: AddressProps,
     phone?: string,
     key?: string,
-    cases?: string,
+    cases?: number,
     driverNotes?: string,
 }
 

@@ -1,5 +1,6 @@
 // This file gets all routes, either saved or inputed from forms and displays them.
 
+import { Callbacks } from "jquery";
 import { CustomerProps, RouteProps } from "./interface";
 import { pubSub } from "./pubSub.js";
 
@@ -12,7 +13,11 @@ export function Route() {
     customers: [],
   };
 
-  
+  // callbacks = [];
+  // subscribe = (cb) {callbacks.push(cb)}
+  // push = (ev) => callbacks.forEach(cb => {
+  //   cb(ev)
+  // });
 
   pubSub.subscribe("route", (r: RouteProps) => {
     route.name = r.name;
@@ -27,8 +32,8 @@ export function Route() {
 
   let exportBtn = document.querySelector(".export")!;
   exportBtn.addEventListener("click", (e) => {
-    console.log("clicked");
   });
+  exportBtn.dispatchEvent(new Event("click"))
 
   //   // Import Routes
 

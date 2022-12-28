@@ -10,52 +10,66 @@ import validation from "knockout.validation";
 
 declare var ko: KnockoutStatic;
 
-export class routeViewModel {
-  routeName: KnockoutObservable<string>;
-  customerName: KnockoutObservable<string>;
-  customerStreet: KnockoutObservable<string>;
-  customerCity: KnockoutObservable<string>;
-  customerState: KnockoutObservable<string>;
-  customerZip: KnockoutObservable<string>;
-  customerPhone: KnockoutObservable<string>;
-  keystop: KnockoutObservable<string>;
-  customerCases: KnockoutObservable<string>;
-  stopNotes: KnockoutObservable<string>;
-  addresses: AddressProps[];
-  customers: CustomerProps[];
-  routes: RouteProps[];
-  matchingLocations: LocationProps[];
-  sortedLocations: LocationProps[];
+export class RouteViewModel {
+  routeName = ko.observable("");
+  casesCount = ko.observable(0); // total cases of customers
+  customerName = ko.observable("");
+  customerStreet = ko.observable("");
+  customerCity = ko.observable("");
+  customerState = ko.observable("");
+  customerZip = ko.observable("");
+  customerPhone = ko.observable("");
 
-  constructor() {
-    this.routeName = ko.observable("");
-    this.customerName = ko.observable("");
-    this.customerStreet = ko.observable("");
-    this.customerCity = ko.observable("");
-    this.customerState = ko.observable("");
-    this.customerZip = ko.observable("");
-    this.customerPhone = ko.observable("");
-    this.keystop = ko.observable("");
-    this.customerCases = ko.observable("");
-    this.stopNotes = ko.observable("");
-    this.addresses = [];
-    this.customers = [];
-    this.routes = [];
-    this.matchingLocations = [];
-    this.sortedLocations = this.matchingLocations.sort();
-  }
+  keystopOptions = ko.observableArray(["Yes", "No"])
+  keystop = ko.observable("no");
+
+  customerCases = ko.observable(0);
+  stopNotes = ko.observable("");
+  addresses: AddressProps[] = [];
+  customers: CustomerProps[] = [];
+  routes: RouteProps[] = [];
+  matchingLocations: LocationProps[] = [];
+  sortedLocations: LocationProps[] = [];
+
+
+//   customerAddress = ko.observableArray([
+//     this.customerStreet,
+//     this.customerCity,
+//     this.customerState,
+//     this.customerZip
+//   ])
+  
+//   customers = ko.observableArray([{
+//     name: this.customerName(""),
+//     address: {
+//         street: this.customerStreet(""),
+//         city: this.customerCity(""),
+//         state: this.customerState(""),
+//         zip: this.customerZip(""),
+//     },
+//     phone: this.customerPhone(""),
+//     key: this.keystop(""),
+//     cases: this.customerCases(0),
+//     driverNotes: this.stopNotes("")
+//   }
+//   ])
+
+  constructor() {}
 
   onRouteButtonClick() {
-    $("#tbody").empty;
     const route = {
       name: this.routeName(),
     };
     pubSub.publish("route", route);
+    this.routeName("")
   }
 
   onCustomerButtonClick() {
+    console.log("clicked");
     this.addCustomer();
   }
+
+
 
   addCustomer() {
     let newCustomer = {
@@ -79,36 +93,37 @@ export class routeViewModel {
       zip: this.customerZip(),
     });
     pubSub.publish("addedCustomer", newCustomer);
-    this.addFormCustomerToTable(newCustomer);
-    this.getTotalCases(newCustomer);
+    this.updateTotalCases(newCustomer);
   }
 
-  addFormCustomerToTable(newCustomer: CustomerProps) {
-    let tableResults = document.querySelector(
-      ".table-results"
-    ) as HTMLTableElement;
-    let tr = document.createElement("tr");
-    let tbody = document.querySelector(".tbody")!;
-    tr.innerHTML = `
-    <td>${tableResults.rows.length}</td>
-    <td>${newCustomer.name}</td>
-    <td>${newCustomer.address!.street} ${newCustomer.address!.city} ${
-      newCustomer.address!.state
-    } ${newCustomer.address!.zip}
-    <td>${newCustomer.phone}</td>
-    <td>${newCustomer.key}</td>
-    <td>${newCustomer.cases}</td>
-    `;
 
-    tbody.appendChild(tr);
-  }
+//   addFormCustomerToTable(newCustomer: CustomerProps) {
+//     let tableResults = document.querySelector(
+//       ".table-results"
+//     ) as HTMLTableElement;
+//     // const tableResults = ko.observable("")
+//     let tr = document.createElement("tr");
+//     let tbody = document.querySelector(".tbody");
 
-  getTotalCases(newCustomer: CustomerProps) {
-    let html = document.querySelector(".cases-span")!;
-    let cases = JSON.parse(newCustomer.cases!);
-    if (html.textContent === "") {
-      html.innerHTML = cases;
-    } else html.innerHTML = cases + JSON.parse(html.textContent as string);
+//     tr.innerHTML = `
+//     <td>${tableResults.rows.length}</td>
+//     <td>${newCustomer.name}</td>
+//     <td>${newCustomer.address!.street} ${newCustomer.address!.city} ${
+//       newCustomer.address!.state
+//     } ${newCustomer.address!.zip}
+//     <td>${newCustomer.phone}</td>
+//     <td>${newCustomer.key}</td>
+//     <td>${newCustomer.cases}</td>
+//     `;
+//     if (!tbody) {
+//       throw new Error("this element was not defined");
+//     }
+//     tbody.appendChild(tr);
+//   }
+
+  updateTotalCases(newCustomer: CustomerProps) {
+    let cases = Number(newCustomer.cases);
+    this.casesCount(this.casesCount() + cases);
   }
 
   getMatchingLocations() {
@@ -128,10 +143,9 @@ export class routeViewModel {
 
     // to-do ko customercity not being read?
     let customerCity = this.customerCity();
-    console.log(customerCity);
+    // console.log(customerCity);
 
     this.removeElements();
-    console.log(this.customerCity());
     for (let i of cities) {
       if (
         i
@@ -201,4 +215,4 @@ export class routeViewModel {
 
 Route();
 
-ko.applyBindings(new routeViewModel());
+ko.applyBindings(new RouteViewModel());
