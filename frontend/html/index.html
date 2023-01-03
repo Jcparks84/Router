@@ -49,10 +49,10 @@
       integrity="sha256-o9N1jGDZrf5tS+Ft4gbIK7mYMipq9lqpVJ91xHSyKhg="
       crossorigin=""
     ></script>
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.js"></script>
-    <script src="https://www.mapquestapi.com/sdk/leaflet/v2.2/mq-map.js?key=ejLFSB4eBrlRP7Lwl1pIZZm9O1AoOeTl"></script>
-    <script src="https://www.mapquestapi.com/sdk/leaflet/v2.2/mq-routing.js?key=ejLFSB4eBrlRP7Lwl1pIZZm9O1AoOeTl"></script>
-    <script src="https://www.mapquestapi.com/sdk/leaflet/v2.2/mq-traffic.js?key=ejLFSB4eBrlRP7Lwl1pIZZm9O1AoOeTl"></script>
+    <!-- <script src="http://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.js"></script>
+    <script src="https://www.mapquestapi.com/sdk/leaflet/v2.2/mq-map.js?key=X6ROy8Z5WKdhde18PV96ScgiYiOrrkkK"></script>
+    <script src="https://www.mapquestapi.com/sdk/leaflet/v2.2/mq-routing.js?key=X6ROy8Z5WKdhde18PV96ScgiYiOrrkkK"></script>
+    <script src="https://www.mapquestapi.com/sdk/leaflet/v2.2/mq-traffic.js?key=X6ROy8Z5WKdhde18PV96ScgiYiOrrkkK"></script> -->
     <script
       src="https://kit.fontawesome.com/6223e0d74e.js"
       crossorigin="anonymous"
@@ -84,12 +84,6 @@
               <!-- <li id="menu-dropdown-li"></li> -->
             </ul>
           </li>
-
-          <!-- <li class="menu-li">
-            <a href="./about.html"
-              ><i class="fa-solid fa-circle-info"></i> About</a
-            >
-          </li> -->
         </ul>
       </nav>
 
@@ -157,24 +151,32 @@
                     <br />
                     <div>
                       <input
-                        data-bind="value: customerCity, event: {keyup: matchingCities(event) }"  
+                        data-bind="value: customerCity, valueUpdate: 'afterkeydown', event: { keyup: matchingCities }"  
                         type="city"
                         class="input-city"
                         placeholder="City"
                       />
-                      <ul class="suggestions-city"></ul>
+                      <ul class="suggestions-city" data-bind="foreach: cityMatches">
+                        <li>
+                          <span data-bind="text: $data"></span>
+                        </li>
+                      </ul>
                       <br />
                     </div>
                   </div>
                   <div class="a2">
                     <div>
                       <input
-                        data-bind="value: customerState, event: {keyup: matchingStates()}"
+                      data-bind="value: customerState, valueUpdate: 'afterkeydown', event: { keyup: matchingStates }" 
                         type="state"
                         class="input-state"
                         placeholder="State"
                       />
-                      <ul class="suggestions-state"></ul>
+                      <ul class="suggestions-state" data-="foreach: stateMatches">
+                        <li>
+                          <span data-bind="text: $data"></span>
+                        </li>
+                      </ul>
                       <br />
                     </div>
                     <div>
@@ -313,15 +315,16 @@
             <th>Case Count</th>
           </tr>
         </thead>
-        <tbody id="tbody" class="tbody"></tbody>
+        <tbody id="tbody" class="tbody" data-bind="foreach: customers">
         <tr>
-          <td>todo</td>
-          <td data-bind="text: customerName"></td>
-          <td data-bind="text: customerStreet"></td>
-          <td data-bind="text: customerPhone"></td>
-          <td data-bind="text: keystop"></td>
-          <td data-bind="text: customerCases"></td>
+          <td data-bind="text: $index() + 1"></td>
+          <td data-bind="text: name"></td>
+          <td data-bind="text: address.street, address.city, address.state, address.zip"></td>
+          <td data-bind="text: phone"></td>
+          <td data-bind="text: key"></td>
+          <td data-bind="text: cases"></td>
         </tr>
+        </tbody>
       </table>
       <div class="run-route">
         <button class="button clearTable" type="button" value="Clear Table">
