@@ -1,5 +1,4 @@
 import { pubSub } from "./libraries/pubsub.js";
-import { Route } from "./routes.js";
 import {
   CustomerProps,
   RouteProps,
@@ -31,27 +30,46 @@ export class FormViewModel {
   customers: KnockoutObservableArray<CustomerProps> = ko.observableArray();
   routes: KnockoutObservableArray<RouteProps> = ko.observableArray();
   route: RouteProps = {
-    name: "",
-    customers: [],
+    name: '',
+    customers: this.customers(),
   };
   matchingLocations: LocationProps[] = [];
   sortedLocations: LocationProps[] = [];
 
+  routesModal = ko.observable(false);
+
   constructor() {}
+
+  navRoutesButton() {
+    this.routes([]);
+    this.getRoutes();
+  }
+
+  clearCustomerForm() {
+    this.customerName("");
+    this.customerStreet("");
+    this.customerCity("");
+    this.customerState("");
+    this.customerZip("");
+    this.customerPhone("");
+    this.keystop("No");
+    this.customerCases(0);
+    this.stopNotes("");
+    this.cityMatches([])
+    this.stateMatches([])
+  }
 
   onRouteButtonClick() {
     this.addRoute();
   }
 
   onCustomerButtonClick() {
-    this.addCustomer();    
+    this.addCustomer();
+    this.clearCustomerForm();
   }
 
   addRoute() {
-    let route: RouteProps = {
-      name: this.routeName(),
-    };
-    pubSub.publish("route", route);
+    this.route.name = this.routeName();
   }
 
   addCustomer() {
@@ -79,10 +97,6 @@ export class FormViewModel {
     this.updateTotalCases(newCustomer);
   }
 
-//   removeCustomer(){
-//     this.customers.remove(this)
-//   }
-
   updateTotalCases(newCustomer: CustomerProps) {
     let cases = Number(newCustomer.cases);
     this.casesCount(this.casesCount() + cases);
@@ -100,74 +114,64 @@ export class FormViewModel {
     const cityMultiples = sortedLocations.map((locations) => {
       return locations.city as string;
     });
-    let cities = [...new Set(cityMultiples)]
+    let cities = [...new Set(cityMultiples)];
     for (let i of cities) {
       if (
         i!
           .toLocaleLowerCase()
           .startsWith(this.customerCity().toLocaleLowerCase()) &&
         this.customerCity() != ""
-      ) {        
-        this.cityMatches.push(i);        
-        // this.removeElements(this.customerCity(), this.cityMatches())
-        return
+      ) {
+        this.cityMatches([]);
+        this.cityMatches.push(i);
       }
-    };    
+    }
   }
-
-//   removeElements(locations:any, matchedLocations:any){
-//     for (let i of matchedLocations){
-//         if (i !== locations){
-//             matchedLocations.remove(i)
-//         }
-        
-//     }
-// }
-  
-
 
   matchingStates() {
     this.getMatchingLocations();
     let sortedLocations = this.matchingLocations.sort();
-    const statesMultiples = sortedLocations.map((locations) => {        
-        return locations.state as string
-    })
-    let states = [...new Set(statesMultiples)];    
-    for (let i of states) {        
+    const statesMultiples = sortedLocations.map((locations) => {
+      return locations.state as string;
+    });
+    let states = [...new Set(statesMultiples)];
+    for (let i of states) {
       if (
         i!
           .toLocaleLowerCase()
           .startsWith(this.customerState().toLocaleLowerCase()) &&
         this.customerState() != ""
       ) {
-        console.log("I", i);
+        this.stateMatches([]);
         this.stateMatches.push(i);
-        return
-        
       }
     }
   }
 
-  getRoutes(){
-    pubSub.subscribe("route", (r: RouteProps) => {
-      this.route.name = r.name;
-    });
-  
-    pubSub.subscribe("addedCustomer", (c: CustomerProps) => {
-      this.route.customers?.push(c);
-    });
-  
-    this.routes.push(this.route);
-    pubSub.publish("allRoutes", this.routes);
-
-    fetch("../libraries/routes.json")
-    .then((r) => r.json())
-    .then((data) => this.routes.push(...data));
-
-  
+  onImportButtonClick() {
+    this.routes([]);
+    this.routesModal(true);
+    this.getRoutes();
   }
 
+  onRouteClick(data: RouteProps) {
+    let selectedRoute: RouteProps = data;
+    this.customers(selectedRoute.customers!)
+  }
 
+  getRoutes() {
+    fetch("../libraries/routes.json")
+      .then((r) => r.json())
+      .then((data) => this.routes.push(...data));
+  }
+
+  modalCloseButton() {
+    this.routesModal(false);
+  }
+
+  onExportButtonClick() {
+    this.routes.push(this.route);
+  }
 }
 
 ko.applyBindings(new FormViewModel());

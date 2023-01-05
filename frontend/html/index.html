@@ -72,7 +72,7 @@
           </li>
           <li class="menu-li">
             <p
-              data-modal-target="#modal-import"
+              data-bind="click: navRoutesButton()"
               class="nav-routes"
               href="#"
               id="route"
@@ -80,8 +80,8 @@
               <i class="fa-solid fa-route"></i> Routes
             </p>
             <input type="checkbox" id="drop1" />
-            <ul class="menu-dropdown">
-              <!-- <li id="menu-dropdown-li"></li> -->
+            <ul class="menu-dropdown" data-bind="foreach: routes">
+              <li data-bind="text: name"></li>
             </ul>
           </li>
         </ul>
@@ -174,7 +174,7 @@
                       />
                       <ul class="suggestions-state" data-="foreach: stateMatches">
                         <li>
-                          <span data-bind="text: $data"></span>
+                          <span data-bind="text: stateMatches"></span>
                         </li>
                       </ul>
                       <br />
@@ -195,7 +195,7 @@
 
                 <label for="Contact" class="phone">Contact:</label><br />
                 <input
-                  data-bind="customerPhone"
+                  data-bind="value: customerPhone"
                   type="tel"
                   class="c-phone"
                   name="phone"
@@ -209,13 +209,13 @@
 
                 <label for="key">Key Stop?</label><br />
                 <select name="key" class="key" data-bind="options: keystopOptions, selectedOptions: keystop">
-                  <!-- <option value="No">No</option>
-                  <option value="Yes">Yes</option></select -->
+                  <option value="No">No</option>
+                  <option value="Yes">Yes</option></select
                 ><br />
 
                 <!-- Case Number Form (future iteration)-->
 
-                <br />
+                
                 <label for="quantity">Number Of Cases:</label><br />
                 <input
                   data-bind="value: customerCases"
@@ -262,7 +262,7 @@
       <br />
       <h3>
         Total cases:
-        <span class="cases-span" data-bind="text: casesCount"></span>
+        <span class="cases-span" data-bind="text: route.name"></span>
       </h3>
       <br />
       <h3>
@@ -270,38 +270,41 @@
         <span class="routeTime-span"></span>
       </h3>
       <br />
-      <button class="button export">export</button>
+      <button class="button export" data-bind="click: onExportButtonClick">export</button>
 
       <!-- Import Routes Modal -->
-      <button data-modal-target="#modal-import" class="button import">
+      <button  class="button import" data-bind="click: onImportButtonClick">
         import
       </button>
-      <div class="modal-import" id="modal-import">
+
+      <div class="modal-import" id="modal-import" data-bind="visible: routesModal">
         <div class="modal-import-header">
           <div class="modal-import-title">Routes</div>
-          <button data-close-button class="close-button">&times;</button>
+          <button class="close-button" data-bind="click: modalCloseButton">&times;</button>
         </div>
         <div class="modal-import-body">
-          <ul class="ul-modal-route">
-            <li class="modal-route"></li>
+          <ul class="ul-modal-route" data-bind="foreach: routes">
+            <li class="modal-route" >
+              <span data-bind="text: name, event: {click: $parent.onRouteClick($data)}"></span>
+            </li>
           </ul>
         </div>
       </div>
 
       <!-- Import Stop info Modal -->
-      <button
+      <!-- <button
         data-customer-modal-target="#modal-customer"
         class="button stopNotes"
       >
         stopNotes
-      </button>
-      <div class="modal-customer" id="modal-customer">
+      </button> -->
+      <!-- <div class="modal-customer" id="modal-customer">
         <div class="modal-customer-header">
           <div class="modal-customer-title">Driver Notes</div>
-          <button data-close-button class="close-button">&times;</button>
+          <button>&times;</button>
         </div>
         <div class="modal-customer-body"></div>
-      </div>
+      </div> -->
       <br />
       <br />
       <table class="table-results" id="table-results">
