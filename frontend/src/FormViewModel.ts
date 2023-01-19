@@ -1,4 +1,4 @@
-import { pubSub } from "./libraries/pubsub.js";
+import { pubSub } from "./pubSub.js";
 import {
   CustomerProps,
   RouteProps,
@@ -171,6 +171,10 @@ export class FormViewModel {
 
   onExportButtonClick() {
     this.routes.push(this.route);
+  }
+
+  clearTable(){
+    
   }
 }
 
