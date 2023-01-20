@@ -1,35 +1,8 @@
-export interface RouteProps {
-    name?: string,
-    customers?: CustomerProps[]
-}
-
-export interface CustomerProps{
-    name?: string,
-    address?: AddressProps,
-    phone?: string,
-    key?: string,
-    cases?: number | string,
-    driverNotes?: string,
-}
-
-export interface LocationProps {
-    city: string,
-    state: string,
-}
-
-export interface AddressProps{
-    street?: string,
-    city?: string,
-    state?: string,
-    zip?: string,
-  }
-
-
+export {};
 // export interface RouteProps {
 //     name: Observable<string>,
 //     customers: CustomerProps[]
 // }
-
 // export interface CustomerProps {
 //     name: Observable<string>,
 //     address: {

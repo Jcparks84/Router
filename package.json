@@ -1,11 +1,12 @@
 {
   "scripts": {
-    "start": "tsc --watch --project frontend",
+    "start": "tsc --watch ",
     "build": "tsc --project frontend",
     "dev": "ts-node-dev --respawn backend/src/server.ts"
   },
   "dependencies": {
     "@mapquest/io": "^0.3.21",
+    "@types/geojson": "^7946.0.10",
     "@types/knockout": "^3.4.72",
     "@types/knockout.validation": "^0.0.38",
     "express": "^4.18.2",
@@ -17,6 +18,7 @@
     "leaflet": "^1.9.3",
     "mapquest": "^0.2.0",
     "sequelize": "^6.28.0",
+    "sequelize-cli": "^6.5.2",
     "sqlite3": "^5.1.4",
     "ts-node-dev": "^2.0.0",
     "uuid": "^9.0.0"

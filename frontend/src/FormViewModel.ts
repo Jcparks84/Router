@@ -6,11 +6,13 @@ import {
   LocationProps,
 } from "./interface.js";
 import validation from "knockout.validation";
+import { KeyObject } from "crypto";
 
 declare var ko: KnockoutStatic;
 
 export class FormViewModel {
   routeName = ko.observable("");
+  displayRouteName = ko.observable("");
   casesCount = ko.observable(0); // total cases of customers
   customerName = ko.observable("");
   customerStreet = ko.observable("");
@@ -28,21 +30,24 @@ export class FormViewModel {
   stopNotes = ko.observable("");
   addresses: AddressProps[] = [];
   customers: KnockoutObservableArray<CustomerProps> = ko.observableArray();
+  displayCustomers = ko.observable()
   routes: KnockoutObservableArray<RouteProps> = ko.observableArray();
   route: RouteProps = {
-    name: '',
+    name: "",
     customers: this.customers(),
   };
+  displayRoute = ko.observable([])
   matchingLocations: LocationProps[] = [];
   sortedLocations: LocationProps[] = [];
 
   routesModal = ko.observable(false);
-
+  stopInfoModal = ko.observable(false);
+  displayNotes = ko.observable("")
   constructor() {}
 
   navRoutesButton() {
     this.routes([]);
-    this.getRoutes();
+    // this.getRoutes();
   }
 
   clearCustomerForm() {
@@ -55,12 +60,12 @@ export class FormViewModel {
     this.keystop("No");
     this.customerCases(0);
     this.stopNotes("");
-    this.cityMatches([])
-    this.stateMatches([])
+    this.cityMatches([]);
+    this.stateMatches([]);
   }
 
   onRouteButtonClick() {
-    this.addRoute();
+    this.addRouteName();
   }
 
   onCustomerButtonClick() {
@@ -68,8 +73,10 @@ export class FormViewModel {
     this.clearCustomerForm();
   }
 
-  addRoute() {
+  addRouteName() {
     this.route.name = this.routeName();
+    this.displayRouteName(this.route.name);
+    this.routeName("");
   }
 
   addCustomer() {
@@ -103,7 +110,7 @@ export class FormViewModel {
   }
 
   getMatchingLocations() {
-    fetch("/frontend/src/libraries/locations.json")
+    fetch("/frontend/libraries/locations.json")
       .then((res) => res.json())
       .then((data) => this.matchingLocations.push(...data));
   }
@@ -148,16 +155,49 @@ export class FormViewModel {
     }
   }
 
+  onMatchingLocationClick(event: any) {
+    // const selectedLocation = event.target.innertext;
+    // console.log(selectedLocation);
+    console.log(event);
+  }
+
   onImportButtonClick() {
     this.routes([]);
-    this.routesModal(true);
     this.getRoutes();
+    this.routesModal(true);
+    // this.stopInfoModal(false)
+    // this.updateTotalCases();
+  }
+
+  onTableCustomerClick(data: any) {
+    console.log("clicked");
+    let x = data.driverNotes
+    this.displayNotes(x)
+    this.stopInfoModal(true);
   }
 
   onRouteClick(data: RouteProps) {
+    // this.displayCustomers(this.customers)
     let selectedRoute: RouteProps = data;
-    this.customers(selectedRoute.customers!)
+    this.customers(selectedRoute.customers!);
+    this.displayRouteName(selectedRoute.name);
+    let customers = selectedRoute.customers;
+    let cases: number[] = [];
+    customers!.forEach(function (customer) {
+      let x = customer.cases;
+      cases.push(parseInt(x));
+    });
+    let sum = cases.reduce(function (a: any, b: any) {
+      return a + b;
+    }, 0);
+    this.casesCount(0);
+    this.casesCount(this.casesCount() + sum);
   }
+
+  // updateTotalCases(newCustomer: CustomerProps) {
+  //   let cases = Number(newCustomer.cases);
+  //   this.casesCount(this.casesCount() + cases);
+  // }
 
   getRoutes() {
     fetch("../libraries/routes.json")
@@ -167,14 +207,18 @@ export class FormViewModel {
 
   modalCloseButton() {
     this.routesModal(false);
+    this.stopInfoModal(false);
   }
 
   onExportButtonClick() {
     this.routes.push(this.route);
   }
 
-  clearTable(){
-    
+  clearAll() {
+    this.clearCustomerForm();
+    this.customers([]);
+    this.casesCount(0);
+    this.routeName("");
   }
 }
 

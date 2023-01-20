@@ -156,7 +156,7 @@
                         class="input-city"
                         placeholder="City"
                       />
-                      <ul class="suggestions-city" data-bind="foreach: cityMatches">
+                      <ul class="suggestions-city" data-bind="foreach: cityMatches, click: onMatchingLocationClick(event)">
                         <li>
                           <span data-bind="text: $data"></span>
                         </li>
@@ -172,9 +172,9 @@
                         class="input-state"
                         placeholder="State"
                       />
-                      <ul class="suggestions-state" data-="foreach: stateMatches">
+                      <ul class="suggestions-state" data-bind ="foreach: stateMatches, click: onMatchingLocationClick(event)">
                         <li>
-                          <span data-bind="text: stateMatches"></span>
+                          <span data-bind="text: $data"></span>
                         </li>
                       </ul>
                       <br />
@@ -257,12 +257,12 @@
     <div class="route-display" id="route-display">
       <h1 class="route-name-display">
         Route:
-        <span class="route-span" data-bind="text: routeName"></span>
+        <span class="route-span" data-bind="text: displayRouteName"></span>
       </h1>
       <br />
       <h3>
         Total cases:
-        <span class="cases-span" data-bind="text: route.name"></span>
+        <span class="cases-span" data-bind="text: casesCount"></span>
       </h3>
       <br />
       <h3>
@@ -273,7 +273,7 @@
       <button class="button export" data-bind="click: onExportButtonClick">export</button>
 
       <!-- Import Routes Modal -->
-      <button  class="button import" data-bind="click: onImportButtonClick">
+      <button  class="button import" data-bind="click: function(){onImportButtonClick()}">
         import
       </button>
 
@@ -292,19 +292,19 @@
       </div>
 
       <!-- Import Stop info Modal -->
-      <!-- <button
-        data-customer-modal-target="#modal-customer"
-        class="button stopNotes"
-      >
-        stopNotes
-      </button> -->
-      <!-- <div class="modal-customer" id="modal-customer">
-        <div class="modal-customer-header">
-          <div class="modal-customer-title">Driver Notes</div>
-          <button>&times;</button>
+      
+      <div class="modal-import" id="modal-import" data-bind="visible: stopInfoModal">
+        <div class="modal-import-header">
+          <div class="modal-import-title">Stop Info</div>
+          <button class="close-button" data-bind="click: modalCloseButton">&times;</button>
         </div>
-        <div class="modal-customer-body"></div>
-      </div> -->
+        <div class="modal-import-body">
+          <p data-bind="text: displayNotes"></p>
+          </ul>
+        </div>
+      </div>
+
+
       <br />
       <br />
       <table class="table-results" id="table-results">
@@ -316,9 +316,10 @@
             <th>Contact #</th>
             <th>Key Stop</th>
             <th>Case Count</th>
+            <th>Stop Info</th>
           </tr>
         </thead>
-        <tbody id="tbody" class="tbody" data-bind="foreach: customers">
+        <tbody id="tbody" class="tbody" data-bind="foreach: displayCustomers()">
         <tr>
           <td data-bind="text: $index() + 1"></td>
           <td data-bind="text: name"></td>
@@ -326,11 +327,12 @@
           <td data-bind="text: phone"></td>
           <td data-bind="text: key"></td>
           <td data-bind="text: cases"></td>
+          <td><button data-bind="event: {click: $parent.onTableCustomerClick($data)}">Stop Info</button></td>
         </tr>
         </tbody>
       </table>
       <div class="run-route">
-        <button class="button clearTable" type="button" value="Clear Table">
+        <button class="button clearTable" type="button" value="Clear Table" data-bind="click: clearAll()">
           Clear Table
         </button>
         <br />

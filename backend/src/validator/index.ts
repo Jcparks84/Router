@@ -7,6 +7,14 @@ class RouteValidator {
     ];
   }
 
+  checkCreateCustomer() {
+    return [
+      body("name")
+        .notEmpty()
+        .withMessage("The customer name should not be empty"),
+    ];
+  }
+
   checkReadRoute() {
     return [
       query("limit")

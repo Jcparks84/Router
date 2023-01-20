@@ -7,3 +7,5 @@ const Routedb = new Sequelize("app", "", "", {
 });
 
 export default Routedb;
+
+

@@ -1,5 +1,4 @@
 import { pubSub } from "./pubSub.js";
-import {l} from "leaflet"
 
 console.log("Maps Wired");
 
