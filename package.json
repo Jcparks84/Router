@@ -1,5 +1,6 @@
 {
   "scripts": {
+    "build": "tsc --project frontend",
     "dev": "ts-node-dev --respawn backend/src/server.ts"
   },
   "dependencies": {
