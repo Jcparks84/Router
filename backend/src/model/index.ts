@@ -1,15 +1,15 @@
-import { Model, DataTypes } from "sequelize";
+import { Model, DataTypes, Sequelize } from "sequelize";
 import Routedb from "../config/database.config";
+
 
 interface RouteAttributes {
   id: string;
   route: string;
-  customers: CustomerInstance[];
 }
 
-export class RouteInstance extends Model<RouteAttributes> {}
+export class Route extends Model<RouteAttributes> {}
 
-RouteInstance.init(
+Route.init(
   {
     id: {
       type: DataTypes.UUIDV4,
@@ -19,11 +19,6 @@ RouteInstance.init(
 
     route: {
       type: DataTypes.STRING,
-      allowNull: false,
-    },
-
-    customers: {
-      type: DataTypes.ARRAY(DataTypes.STRING),
       allowNull: false,
     },
   },
@@ -36,67 +31,24 @@ RouteInstance.init(
 interface CustomerAttributes {
   id: string;
   name: string;
-  routeID: string;
-  phone: string,
-  key: string,
-  cases: string,
-  notes: string,
-  street: string,
-  city: string,
-  state: string,
-  zip: string
+  phone: string;
+  key: string;
+  cases: string;
+  notes: string;
+  street: string;
+  city: string;
+  state: string;
+  zip: string;
 }
 
-// export class CustomerInstance extends Model<CustomerAttributes> {}
 
-// CustomerInstance.init(
-//   {
-//     id: {
-//       type: DataTypes.UUIDV4,
-//       primaryKey: true,
-//       allowNull: false,
-//     },
+export class Customer extends Model<CustomerAttributes> {}
 
-//     name: {
-//       type: DataTypes.STRING,
-//       allowNull: false,
-//       unique: true,
-//     },
-
-//   },
-//   {
-//     sequelize: Routedb,
-//     tableName: "Customers",
-//   }
-// );
-
-// interface CustomerAttributes {
-//   id: string;
-//   routeID: string;
-//   name: string;
-//   phone: string;
-//   key: string;
-//   cases: string;
-//   notes: string;
-// //   address: {
-// //     street: string;
-// //     city: string;
-// //     state: string;
-// //     zip: string;
-// //   };
-// }
-
-export class CustomerInstance extends Model<CustomerAttributes> {}
-
-CustomerInstance.init(
+Customer.init(
   {
     id: {
       type: DataTypes.UUIDV4,
       primaryKey: true,
-      allowNull: false,
-    },
-    routeID: {
-      type: DataTypes.STRING,
       allowNull: false,
     },
 
@@ -136,9 +88,14 @@ CustomerInstance.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
-},
+  },
   {
     sequelize: Routedb,
     tableName: "Customers",
   }
 );
+
+// const Stops = Routedb.define('User_Profile', {}, { timestamps: false });
+Customer.belongsToMany(Route, { through: "Stops" });
+Route.belongsToMany(Customer, { through: "Stops" });
+Routedb.sync({ force: true });

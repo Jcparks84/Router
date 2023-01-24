@@ -1,8 +1,10 @@
-requirejs(["./pubsub", "./form", "./route"], function App() {
+function App() {
   let tableResults = document.querySelector(".table-results");
   let runRoute = document.querySelector(".runRoute");
 
   // default map layer
+
+  console.log("Maps Wired");
 
   let mapOptions = {
     elt: document.getElementById("map"),
@@ -17,6 +19,7 @@ requirejs(["./pubsub", "./form", "./route"], function App() {
     zoom: 4,
     zoomControl: true,
   });
+
 
   let addresses = [];
 
@@ -152,4 +155,4 @@ requirejs(["./pubsub", "./form", "./route"], function App() {
     e.preventDefault();
     displayRoute();
   };
-})();
+};

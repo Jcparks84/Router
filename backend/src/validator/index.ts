@@ -34,6 +34,13 @@ class RouteValidator {
         .withMessage("the value should be uuid v4"),
     ];
   }
+
+  // checkCreateStop() {
+  //   return [
+  //     body("id").notEmpty().withMessage("The route should not be empty"),
+  //   ];
+  // }
+
 }
 
 export default new RouteValidator();

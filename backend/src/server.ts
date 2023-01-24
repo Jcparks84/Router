@@ -1,11 +1,12 @@
 import express, { NextFunction, Request, Response } from "express";
 import db from "./config/database.config";
 import { v4 as uuidv4 } from "uuid";
-import { CustomerInstance, RouteInstance } from "./model";
+import { Customer, Route } from "./model";
 import RouteValidator from "./validator";
 import Middleware from "./middleware";
 import middleware from "./middleware";
 import { json } from "sequelize";
+import { cursorTo } from "readline";
 
 db.sync().then(() => {
   console.log("connected to db");
@@ -24,12 +25,13 @@ app.post(
   async (req: Request, res: Response) => {
     const id = uuidv4();
     try {
-      const record = await RouteInstance.create({ ...req.body, id });
+      const record = await Route.create({ ...req.body, id });
       return res.json({ record, msg: "Successfully created route" });
     } catch (e) {
-      console.error(e)
+      console.error(e);
       return res.json({
         msg: "failed to create",
+        e,
         status: 500,
         route: "/addRoute",
       });
@@ -46,7 +48,7 @@ app.get(
     try {
       const limit = req.query?.limit as number | undefined;
       console.log(limit);
-      const records = await RouteInstance.findAll({ where: {}, limit });
+      const records = await Route.findAll({ where: {}, limit });
       return res.json(records);
     } catch (e) {
       return res.json({ msg: "faile to read", status: 500, route: "/read" });
@@ -62,7 +64,7 @@ app.get(
   async (req: Request, res: Response) => {
     try {
       const { id } = req.params;
-      const record = await RouteInstance.findOne({ where: { id } });
+      const record = await Route.findOne({ where: { id } });
       return res.json(record);
     } catch (e) {
       return res.json({
@@ -74,18 +76,19 @@ app.get(
   }
 );
 
+//Post Customer
 app.post("/addCustomer", async (req: Request, res: Response) => {
   const id = uuidv4();
-  const routeID = ''
-  const route = RouteInstance.findOne({
-    order: [ [ "id", 'DESC']]
-  }).then(function(result){
+  const routeID = "";
+  const route = Route.findOne({
+    order: [["id", "DESC"]],
+  }).then(function (result) {
     console.log(result);
-  })
+  });
   console.log(route);
-  
+
   try {
-    const record = await CustomerInstance.create({ ...req.body, id, routeID });
+    const record = await Customer.create({ ...req.body, id, routeID });
     return res.json({ record, msg: "Customer Added" });
   } catch (e) {
     return res.json({
@@ -101,6 +104,41 @@ app.post("/addCustomer", async (req: Request, res: Response) => {
 //     return res.send('')
 // })
 
+// const project = await Project.findByPk(123);
+// if (project === null) {
+//   console.log('Not found!');
+// } else {
+//   console.log(project instanceof Project); // true
+//   // Its primary key is 123
+// }
+
+//Post stop
+app.post(
+  "/addStop",
+  RouteValidator.checkIdParam(),
+  middleware.handleValidationErrors,
+  async (req: Request, res: Response) => {
+    const id = uuidv4();
+    try {
+      Route.findByPk(123).then(route => {
+        Customer.findByPk(123).then(customer => {
+          customer!.addRoute(route);
+        });
+      });
+
+      // const record = await route({ ...req.body, id });
+      return res.json({ record, msg: "Successfully created stop" });
+    } catch (e) {
+      console.error(e);
+      return res.json({
+        msg: "failed to create",
+        status: 500,
+        route: "/addStop",
+      });
+    }
+  }
+);
+
 app.delete(
   "/delete/:id",
   RouteValidator.checkIdParam(),
@@ -108,7 +146,7 @@ app.delete(
   async (req: Request, res: Response) => {
     try {
       const { id } = req.params;
-      const record = await RouteInstance.findOne({ where: { id } });
+      const record = await Route.findOne({ where: { id } });
       if (!record) {
         return res.json({ msg: "Can not find existing record" });
       }

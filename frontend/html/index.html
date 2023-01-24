@@ -1,325 +1,260 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="description" content="Route Generator" />
-    <meta name="keywords" content="cdl, route" />
-    <meta name="author" content="John Parks" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="../less/styles.css" />
-    <link
-      rel="stylesheet"
-      href="http://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.css"
-    />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=DM+Mono&family=Lato&family=Merriweather:wght@400;700&family=Poppins&family=Revalia&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://unpkg.com/leaflet@1.9.2/dist/leaflet.css"
-      integrity="sha256-sA+zWATbFveLLNqWO2gtiw3HL/lh1giY/Inf1BJ0z14="
-      crossorigin=""
-    />
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/pubsub-js/1.9.4/pubsub.min.js"
-      integrity="sha512-GGfBS5/WTGwqhjo4nCGzQEWrX3+gkjF2G/JHs3cfhpynh5Lck+qqCwofvZlHoKuv/2P0B0Oo4Mq3Xa3Beyyf9A=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    ></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script
-      src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js"
-      integrity="sha256-o9N1jGDZrf5tS+Ft4gbIK7mYMipq9lqpVJ91xHSyKhg="
-      crossorigin=""
-    ></script>
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.js"></script>
-    <script src="https://www.mapquestapi.com/sdk/leaflet/v2.2/mq-map.js?key=X6ROy8Z5WKdhde18PV96ScgiYiOrrkkK"></script>
-    <script src="https://www.mapquestapi.com/sdk/leaflet/v2.2/mq-routing.js?key=X6ROy8Z5WKdhde18PV96ScgiYiOrrkkK"></script>
-    <script src="https://www.mapquestapi.com/sdk/leaflet/v2.2/mq-traffic.js?key=X6ROy8Z5WKdhde18PV96ScgiYiOrrkkK"></script>
-    <script
-      src="https://kit.fontawesome.com/6223e0d74e.js"
-      crossorigin="anonymous"
-    ></script>
-    <title>Route buddy</title>
-  </head>
-  <body>
-    <div class="container">
-      <!-- NavBar -->
 
-      <nav class="nav-container">
-        <label for="drop" class="toggle">Menu</label>
-        <input type="checkbox" id="drop" />
-        <ul class="menu">
-          <li class="menu-li">
-            <a href="./index.html"><i class="fa-solid fa-house"></i> Home</a>
-          </li>
-          <li class="menu-li">
-            <p
-              data-bind="click: navRoutesButton()"
-              class="nav-routes"
-              href="#"
-              id="route"
-            >
-              <i class="fa-solid fa-route"></i> Routes
-            </p>
-            <input type="checkbox" id="drop1" />
-            <ul class="menu-dropdown" data-bind="foreach: routes">
-              <li data-bind="text: name"></li>
-            </ul>
-          </li>
-        </ul>
-      </nav>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="description" content="Route Generator" />
+  <meta name="keywords" content="cdl, route" />
+  <meta name="author" content="John Parks" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="../less/styles.css" />
+  <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Mono&family=Lato&family=Merriweather:wght@400;700&family=Poppins&family=Revalia&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.2/dist/leaflet.css"
+    integrity="sha256-sA+zWATbFveLLNqWO2gtiw3HL/lh1giY/Inf1BJ0z14=" crossorigin="" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css" />
+  <!-- <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css" /> -->
+  <link type="text/css" rel="stylesheet" href="https://api.mqcdn.com/sdk/mapquest-js/v1.3.2/mapquest.css"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pubsub-js/1.9.4/pubsub.min.js"
+    integrity="sha512-GGfBS5/WTGwqhjo4nCGzQEWrX3+gkjF2G/JHs3cfhpynh5Lck+qqCwofvZlHoKuv/2P0B0Oo4Mq3Xa3Beyyf9A=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js"
+    integrity="sha256-o9N1jGDZrf5tS+Ft4gbIK7mYMipq9lqpVJ91xHSyKhg=" crossorigin=""></script>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.js"></script>
+  <script src="https://www.mapquestapi.com/sdk/leaflet/v2.2/mq-map.js?key=ejLFSB4eBrlRP7Lwl1pIZZm9O1AoOeTl"></script>
+  <script
+  src="https://www.mapquestapi.com/sdk/leaflet/v2.2/mq-routing.js?key=ejLFSB4eBrlRP7Lwl1pIZZm9O1AoOeTl"></script>
+  <script
+  src="https://www.mapquestapi.com/sdk/leaflet/v2.2/mq-traffic.js?key=ejLFSB4eBrlRP7Lwl1pIZZm9O1AoOeTl"></script>
+  <script src="https://kit.fontawesome.com/6223e0d74e.js" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"></script>
+  <script src="https://www.mapquestapi.com/sdk/leaflet/v2.2/mq-map.js?key=ejLFSB4eBrlRP7Lwl1pIZZm9O1AoOeTl"></script>
+  <title>Route buddy</title>
+</head>
 
-      <div class="header">
-        <h1><i class="fa-solid fa-truck-ramp-box"></i>RouteBuddy</h1>
+<body>
+  <div class="container">
+    <!-- NavBar -->
+
+    <nav class="nav-container">
+      <label for="drop" class="toggle">Menu</label>
+      <input type="checkbox" id="drop" />
+      <ul class="menu">
+        <li class="menu-li">
+          <a href="./index.html"><i class="fa-solid fa-house"></i> Home</a>
+        </li>
+        <li class="menu-li">
+          <p data-bind="click: navRoutesButton()" class="nav-routes" href="#" id="route">
+            <i class="fa-solid fa-route"></i> Routes
+          </p>
+          <input type="checkbox" id="drop1" />
+          <ul class="menu-dropdown" data-bind="foreach: routes">
+            <li data-bind="text: name"></li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="header">
+      <h1><i class="fa-solid fa-truck-ramp-box"></i>RouteBuddy</h1>
+    </div>
+
+    <!-- Map -->
+
+    <div class="container-2">
+      <div id="map" class="map">
+        <script type="module" src="../build/src/map.js"></script>
       </div>
 
-      <!-- Map -->
+      <div class="form-container">
+        <input id="collapsible" class="form-toggle" type="checkbox" checked />
+        <label for="collapsible" class="form-lbl-toggle">Create Route</label>
+        <div class="collapsible-content">
+          <div class="content-inner">
 
-      <div class="container-2">
-        <div id="map" class="map">
-          <script type="module" src="../build/src/map.js"></script>
-        </div>
+            <!-- Route Name Form -->
 
-        <div class="form-container">
-          <input id="collapsible" class="form-toggle" type="checkbox" checked />
-          <label for="collapsible" class="form-lbl-toggle">Create Route</label>
-          <div class="collapsible-content">
-            <div class="content-inner">
+            <form class="route-form">
+              <label for="route-name">Route Name:</label><br />
+              <input data-bind="value: routeName" type="text" class="route-name" placeholder="Name" /><br />
+              <br /><input data-bind="click: onRouteButtonClick()" class="button create-route-button" type="button"
+                value="Create Route" /><br />
+            </form>
 
-              <!-- Route Name Form -->
+            <!-- Customer Name Form -->
 
-              <form class="route-form">
-                <label for="route-name">Route Name:</label><br />
-                <input
-                  data-bind="value: routeName"
-                  type="text"
-                  class="route-name"
-                  placeholder="Name"
-                /><br />
-                <br /><input
-                  data-bind="click: onRouteButtonClick()"
-                  class="button create-route-button"
-                  type="button"
-                  value="Create Route"
-                /><br />
-              </form>
+            <form class="customer-form">
+              <br /><label for="c-name">Customer:</label><br />
+              <input data-bind="value: customerName" type="text" class="c-name" name="c-name"
+                placeholder="Name" /><br />
+              <br />
 
-              <!-- Customer Name Form -->
+              <!-- Address Form -->
 
-              <form class="customer-form">
-                <br /><label for="c-name">Customer:</label><br />
-                <input
-                data-bind="value: customerName"
-                  type="text"
-                  class="c-name"
-                  name="c-name"
-                  placeholder="Name"
-                /><br />
-                <br />
-
-                <!-- Address Form -->
-
-                <label for="address">Address:</label><br />
-                <div class="address-container">
-                  <div class="a1">
-                    <div>
-                      <input
-                        data-bind="value: customerStreet"
-                        type="street"
-                        class="input-street"
-                        placeholder="Street"
-                      />
-                    </div>
-                    <br />
-                    <div>
-                      <input
-                        data-bind="value: customerCity, valueUpdate: 'afterkeydown', event: { keyup: matchingCities }"  
-                        type="city"
-                        class="input-city"
-                        placeholder="City"
-                      />
-                      <ul class="suggestions-city" data-bind="foreach: cityMatches, click: onMatchingLocationClick(event)">
-                        <li>
-                          <span data-bind="text: $data"></span>
-                        </li>
-                      </ul>
-                      <br />
-                    </div>
-                  </div>
-                  <div class="a2">
-                    <div>
-                      <input
-                      data-bind="value: customerState, valueUpdate: 'afterkeydown', event: { keyup: matchingStates }" 
-                        type="state"
-                        class="input-state"
-                        placeholder="State"
-                      />
-                      <ul class="suggestions-state" data-bind ="foreach: stateMatches, click: onMatchingLocationClick(event)">
-                        <li>
-                          <span data-bind="text: $data"></span>
-                        </li>
-                      </ul>
-                      <br />
-                    </div>
-                    <div>
-                      <input
-                        data-bind="value: customerZip"
-                        type="zip"
-                        class="input-zip"
-                        placeholder="Zip"
-                      /><br />
-                    </div>
+              <label for="address">Address:</label><br />
+              <div class="address-container">
+                <div class="a1">
+                  <div>
+                    <input data-bind="value: customerStreet" type="street" class="input-street" placeholder="Street" />
                   </div>
                   <br />
+                  <div>
+                    <input
+                      data-bind="value: customerCity, valueUpdate: 'afterkeydown', event: { keyup: matchingCities }"
+                      type="city" class="input-city" placeholder="City" />
+                    <ul class="suggestions-city"
+                      data-bind="foreach: cityMatches, click: onMatchingLocationClick(event)">
+                      <li>
+                        <span data-bind="text: $data"></span>
+                      </li>
+                    </ul>
+                    <br />
+                  </div>
                 </div>
-
-                <!-- Contact # Form-->
-
-                <label for="Contact" class="phone">Contact:</label><br />
-                <input
-                  data-bind="value: customerPhone"
-                  type="tel"
-                  class="c-phone"
-                  name="phone"
-                  pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
-                  maxlength="12"
-                  placeholder="555-555-5555"
-                /><br />
+                <div class="a2">
+                  <div>
+                    <input
+                      data-bind="value: customerState, valueUpdate: 'afterkeydown', event: { keyup: matchingStates }"
+                      type="state" class="input-state" placeholder="State" />
+                    <ul class="suggestions-state"
+                      data-bind="foreach: stateMatches, click: onMatchingLocationClick(event)">
+                      <li>
+                        <span data-bind="text: $data"></span>
+                      </li>
+                    </ul>
+                    <br />
+                  </div>
+                  <div>
+                    <input data-bind="value: customerZip" type="zip" class="input-zip" placeholder="Zip" /><br />
+                  </div>
+                </div>
                 <br />
+              </div>
 
-                <!-- Key Drop Form -->
+              <!-- Contact # Form-->
 
-                <label for="key">Key Stop?</label><br />
-                <select name="key" class="key" data-bind="options: keystopOptions, selectedOptions: keystop">
-                  <option value="No">No</option>
-                  <option value="Yes">Yes</option></select
-                ><br />
+              <label for="Contact" class="phone">Contact:</label><br />
+              <input data-bind="value: customerPhone" type="tel" class="c-phone" name="phone"
+                pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" maxlength="12" placeholder="555-555-5555" /><br />
+              <br />
 
-                <!-- Case Number Form (future iteration)-->
+              <!-- Key Drop Form -->
 
-                
-                <label for="quantity">Number Of Cases:</label><br />
-                <input
-                  data-bind="value: customerCases"
-                  value="0"
-                  type="number"
-                  class="quantity"
-                  name="quantity"
-                  min="1"
-                  max="300"
-                /><br />
+              <label for="key">Key Stop?</label><br />
+              <select name="key" class="key" data-bind="options: keystopOptions, selectedOptions: keystop">
+                <option value="No">No</option>
+                <option value="Yes">Yes</option>
+              </select><br />
 
-                <br /><label for="stop-notes">Driver Notes:</label><br />
-                <textarea
-                  data-bind="value: stopNotes"
-                  type="text"
-                  placeholder="Parking, delivery instructions, alarm code etc..."
-                  class="stop-notes"
-                  name="stop-notes"
-                  maxlength="500"
-                ></textarea
-                ><br />
+              <!-- Case Number Form (future iteration)-->
 
-                <br /><input
-                  data-bind="click: onCustomerButtonClick"
-                  type="button"
-                  class="button add-stop-button"
-                  value="Add Stop"
-                /><br />
-              </form>
-            </div>
+
+              <label for="quantity">Number Of Cases:</label><br />
+              <input data-bind="value: customerCases" value="0" type="number" class="quantity" name="quantity" min="1"
+                max="300" /><br />
+
+              <br /><label for="stop-notes">Driver Notes:</label><br />
+              <textarea data-bind="value: stopNotes" type="text"
+                placeholder="Parking, delivery instructions, alarm code etc..." class="stop-notes" name="stop-notes"
+                maxlength="500"></textarea><br />
+
+              <br /><input data-bind="click: onCustomerButtonClick" type="button" class="button add-stop-button"
+                value="Add Stop" /><br />
+            </form>
           </div>
         </div>
       </div>
     </div>
+  </div>
 
-    <!-- Display Route -->
+  <!-- Display Route -->
 
-    <div class="route-narrative" id="route-narrative"></div>
-    <div class="route-display" id="route-display">
-      <h1 class="route-name-display">
-        Route:
-        <span class="route-span" data-bind="text: displayRouteName"></span>
-      </h1>
-      <br />
-      <h3>
-        Total cases:
-        <span class="cases-span" data-bind="text: casesCount"></span>
-      </h3>
-      <br />
-      <h3>
-        Est route time:
-        <span class="routeTime-span"></span>
-      </h3>
-      <br />
-      <button class="button export" data-bind="click: onExportButtonClick">export</button>
+  <div class="route-narrative" id="route-narrative"></div>
+  <div class="route-display" id="route-display">
+    <h1 class="route-name-display">
+      Route:
+      <span class="route-span" data-bind="text: displayRouteName"></span>
+    </h1>
+    <br />
+    <h3>
+      Total cases:
+      <span class="cases-span" data-bind="text: casesCount"></span>
+    </h3>
+    <br />
+    <h3>
+      Est route time:
+      <span class="routeTime-span"></span>
+    </h3>
+    <br />
+    <button class="button export" data-bind="click: onExportButtonClick">export</button>
 
-      <!-- Import Routes Modal -->
-      <button  class="button import" data-bind="click: function(){onImportButtonClick()}">
-        import
-      </button>
+    <!-- Import Routes Modal -->
+    <button class="button import" data-bind="click: function(){onImportButtonClick()}">
+      import
+    </button>
 
-      <div class="modal-import" id="modal-import" data-bind="visible: routesModal">
-        <div class="modal-import-header">
-          <div class="modal-import-title">Routes</div>
-          <button class="close-button" data-bind="click: modalCloseButton">&times;</button>
-        </div>
-        <div class="modal-import-body">
-          <ul class="ul-modal-route" data-bind="foreach: routes">
-            <li class="modal-route" >
-              <span data-bind="text: name, event: {click: $parent.onRouteClick($data)}"></span>
-            </li>
-          </ul>
-        </div>
+    <div class="modal-import" id="modal-import" data-bind="visible: routesModal">
+      <div class="modal-import-header">
+        <div class="modal-import-title">Routes</div>
+        <button class="close-button" data-bind="click: modalCloseButton">&times;</button>
       </div>
-
-      <!-- Import Stop info Modal -->
-      
-      <div class="modal-import" id="modal-import" data-bind="visible: stopInfoModal">
-        <div class="modal-import-header">
-          <div class="modal-import-title">Stop Info</div>
-          <button class="close-button" data-bind="click: modalCloseButton">&times;</button>
-        </div>
-        <div class="modal-import-body">
-          <p data-bind="text: displayNotes"></p>
-          </ul>
-        </div>
+      <div class="modal-import-body">
+        <ul class="ul-modal-route" data-bind="foreach: routes">
+          <li class="modal-route">
+            <span data-bind="text: name, event: {click: function(){$parent.onRouteClick($data)}}"></span>
+          </li>
+        </ul>
       </div>
+    </div>
+
+    <!-- Import Stop info Modal -->
+
+    <div class="modal-import" id="modal-import" data-bind="visible: stopInfoModal">
+      <div class="modal-import-header">
+        <div class="modal-import-title">Stop Info</div>
+        <button class="close-button" data-bind="click: modalCloseButton">&times;</button>
+      </div>
+      <div class="modal-import-body">
+        <p data-bind="text: displayNotes"></p>
+        </ul>
+      </div>
+    </div>
 
 
-      <br />
-      <br />
-      <table class="table-results" id="table-results">
-        <thead>
-          <tr>
-            <th>Stop #</th>
-            <th>Customer Name</th>
-            <th>Address</th>
-            <th>Contact #</th>
-            <th>Key Stop</th>
-            <th>Case Count</th>
-            <th>Stop Info</th>
-          </tr>
-        </thead>
-        <tbody id="tbody" class="tbody" data-bind="foreach: displayCustomers()">
+    <br />
+    <br />
+    <table class="table-results" id="table-results">
+      <thead>
+        <tr>
+          <th>Stop #</th>
+          <th>Customer Name</th>
+          <th>Address</th>
+          <th>Contact #</th>
+          <th>Key Stop</th>
+          <th>Case Count</th>
+          <th>Stop Info</th>
+        </tr>
+      </thead>
+      <tbody id="tbody" class="tbody" data-bind="foreach: customers">
         <tr>
           <td data-bind="text: $index() + 1"></td>
           <td data-bind="text: name"></td>
@@ -327,18 +262,19 @@
           <td data-bind="text: phone"></td>
           <td data-bind="text: key"></td>
           <td data-bind="text: cases"></td>
-          <td><button data-bind="event: {click: $parent.onTableCustomerClick($data)}">Stop Info</button></td>
+          <td><button data-bind="event: {click: function(){$parent.onTableCustomerClick($data)}}">Stop Info</button>
+          </td>
         </tr>
-        </tbody>
-      </table>
-      <div class="run-route">
-        <button class="button clearTable" type="button" value="Clear Table" data-bind="click: clearAll()">
-          Clear Table
-        </button>
-        <br />
-        <br /><button class="button runRoute" type="button" value="Run Route">
-          Run Route
-        </button>
+      </tbody>
+    </table>
+    <div class="run-route">
+      <button class="button clearTable" type="button" value="Clear Table" data-bind="click: clearAll()">
+        Clear Table
+      </button>
+      <br />
+      <br /><button class="button runRoute" type="button" value="Run Route">
+        Run Route
+      </button>
       <!-- </div>
       <div>
         The name is <span data-bind="text: personName">hello</span>
@@ -352,8 +288,9 @@
     </div>
     <div class="overlay hidden"></div>
     <div id="import-overlay"></div>
-  </body>
-  <script>var exports = {};</script>
-  <script src="../libraries/knockout.js"></script>
-  <script type="module" src="../build/index.js"></script>
+</body>
+<script>var exports = {};</script>
+<script src="../libraries/knockout.js"></script>
+<script type="module" src="../build/index.js"></script>
+
 </html>

@@ -5,8 +5,7 @@ import {
   AddressProps,
   LocationProps,
 } from "./interface.js";
-import validation from "knockout.validation";
-import { KeyObject } from "crypto";
+
 
 declare var ko: KnockoutStatic;
 
@@ -43,6 +42,7 @@ export class FormViewModel {
   routesModal = ko.observable(false);
   stopInfoModal = ko.observable(false);
   displayNotes = ko.observable("")
+  selectedRoute = ''
   constructor() {}
 
   navRoutesButton() {
@@ -158,7 +158,6 @@ export class FormViewModel {
   onMatchingLocationClick(event: any) {
     // const selectedLocation = event.target.innertext;
     // console.log(selectedLocation);
-    console.log(event);
   }
 
   onImportButtonClick() {
@@ -180,11 +179,12 @@ export class FormViewModel {
     // this.displayCustomers(this.customers)
     let selectedRoute: RouteProps = data;
     this.customers(selectedRoute.customers!);
-    this.displayRouteName(selectedRoute.name);
+    this.displayRouteName(selectedRoute.name!);
+    // pubSub.publish("selectedRoute", selectedRoute)
     let customers = selectedRoute.customers;
     let cases: number[] = [];
     customers!.forEach(function (customer) {
-      let x = customer.cases;
+      let x: any = customer.cases!;
       cases.push(parseInt(x));
     });
     let sum = cases.reduce(function (a: any, b: any) {
@@ -214,12 +214,35 @@ export class FormViewModel {
     this.routes.push(this.route);
   }
 
+  onRunRouteButtonClick(){
+    console.log("clicked");
+  }
+
+  
+
   clearAll() {
     this.clearCustomerForm();
     this.customers([]);
     this.casesCount(0);
     this.routeName("");
   }
+
+
+  
+  // getAddresses(selectedRoute: any){  
+  //   let route = selectedRoute.customers;
+  //   for (let i = 0; i < route.length; i++) {
+  //     this.addresses.push(route[i].address);
+  //   }   
+  // }
+
+  // displayRouteDirections(){
+  //   let dir = MQ.routing.direction().on("success", function (data:any) {
+  //     console.log(data);
+      
+  //   })
+  // }
+
 }
 
 ko.applyBindings(new FormViewModel());
