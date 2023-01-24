@@ -1,12 +1,11 @@
 import express, { NextFunction, Request, Response } from "express";
 import db from "./config/database.config";
 import { v4 as uuidv4 } from "uuid";
-import { Customer, Route } from "./model";
+import { Customer, Route, RouteCustomer } from "./model";
 import RouteValidator from "./validator";
 import Middleware from "./middleware";
 import middleware from "./middleware";
-import { json } from "sequelize";
-import { cursorTo } from "readline";
+import cors from "cors";
 
 db.sync().then(() => {
   console.log("connected to db");
@@ -15,7 +14,9 @@ db.sync().then(() => {
 const app = express();
 const port = 7000;
 
+app.use(cors());
 app.use(express.json());
+
 
 //Add new route
 app.post(
@@ -23,15 +24,14 @@ app.post(
   RouteValidator.checkCreateRoute(),
   middleware.handleValidationErrors,
   async (req: Request, res: Response) => {
-    const id = uuidv4();
+    // const id = uuidv4();
     try {
-      const record = await Route.create({ ...req.body, id });
+      const record = await Route.create({ ...req.body });
       return res.json({ record, msg: "Successfully created route" });
     } catch (e) {
       console.error(e);
       return res.json({
         msg: "failed to create",
-        e,
         status: 500,
         route: "/addRoute",
       });
@@ -77,18 +77,12 @@ app.get(
 );
 
 //Post Customer
-app.post("/addCustomer", async (req: Request, res: Response) => {
-  const id = uuidv4();
-  const routeID = "";
-  const route = Route.findOne({
-    order: [["id", "DESC"]],
-  }).then(function (result) {
-    console.log(result);
-  });
-  console.log(route);
-
+app.post("/addCustomer",
+RouteValidator.checkCreateCustomer(),
+middleware.handleValidationErrors,
+ async (req: Request, res: Response) => {
   try {
-    const record = await Customer.create({ ...req.body, id, routeID });
+    const record = await Customer.create({ ...req.body });
     return res.json({ record, msg: "Customer Added" });
   } catch (e) {
     return res.json({
@@ -99,45 +93,23 @@ app.post("/addCustomer", async (req: Request, res: Response) => {
   }
 });
 
-// app.post('/addCustomer', (req:Request, res:Response) => {
-//     console.log(req.body);
-//     return res.send('')
-// })
+// Post RouteCustomers
+app.post("/routeCustomer", async(req: Request, res: Response) => {
+  try{
+    Route.findByPk(1).then(route => {
+      Customer.findByPk(1).then(customer => {
+        
+      })
+    })
+  } catch (e) {
+    return res.json({
+      msg: "Failed to add",
+      status: 500,
+      route: "/routeCustomer",
+    });
 
-// const project = await Project.findByPk(123);
-// if (project === null) {
-//   console.log('Not found!');
-// } else {
-//   console.log(project instanceof Project); // true
-//   // Its primary key is 123
-// }
-
-//Post stop
-app.post(
-  "/addStop",
-  RouteValidator.checkIdParam(),
-  middleware.handleValidationErrors,
-  async (req: Request, res: Response) => {
-    const id = uuidv4();
-    try {
-      Route.findByPk(123).then(route => {
-        Customer.findByPk(123).then(customer => {
-          customer!.addRoute(route);
-        });
-      });
-
-      // const record = await route({ ...req.body, id });
-      return res.json({ record, msg: "Successfully created stop" });
-    } catch (e) {
-      console.error(e);
-      return res.json({
-        msg: "failed to create",
-        status: 500,
-        route: "/addStop",
-      });
-    }
   }
-);
+})
 
 app.delete(
   "/delete/:id",

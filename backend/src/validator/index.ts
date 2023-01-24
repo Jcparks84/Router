@@ -3,7 +3,7 @@ import { body, query, param } from "express-validator";
 class RouteValidator {
   checkCreateRoute() {
     return [
-      body("route").notEmpty().withMessage("The route should not be empty"),
+      body("routeName").notEmpty().withMessage("The routeName should not be empty"),
     ];
   }
 

@@ -6,7 +6,6 @@ import {
   LocationProps,
 } from "./interface.js";
 
-
 declare var ko: KnockoutStatic;
 
 export class FormViewModel {
@@ -29,20 +28,20 @@ export class FormViewModel {
   stopNotes = ko.observable("");
   addresses: AddressProps[] = [];
   customers: KnockoutObservableArray<CustomerProps> = ko.observableArray();
-  displayCustomers = ko.observable()
+  displayCustomers = ko.observable();
   routes: KnockoutObservableArray<RouteProps> = ko.observableArray();
   route: RouteProps = {
     name: "",
     customers: this.customers(),
   };
-  displayRoute = ko.observable([])
+  displayRoute = ko.observable([]);
   matchingLocations: LocationProps[] = [];
   sortedLocations: LocationProps[] = [];
 
   routesModal = ko.observable(false);
   stopInfoModal = ko.observable(false);
-  displayNotes = ko.observable("")
-  selectedRoute = ''
+  displayNotes = ko.observable("");
+  selectedRoute = "";
   constructor() {}
 
   navRoutesButton() {
@@ -76,6 +75,15 @@ export class FormViewModel {
   addRouteName() {
     this.route.name = this.routeName();
     this.displayRouteName(this.route.name);
+    fetch("http://localhost:7000/addRoute", {
+      method: "POST",
+      body: JSON.stringify({
+        routeName: this.routeName(),
+      }),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+    });
     this.routeName("");
   }
 
@@ -102,6 +110,23 @@ export class FormViewModel {
     });
     pubSub.publish("addedCustomer", newCustomer);
     this.updateTotalCases(newCustomer);
+    fetch("http://localhost:7000/addCustomer", {
+      method: "POST",
+      body: JSON.stringify({
+        name: this.customerName(),
+        cases: this.customerCases(),
+        key: this.keystop(),
+        phone: this.customerPhone(),
+        notes: this.stopNotes(),
+        street: this.customerStreet(),
+        city: this.customerCity(),
+        state: this.customerState(),
+        zip: this.customerZip(),
+      }),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+    });
   }
 
   updateTotalCases(newCustomer: CustomerProps) {
@@ -170,8 +195,8 @@ export class FormViewModel {
 
   onTableCustomerClick(data: any) {
     console.log("clicked");
-    let x = data.driverNotes
-    this.displayNotes(x)
+    let x = data.driverNotes;
+    this.displayNotes(x);
     this.stopInfoModal(true);
   }
 
@@ -214,11 +239,9 @@ export class FormViewModel {
     this.routes.push(this.route);
   }
 
-  onRunRouteButtonClick(){
+  onRunRouteButtonClick() {
     console.log("clicked");
   }
-
-  
 
   clearAll() {
     this.clearCustomerForm();
@@ -227,22 +250,20 @@ export class FormViewModel {
     this.routeName("");
   }
 
-
-  
-  // getAddresses(selectedRoute: any){  
+  // getAddresses(selectedRoute: any){
   //   let route = selectedRoute.customers;
   //   for (let i = 0; i < route.length; i++) {
   //     this.addresses.push(route[i].address);
-  //   }   
+  //   }
   // }
 
   // displayRouteDirections(){
   //   let dir = MQ.routing.direction().on("success", function (data:any) {
   //     console.log(data);
-      
+
   //   })
   // }
-
 }
 
+ko.options.useOnlyNativeEvents = true;
 ko.applyBindings(new FormViewModel());
