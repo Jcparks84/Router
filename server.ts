@@ -1,21 +1,33 @@
 import express, { NextFunction, Request, Response } from "express";
-import db from "./config/database.config";
+import db from "./backend/src/config/database.config";
 import { v4 as uuidv4 } from "uuid";
-import { Customer, Route, RouteCustomer } from "./model";
-import RouteValidator from "./validator";
-import Middleware from "./middleware";
-import middleware from "./middleware";
+import { Customer, Route, RouteCustomer } from "./backend/src/model";
+import RouteValidator from "./backend/src/validator";
+import Middleware from "./backend/src/middleware";
+import middleware from "./backend/src/middleware";
 import cors from "cors";
+import path from "path";
+
 
 db.sync().then(() => {
   console.log("connected to db");
 });
+
+
 
 const app = express();
 const port = 7000;
 
 app.use(cors());
 app.use(express.json());
+app.use(express.static(__dirname + '/frontend'));
+
+
+
+app.get('/', function(req, res) {
+  res.sendFile(path.join(__dirname + '/frontend/html/index.html'))
+})
+
 
 
 //Add new route
@@ -32,6 +44,7 @@ app.post(
       console.error(e);
       return res.json({
         msg: "failed to create",
+        e,
         status: 500,
         route: "/addRoute",
       });
@@ -76,6 +89,8 @@ app.get(
   }
 );
 
+
+
 //Post Customer
 app.post("/addCustomer",
 RouteValidator.checkCreateCustomer(),
@@ -94,11 +109,11 @@ middleware.handleValidationErrors,
 });
 
 // Post RouteCustomers
-app.post("/routeCustomer", async(req: Request, res: Response) => {
+app.post("/routeCustomer", 
+async(req: Request, res: Response) => {
   try{
     Route.findByPk(1).then(route => {
-      Customer.findByPk(1).then(customer => {
-        
+      Customer.findByPk(1).then( customer => {
       })
     })
   } catch (e) {

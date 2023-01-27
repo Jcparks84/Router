@@ -42,6 +42,7 @@ export class FormViewModel {
   stopInfoModal = ko.observable(false);
   displayNotes = ko.observable("");
   selectedRoute = "";
+
   constructor() {}
 
   navRoutesButton() {
@@ -135,7 +136,7 @@ export class FormViewModel {
   }
 
   getMatchingLocations() {
-    fetch("/frontend/libraries/locations.json")
+    fetch("../libraries/locations.json")
       .then((res) => res.json())
       .then((data) => this.matchingLocations.push(...data));
   }
@@ -205,7 +206,7 @@ export class FormViewModel {
     let selectedRoute: RouteProps = data;
     this.customers(selectedRoute.customers!);
     this.displayRouteName(selectedRoute.name!);
-    // pubSub.publish("selectedRoute", selectedRoute)
+    pubSub.publish("selectedRoute", selectedRoute)
     let customers = selectedRoute.customers;
     let cases: number[] = [];
     customers!.forEach(function (customer) {
@@ -250,19 +251,6 @@ export class FormViewModel {
     this.routeName("");
   }
 
-  // getAddresses(selectedRoute: any){
-  //   let route = selectedRoute.customers;
-  //   for (let i = 0; i < route.length; i++) {
-  //     this.addresses.push(route[i].address);
-  //   }
-  // }
-
-  // displayRouteDirections(){
-  //   let dir = MQ.routing.direction().on("success", function (data:any) {
-  //     console.log(data);
-
-  //   })
-  // }
 }
 
 ko.options.useOnlyNativeEvents = true;

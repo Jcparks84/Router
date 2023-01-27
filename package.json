@@ -1,8 +1,8 @@
 {
   "scripts": {
-    "start": "tsc --watch --project frontend",
+    "start": "tsc --project frontend",
     "build": "tsc --project frontend",
-    "dev": "ts-node-dev --respawn backend/src/server.ts"
+    "dev": "ts-node-dev server.ts"
   },
   "dependencies": {
     "@goparrot/geocoder": "^4.4.0",
