@@ -1,4 +1,5 @@
 import e from "cors";
+import { json } from "stream/consumers";
 import { pubSub } from "./pubSub.js";
 
 console.log("Map Wired");
@@ -7,6 +8,7 @@ declare var L: any;
 let runRoute = document.querySelector(".runRoute") as any;
 
 L.mapquest.key = "ck2OXUAJsF0iz999XGQ62jyXo8AXOVp7";
+
 var map = L.mapquest.map("map", {
   center: [40.7128, -74.0059],
   layers: L.mapquest.tileLayer("map"),
@@ -17,6 +19,9 @@ window.onload = function () {
   // L.mapquest.key = "ck2OXUAJsF0iz999XGQ62jyXo8AXOVp7";
 
   let addresses: any = [];
+  let stringAddress: any;
+  let startAddress: any = ''
+  let endAddress: any = ''
 
   pubSub.subscribe("selectedRoute", (selectedRoute: any) => {
     getAddresses(selectedRoute);
@@ -29,47 +34,63 @@ window.onload = function () {
     }
   }
 
-  function firstAndLast(addresses: any) {
-    var firstItem = addresses[0];
-    var lastItem = addresses[addresses.length - 1];
-
-    var objOutput = {
-      first: firstItem,
-      last: lastItem,
-    };
-
-    return objOutput;
-  }
-
-
   function displayRoute() {
-    let startAddress = addresses[0];
-    let endAddress = addresses[addresses.length - 1];
-    addresses.shift()
-    addresses.pop()
-    for(let i = 0; i < addresses.length; i++){
+    // addresses.forEach( (obj: { [s: string]: unknown; } | ArrayLike<unknown>) =>{ Object.values(obj).forEach( (val, key) =>{  strAdd+=','+val+' '; key!=2?strAdd+='':strAdd+='' })} )
+    for (let i = 0; i < addresses.length; i++) {
+      let str = [
+        addresses[i].street,
+        addresses[i].city,
+        addresses[i].state,
+        addresses[i].zip,
+      ];
+
+      stringAddress = str.join(" ")
+
+      
+    }
+
+
+    startAddress = addresses[0];
+    endAddress = addresses[addresses.length - 1];
+    addresses.shift();
+    addresses.pop();
+    for (let i = 0; i < addresses.length; i++) {
       L.mapquest.directions().route({
         start: startAddress,
         end: endAddress,
         waypoints: addresses,
       });
-  
-    }    
+    }
   }
 
-  function displayDirections(){
-    let dir = L.mapquest.Directions().on("success", function (data:any) {
-      console.log(data);
-    })
-    console.log(dir);
+  var directions = L.mapquest.directions();
+
+  function getDirections() {
+    console.log("STRING ADD", stringAddress);
     
-  }
 
+    
+    
+
+    // directions.routeMatrix(
+    //   {
+    //     locations: stringAddress.join(" "),
+    //     options: {
+    //       allToAll: true,
+    //     },
+    //   },
+    //   routeMatrixCallback
+    // );
+
+    // function routeMatrixCallback(error: any, response: any) {
+    //   console.log("DIRECTIONS", response);
+    // }
+  }
 
   runRoute!.onclick = function (e: any) {
     console.log("click");
     displayRoute();
-    displayDirections();
+    getDirections();
   };
 };
 
@@ -214,10 +235,10 @@ window.onload = function () {
 //     );
 //   }
 
-//   L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
-//     attribution:
-//       '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-//   }).addTo(map);
+L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+  attribution:
+    '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+}).addTo(map);
 
 //   let markerOptions = {
 //     title: "MyLocation",
