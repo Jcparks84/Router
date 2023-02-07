@@ -1,4 +1,3 @@
-import e from "cors";
 import { json } from "stream/consumers";
 import { pubSub } from "./pubSub.js";
 
@@ -19,43 +18,36 @@ window.onload = function () {
   // L.mapquest.key = "ck2OXUAJsF0iz999XGQ62jyXo8AXOVp7";
 
   let addresses: any = [];
-  let stringAddress: any;
-  let startAddress: any = ''
-  let endAddress: any = ''
+  let selecetedRoute: any = [];
+  let routeTime: any = [];
+  let startAddress: any = "";
+  let endAddress: any = "";
+  let cases: number = 0;
 
   pubSub.subscribe("selectedRoute", (selectedRoute: any) => {
     getAddresses(selectedRoute);
+  });
+
+  pubSub.subscribe("totalCases", (totalCases: any) => {
+    cases = totalCases;
   });
 
   function getAddresses(selectedRoute: any) {
     let route = selectedRoute.customers;
     for (let i = 0; i < route.length; i++) {
       addresses.push(route[i].address);
+      selecetedRoute.push(route[i].address);
     }
   }
 
   function displayRoute() {
-    // addresses.forEach( (obj: { [s: string]: unknown; } | ArrayLike<unknown>) =>{ Object.values(obj).forEach( (val, key) =>{  strAdd+=','+val+' '; key!=2?strAdd+='':strAdd+='' })} )
-    for (let i = 0; i < addresses.length; i++) {
-      let str = [
-        addresses[i].street,
-        addresses[i].city,
-        addresses[i].state,
-        addresses[i].zip,
-      ];
-
-      stringAddress = str.join(" ")
-
-      
-    }
-
-
     startAddress = addresses[0];
     endAddress = addresses[addresses.length - 1];
     addresses.shift();
     addresses.pop();
     for (let i = 0; i < addresses.length; i++) {
-      L.mapquest.directions().route({
+      var directions = L.mapquest.directions();
+      directions.route({
         start: startAddress,
         end: endAddress,
         waypoints: addresses,
@@ -63,37 +55,47 @@ window.onload = function () {
     }
   }
 
-  var directions = L.mapquest.directions();
+  function getTotalTime(error: any, response: any) {
+    routeTime = response.time;
+    let driveTime = routeTime[0].reduce(function (a: number, b: number) {
+      return a + b;
+    }, 0);
+    let totalCarts = cases / 8;
+    let deliveryTime = totalCarts * 180;
+    let totalTime = deliveryTime + driveTime;
+    var hours = Math.floor(totalTime / 60 / 60);
+    var minutes = Math.floor(totalTime / 60) - hours * 60;
+    var seconds = totalTime % 60;
+    let html: any = document.querySelector(".routeTime-span");
+    if (html != undefined) {
+      html.innerHTML = `${hours}: ${minutes}: ${seconds}`
+    }
+  }
 
-  function getDirections() {
-    console.log("STRING ADD", stringAddress);
-    
-
-    
-    
-
-    // directions.routeMatrix(
-    //   {
-    //     locations: stringAddress.join(" "),
-    //     options: {
-    //       allToAll: true,
-    //     },
-    //   },
-    //   routeMatrixCallback
-    // );
-
-    // function routeMatrixCallback(error: any, response: any) {
-    //   console.log("DIRECTIONS", response);
-    // }
+  function getRouteResponse() {
+    var directions = L.mapquest.directions();
+    directions.routeMatrix(
+      {
+        locations: selecetedRoute,
+        options: {
+          allToAll: true,
+        },
+      },
+      getTotalTime
+    );
   }
 
   runRoute!.onclick = function (e: any) {
     console.log("click");
     displayRoute();
-    getDirections();
+    getRouteResponse();
   };
 };
 
+L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+  attribution:
+    '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+}).addTo(map);
 // window.onload = function() {
 //   L.mapquest.key = 'ck2OXUAJsF0iz999XGQ62jyXo8AXOVp7';
 
@@ -234,11 +236,6 @@ window.onload = function () {
 //       })
 //     );
 //   }
-
-L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
-  attribution:
-    '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-}).addTo(map);
 
 //   let markerOptions = {
 //     title: "MyLocation",

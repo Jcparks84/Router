@@ -216,6 +216,7 @@ export class FormViewModel {
     let sum = cases.reduce(function (a: any, b: any) {
       return a + b;
     }, 0);
+    pubSub.publish("totalCases", sum);
     this.casesCount(0);
     this.casesCount(this.casesCount() + sum);
   }

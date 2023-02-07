@@ -72,7 +72,7 @@ app.get(
 //Get route by id
 app.get(
   "/read/:id",
-  RouteValidator.checkIdParam(),
+  // RouteValidator.checkIdParam(),
   Middleware.handleValidationErrors,
   async (req: Request, res: Response) => {
     try {
