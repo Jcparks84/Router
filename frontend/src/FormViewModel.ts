@@ -6,6 +6,7 @@ import {
   LocationProps,
 } from "./interface.js";
 
+
 declare var ko: KnockoutStatic;
 
 export class FormViewModel {

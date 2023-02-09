@@ -8,27 +8,21 @@ import middleware from "./backend/src/middleware";
 import cors from "cors";
 import path from "path";
 
-
 db.sync().then(() => {
   console.log("connected to db");
 });
 
-
-
 const app = express();
 const port = 7000;
+let routeId: any;
 
 app.use(cors());
 app.use(express.json());
-app.use(express.static(__dirname + '/frontend'));
+app.use(express.static(__dirname + "/frontend"));
 
-
-
-app.get('/', function(req, res) {
-  res.sendFile(path.join(__dirname + '/frontend/html/index.html'))
-})
-
-
+app.get("/", function (req, res) {
+  res.sendFile(path.join(__dirname + "/frontend/html/index.html"));
+});
 
 //Add new route
 app.post(
@@ -36,10 +30,11 @@ app.post(
   RouteValidator.checkCreateRoute(),
   middleware.handleValidationErrors,
   async (req: Request, res: Response) => {
-    // const id = uuidv4();
     try {
-      const record = await Route.create({ ...req.body });
-      return res.json({ record, msg: "Successfully created route" });
+      const route: any = await Route.create({ ...req.body });
+      routeId = route.id;
+      console.log(route.id);
+      return res.json({ route, msg: "Successfully created route" });
     } catch (e) {
       console.error(e);
       return res.json({
@@ -89,42 +84,26 @@ app.get(
   }
 );
 
-
-
 //Post Customer
-app.post("/addCustomer",
-RouteValidator.checkCreateCustomer(),
-middleware.handleValidationErrors,
- async (req: Request, res: Response) => {
-  try {
-    const record = await Customer.create({ ...req.body });
-    return res.json({ record, msg: "Customer Added" });
-  } catch (e) {
-    return res.json({
-      msg: "Failed to add customer",
-      status: 500,
-      route: "/addCustomer",
-    });
+app.post(
+  "/addCustomer",
+  RouteValidator.checkCreateCustomer(),
+  middleware.handleValidationErrors,
+  async (req: Request, res: Response) => {
+    try {
+      const customer:any = await Customer.create({ ...req.body });
+      const customerId = customer.id
+      const routeCustomers = await RouteCustomer.create({ ...routeId, ...customerId })
+      return res.json({ customer, msg: "Customer Added" });
+    } catch (e) {
+      return res.json({
+        msg: "Failed to add customer",
+        status: 500,
+        route: "/addCustomer",
+      });
+    }
   }
-});
-
-// Post RouteCustomers
-app.post("/routeCustomer", 
-async(req: Request, res: Response) => {
-  try{
-    Route.findByPk(1).then(route => {
-      Customer.findByPk(1).then( customer => {
-      })
-    })
-  } catch (e) {
-    return res.json({
-      msg: "Failed to add",
-      status: 500,
-      route: "/routeCustomer",
-    });
-
-  }
-})
+);
 
 app.delete(
   "/delete/:id",

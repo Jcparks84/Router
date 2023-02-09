@@ -139,6 +139,10 @@ body h3 {
   font-size: 1.5em;
   font-weight: bold;
 }
+body h4 {
+  text-shadow: 0.12em 0.12em #483331;
+  font-weight: bold;
+}
 body table {
   background-color: #314648;
   width: 100%;

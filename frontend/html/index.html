@@ -186,15 +186,26 @@
       <span class="route-span" data-bind="text: displayRouteName"></span>
     </h1>
     <br />
-    <h3>
+    <h4>
       Total cases:
       <span class="cases-span" data-bind="text: casesCount"></span>
-    </h3>
+    </h4>
     <br />
-    <h3>
-      Est route time:
+    <h4>
+      Est Route Time:
       <span class="routeTime-span"></span>
-    </h3>
+    </h4>
+    <br />
+    <h4>
+      Est Drive Time:
+      <span class="driveTime-span"></span>
+    </h4>
+    <br />
+    <h4>
+      Est Delivery Time:
+      <span class="deliveryTime-span"></span>
+    </h4>
+
     <br />
     <button class="button export" data-bind="click: onExportButtonClick">export</button>
 
@@ -253,7 +264,7 @@
           <td data-bind="text: phone"></td>
           <td data-bind="text: key"></td>
           <td data-bind="text: cases"></td>
-          <td><button data-bind="event: {click: function(){$parent.onTableCustomerClick($data)}}">Stop Info</button>
+          <td><button class="button" data-bind="event: {click: function(){$parent.onTableCustomerClick($data)}}">Stop Info</button>
           </td>
         </tr>
       </tbody>
